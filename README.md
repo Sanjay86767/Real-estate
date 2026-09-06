@@ -8,10 +8,13 @@
 [![CSS3](https://img.shields.io/badge/Pure_CSS3-Zero_Tailwind-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![Web Speech API](https://img.shields.io/badge/Web_Speech_API-Voice_AI-8B5CF6?style=for-the-badge)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live_Production-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://estatehub-rust.vercel.app)
 
 **A cutting-edge, god-tier real estate platform built with React.js, Vanilla CSS3, Web Speech AI, Web Audio Synthesizer, and HTML5 Canvas with 100% real-time client intelligence.**
 
-[🚀 Explore Live Demo](#-quick-start) • [✨ Key Innovations](#-flagship-innovations) • [📱 Pages Showcase](#-pages--routes-architecture) • [🛠️ Tech Stack](#-technology-stack)
+### 🌐 [**Click Here to Open Live Website on Vercel: https://estatehub-rust.vercel.app**](https://estatehub-rust.vercel.app)
+
+[🚀 Live Website](https://estatehub-rust.vercel.app) • [✨ Key Innovations](#-flagship-innovations) • [📱 Pages Showcase](#-pages--routes-architecture) • [🛠️ Tech Stack](#-technology-stack) • [📞 Contact Sanjay: +91 8809604880](tel:+918809604880)
 
 <br/>
 
@@ -269,7 +272,9 @@ npm run preview
 [![GitHub](https://img.shields.io/badge/GitHub-Sanjay86767-181717?style=for-the-badge&logo=github)](https://github.com/Sanjay86767)
 [![Email](https://img.shields.io/badge/Email-sanjay12012005%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sanjay12012005@gmail.com)
 [![WhatsApp](https://img.shields.io/badge/WhatsApp-%2B91_8809604880-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/918809604880)
+[![Live Demo](https://img.shields.io/badge/Live_Website-estatehub--rust.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://estatehub-rust.vercel.app)
 
+🌐 **Live Website**: [https://estatehub-rust.vercel.app](https://estatehub-rust.vercel.app)  
 📞 **Direct Phone / WhatsApp**: `+91 8809604880`  
 ✉️ **Direct Email**: `sanjay12012005@gmail.com`
 
