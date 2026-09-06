@@ -184,75 +184,134 @@ export const Navbar = () => {
               <ChevronDown size={14} className="dropdown-arrow" />
             </button>
 
-            <div className="nav-dropdown-menu mega-menu-properties">
+            <div className="nav-dropdown-menu mega-menu-properties" style={{ width: "680px" }}>
               <div className="dropdown-header-banner">
-                <span className="dropdown-badge">18 Handpicked Residences</span>
-                <h4>Browse by BHK Configuration</h4>
+                <span className="dropdown-badge">34 Verified Residences Across 28 Indian States & UTs</span>
+                <h4>Browse by Configuration & Regional State Hubs</h4>
               </div>
-              <div className="mega-menu-grid">
-                <Link to="/properties?beds=1" className="mega-menu-card" onClick={handleNavClick}>
-                  <div className="mega-card-icon" style={{ background: "rgba(59, 130, 246, 0.15)", color: "#3b82f6" }}>
-                    1 BHK
-                  </div>
-                  <div>
-                    <strong>1 BHK Smart Flats</strong>
-                    <span>Aerocity, Gurugram & Bangalore (3 Available)</span>
-                  </div>
-                </Link>
 
-                <Link to="/properties?beds=2" className="mega-menu-card" onClick={handleNavClick}>
-                  <div className="mega-card-icon" style={{ background: "rgba(16, 185, 129, 0.15)", color: "#10b981" }}>
-                    2 BHK
-                  </div>
-                  <div>
-                    <strong>2 BHK Modern Residences</strong>
-                    <span>Wave Estate, Zirakpur & DLF (4 Available)</span>
-                  </div>
-                </Link>
+              {/* 2-Column Mega Layout: BHKs on left, Pan-India States on right */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                {/* Left Column: BHK Configurations */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                    BHK Configurations
+                  </span>
+                  <Link to="/properties?beds=1" className="mega-menu-card" onClick={handleNavClick}>
+                    <div className="mega-card-icon" style={{ background: "rgba(59, 130, 246, 0.15)", color: "#3b82f6" }}>
+                      1 BHK
+                    </div>
+                    <div>
+                      <strong>1 BHK Smart Flats</strong>
+                      <span>Airport Road, Cyber City & Bangalore</span>
+                    </div>
+                  </Link>
 
-                <Link to="/properties?beds=3" className="mega-menu-card" onClick={handleNavClick}>
-                  <div className="mega-card-icon" style={{ background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b" }}>
-                    3 BHK
-                  </div>
-                  <div>
-                    <strong>3 BHK Skyline High-Rises</strong>
-                    <span>Sector 17, Golf Course Ext & Ranjit Ave (4 Available)</span>
-                  </div>
-                </Link>
+                  <Link to="/properties?beds=2" className="mega-menu-card" onClick={handleNavClick}>
+                    <div className="mega-card-icon" style={{ background: "rgba(16, 185, 129, 0.15)", color: "#10b981" }}>
+                      2 BHK
+                    </div>
+                    <div>
+                      <strong>2 BHK Modern Residences</strong>
+                      <span>Wave Estate, GIFT City & Zirakpur</span>
+                    </div>
+                  </Link>
 
-                <Link to="/properties?beds=4" className="mega-menu-card" onClick={handleNavClick}>
-                  <div className="mega-card-icon" style={{ background: "rgba(239, 68, 68, 0.15)", color: "#ef4444" }}>
-                    4 BHK
-                  </div>
-                  <div>
-                    <strong>4 BHK Luxury Kothis & Villas</strong>
-                    <span>Sector 70, Sector 8 Chandigarh & Amritsar (4 Available)</span>
-                  </div>
-                </Link>
+                  <Link to="/properties?beds=3" className="mega-menu-card" onClick={handleNavClick}>
+                    <div className="mega-card-icon" style={{ background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b" }}>
+                      3 BHK
+                    </div>
+                    <div>
+                      <strong>3 BHK Skyline High-Rises</strong>
+                      <span>Patna Ganga Riverfront, Pune & Kochi</span>
+                    </div>
+                  </Link>
 
-                <Link to="/properties?beds=5" className="mega-menu-card" onClick={handleNavClick}>
-                  <div className="mega-card-icon" style={{ background: "rgba(168, 85, 247, 0.15)", color: "#a855f7" }}>
-                    5+ BHK
-                  </div>
-                  <div>
-                    <strong>5+ BHK Penthouses & Estates</strong>
-                    <span>Sovereign Golf Penthouse & Indiranagar (2 Available)</span>
-                  </div>
-                </Link>
+                  <Link to="/properties?beds=4" className="mega-menu-card" onClick={handleNavClick}>
+                    <div className="mega-card-icon" style={{ background: "rgba(239, 68, 68, 0.15)", color: "#ef4444" }}>
+                      4 BHK
+                    </div>
+                    <div>
+                      <strong>4 BHK Royal Kothis & Villas</strong>
+                      <span>Raj Darbhanga, Worli Sea Face & ECR</span>
+                    </div>
+                  </Link>
 
-                <Link to="/properties?type=Plot" className="mega-menu-card" onClick={handleNavClick}>
-                  <div className="mega-card-icon" style={{ background: "rgba(14, 165, 233, 0.15)", color: "#0ea5e9" }}>
-                    Plots
-                  </div>
-                  <div>
-                    <strong>Shivalik Foothill Plots</strong>
-                    <span>New Chandigarh Corner Land (GMADA Approved)</span>
-                  </div>
-                </Link>
+                  <Link to="/properties?beds=5" className="mega-menu-card" onClick={handleNavClick}>
+                    <div className="mega-card-icon" style={{ background: "rgba(168, 85, 247, 0.15)", color: "#a855f7" }}>
+                      5+ BHK
+                    </div>
+                    <div>
+                      <strong>5+ BHK Penthouses</strong>
+                      <span>Jubilee Hills & Sovereign Golf Enclaves</span>
+                    </div>
+                  </Link>
+                </div>
+
+                {/* Right Column: Key Indian States Hubs */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "var(--accent-gold)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                    Pan-India State Corridors
+                  </span>
+                  <Link to="/properties?state=Bihar" className="mega-menu-card" onClick={handleNavClick} style={{ border: "1px solid rgba(217, 119, 6, 0.4)" }}>
+                    <div className="mega-card-icon" style={{ background: "rgba(217, 119, 6, 0.15)", color: "#d97706" }}>
+                      BR
+                    </div>
+                    <div>
+                      <strong>Bihar (Darbhanga & Patna)</strong>
+                      <span>Sanjay Kumar's Roots • Heritage Kothis</span>
+                    </div>
+                  </Link>
+
+                  <Link to="/properties?state=Maharashtra" className="mega-menu-card" onClick={handleNavClick}>
+                    <div className="mega-card-icon" style={{ background: "rgba(59, 130, 246, 0.15)", color: "#3b82f6" }}>
+                      MH
+                    </div>
+                    <div>
+                      <strong>Maharashtra (Mumbai & Pune)</strong>
+                      <span>Worli Sea Face & Koregaon Park</span>
+                    </div>
+                  </Link>
+
+                  <Link to="/properties?state=Goa" className="mega-menu-card" onClick={handleNavClick}>
+                    <div className="mega-card-icon" style={{ background: "rgba(16, 185, 129, 0.15)", color: "#10b981" }}>
+                      GA
+                    </div>
+                    <div>
+                      <strong>Goa Coastal Beachfront</strong>
+                      <span>Candolim Portuguese Private Pool Villas</span>
+                    </div>
+                  </Link>
+
+                  <Link to="/properties?city=Ayodhya" className="mega-menu-card" onClick={handleNavClick}>
+                    <div className="mega-card-icon" style={{ background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b" }}>
+                      UP
+                    </div>
+                    <div>
+                      <strong>Uttar Pradesh (Ayodhya / LKO)</strong>
+                      <span>Ram Mandir Corridor Approved Villas</span>
+                    </div>
+                  </Link>
+
+                  <Link to="/properties?state=Karnataka" className="mega-menu-card" onClick={handleNavClick}>
+                    <div className="mega-card-icon" style={{ background: "rgba(14, 165, 233, 0.15)", color: "#0ea5e9" }}>
+                      KA
+                    </div>
+                    <div>
+                      <strong>Karnataka (Bangalore)</strong>
+                      <span>Indiranagar & Whitefield Tech Mansions</span>
+                    </div>
+                  </Link>
+                </div>
               </div>
-              <div className="dropdown-footer-cta">
+
+              <div className="dropdown-footer-cta" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <a href="#pan-india-states" className="dropdown-explore-link" onClick={handleNavClick}>
+                  <Compass size={14} />
+                  <span>Interactive 28 States & UTs Map</span>
+                </a>
                 <Link to="/properties" className="dropdown-explore-link" onClick={handleNavClick}>
-                  <span>Explore Full 18 Property Catalog</span>
+                  <span>Explore Full 34 Pan-India Catalog</span>
                   <ArrowRight size={14} />
                 </Link>
               </div>
@@ -498,6 +557,31 @@ export const Navbar = () => {
             </NavLink>
             <NavLink to="/properties?type=Plot" className="mobile-bhk-chip" onClick={handleNavClick}>
               Villa Plots & Land
+            </NavLink>
+          </div>
+
+          <div className="mobile-nav-section-title" style={{ marginTop: "18px" }}>
+            <MapPin size={14} color="var(--accent-gold)" />
+            <span>Pan-India Regional Hubs</span>
+          </div>
+          <div className="mobile-bhk-grid">
+            <NavLink to="/properties?state=Bihar" className="mobile-bhk-chip" onClick={handleNavClick} style={{ borderColor: "rgba(217, 119, 6, 0.5)", background: "rgba(217, 119, 6, 0.08)" }}>
+              📍 Bihar (Darbhanga/Patna)
+            </NavLink>
+            <NavLink to="/properties?state=Maharashtra" className="mobile-bhk-chip" onClick={handleNavClick}>
+              📍 Mumbai & Pune
+            </NavLink>
+            <NavLink to="/properties?state=Goa" className="mobile-bhk-chip" onClick={handleNavClick}>
+              📍 Goa Beach Villas
+            </NavLink>
+            <NavLink to="/properties?city=Ayodhya" className="mobile-bhk-chip" onClick={handleNavClick}>
+              📍 Ayodhya Corridor
+            </NavLink>
+            <NavLink to="/properties?state=Karnataka" className="mobile-bhk-chip" onClick={handleNavClick}>
+              📍 Bangalore Tech City
+            </NavLink>
+            <NavLink to="/properties?city=Delhi" className="mobile-bhk-chip" onClick={handleNavClick}>
+              📍 Delhi NCR / Gurugram
             </NavLink>
           </div>
 

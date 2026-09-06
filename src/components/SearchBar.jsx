@@ -287,12 +287,20 @@ export const SearchBar = () => {
           🔥 Quick Search:
         </span>
         {[
-          { label: "1 BHK Flats", beds: "1" },
-          { label: "2 BHK Flats", beds: "2" },
-          { label: "3 BHK High-Rise", beds: "3" },
-          { label: "4 BHK Luxury Kothis", beds: "4" },
-          { label: "5 BHK Penthouses", beds: "5" },
-          { label: "Villa Plots", type: "Plot" },
+          { label: "📍 Bihar (Darbhanga & Patna)", query: "Bihar" },
+          { label: "📍 Mumbai & Pune", query: "Maharashtra" },
+          { label: "📍 Goa Beach Villas", query: "Goa" },
+          { label: "📍 Ayodhya Corridor", query: "Ayodhya" },
+          { label: "📍 Bangalore Tech Hub", query: "Bangalore" },
+          { label: "📍 Delhi NCR / Gurugram", query: "Delhi" },
+          { label: "📍 Mohali & Chandigarh", query: "Mohali" },
+          { label: "📍 Jaipur Royal Haveli", query: "Jaipur" },
+          { label: "1 BHK", beds: "1" },
+          { label: "2 BHK", beds: "2" },
+          { label: "3 BHK", beds: "3" },
+          { label: "4 BHK", beds: "4" },
+          { label: "5+ BHK", beds: "5" },
+          { label: "Plots", type: "Plot" },
           { label: "🧭 100% Vastu", query: "vastu" }
         ].map((chip, idx) => (
           <button
@@ -340,12 +348,40 @@ export const SearchBar = () => {
               value={location}
               onChange={(e) => setLocation(e.target.value)}
             >
-              <option value="">All Locations</option>
-              <option value="Chandigarh">Chandigarh</option>
-              <option value="Mohali">Mohali, Punjab</option>
-              <option value="Amritsar">Amritsar, Punjab</option>
-              <option value="Delhi">Delhi NCR / Gurgaon</option>
-              <option value="Bangalore">Bangalore, Karnataka</option>
+              <option value="">All Indian States & Cities</option>
+              <optgroup label="Bihar (Sanjay Kumar's Native Corridor)">
+                <option value="Darbhanga">Darbhanga, Bihar</option>
+                <option value="Patna">Patna, Bihar</option>
+              </optgroup>
+              <optgroup label="Maharashtra">
+                <option value="Mumbai">Mumbai (Worli / BKC)</option>
+                <option value="Pune">Pune (Koregaon Park)</option>
+              </optgroup>
+              <optgroup label="Delhi NCR & North">
+                <option value="Delhi">Delhi NCR / Gurugram</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Mohali">Mohali, Punjab</option>
+                <option value="Amritsar">Amritsar, Punjab</option>
+                <option value="Ayodhya">Ayodhya, Uttar Pradesh</option>
+                <option value="Lucknow">Lucknow, Uttar Pradesh</option>
+                <option value="Jaipur">Jaipur, Rajasthan</option>
+                <option value="Dehradun">Dehradun, Uttarakhand</option>
+              </optgroup>
+              <optgroup label="South India">
+                <option value="Bangalore">Bangalore, Karnataka</option>
+                <option value="Hyderabad">Hyderabad, Telangana</option>
+                <option value="Chennai">Chennai, Tamil Nadu</option>
+                <option value="Kochi">Kochi, Kerala</option>
+              </optgroup>
+              <optgroup label="West & Central">
+                <option value="Goa">Goa (Candolim Beach)</option>
+                <option value="Ahmedabad">Ahmedabad / GIFT City</option>
+                <option value="Indore">Indore, Madhya Pradesh</option>
+              </optgroup>
+              <optgroup label="East India">
+                <option value="Kolkata">Kolkata, West Bengal</option>
+                <option value="Bhubaneswar">Bhubaneswar, Odisha</option>
+              </optgroup>
             </select>
           </div>
 

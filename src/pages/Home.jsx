@@ -22,6 +22,7 @@ import {
   Wand2
 } from "lucide-react";
 import sanjayPhoto from "../assets/sanjay-kumar.jpg";
+import IndiaStateExplorer from "../components/IndiaStateExplorer";
 
 export const Home = () => {
   const { properties, agents } = usePropertyContext();
@@ -598,6 +599,9 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* 5B. PAN-INDIA 28 STATES & UTs REAL ESTATE NETWORK */}
+      <IndiaStateExplorer />
 
       {/* 6. TOP AGENTS PREVIEW */}
       <section style={{ padding: "80px 0", background: "var(--bg-surface)", borderTop: "1px solid var(--border-light)" }}>

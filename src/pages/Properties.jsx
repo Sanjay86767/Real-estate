@@ -11,9 +11,9 @@ export const Properties = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Filter States initialized from URL or Hero Context
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const [selectedCity, setSelectedCity] = useState(
-    searchParams.get("city") || heroSearchFilters.location || ""
+    searchParams.get("city") || searchParams.get("state") || heroSearchFilters.location || ""
   );
   const [selectedType, setSelectedType] = useState(
     searchParams.get("type") || heroSearchFilters.type || ""
@@ -31,11 +31,13 @@ export const Properties = () => {
 
   // Sync state if URL searchParams change
   useEffect(() => {
-    const cityParam = searchParams.get("city");
+    const qParam = searchParams.get("q");
+    const cityParam = searchParams.get("city") || searchParams.get("state");
     const typeParam = searchParams.get("type");
     const priceParam = searchParams.get("price");
     const bedsParam = searchParams.get("beds");
 
+    if (qParam !== null) setSearchQuery(qParam);
     if (cityParam !== null) setSelectedCity(cityParam);
     if (typeParam !== null) setSelectedType(typeParam);
     if (priceParam !== null) setPriceRange(priceParam);
@@ -58,7 +60,7 @@ export const Properties = () => {
   const filteredProperties = useMemo(() => {
     return properties
       .filter((item) => {
-        // Keyword Search (handles 1 BHK - 5 BHK, Vastu, RERA, city, location)
+        // Keyword Search (handles state, city, 1 BHK - 5 BHK, Vastu, RERA)
         if (searchQuery.trim() !== "") {
           const q = searchQuery.toLowerCase().trim();
           const bhkMatch = q.match(/([1-5])\s*bhk/);
@@ -70,17 +72,22 @@ export const Properties = () => {
           const matchTitle = item.title.toLowerCase().includes(q);
           const matchLoc = item.location.toLowerCase().includes(q);
           const matchCity = item.city.toLowerCase().includes(q);
+          const matchState = item.state ? item.state.toLowerCase().includes(q) : false;
           const matchDesc = item.description.toLowerCase().includes(q);
           const matchType = item.type.toLowerCase().includes(q);
           const matchBhk = item.bhk ? item.bhk.toLowerCase().includes(q) : false;
           const matchRera = item.reraId ? item.reraId.toLowerCase().includes(q) : false;
           const matchVastu = item.vastuStatus ? item.vastuStatus.toLowerCase().includes(q) : false;
-          if (!matchTitle && !matchLoc && !matchCity && !matchDesc && !matchType && !matchBhk && !matchRera && !matchVastu) return false;
+          if (!matchTitle && !matchLoc && !matchCity && !matchState && !matchDesc && !matchType && !matchBhk && !matchRera && !matchVastu) return false;
         }
 
-        // City Filter
-        if (selectedCity && !item.city.toLowerCase().includes(selectedCity.toLowerCase())) {
-          return false;
+        // City & State Filter
+        if (selectedCity) {
+          const sc = selectedCity.toLowerCase().trim();
+          const matchCity = item.city && item.city.toLowerCase().includes(sc);
+          const matchState = item.state && item.state.toLowerCase().includes(sc);
+          const matchLoc = item.location && item.location.toLowerCase().includes(sc);
+          if (!matchCity && !matchState && !matchLoc) return false;
         }
 
         // Property Type Filter

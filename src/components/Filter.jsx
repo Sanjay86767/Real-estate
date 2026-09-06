@@ -17,7 +17,25 @@ export const Filter = ({
   onResetFilters,
   totalResults
 }) => {
-  const cities = ["Chandigarh", "Mohali", "Amritsar", "Delhi", "Bangalore"];
+  const stateAndCityList = [
+    { label: "Bihar (Darbhanga & Patna)", value: "Bihar" },
+    { label: "Maharashtra (Mumbai & Pune)", value: "Maharashtra" },
+    { label: "Delhi NCR / Gurugram", value: "Delhi" },
+    { label: "Punjab (Mohali & Amritsar)", value: "Punjab" },
+    { label: "Chandigarh (UT)", value: "Chandigarh" },
+    { label: "Karnataka (Bangalore)", value: "Karnataka" },
+    { label: "Telangana (Hyderabad)", value: "Telangana" },
+    { label: "Goa (Candolim Beach)", value: "Goa" },
+    { label: "Rajasthan (Jaipur)", value: "Rajasthan" },
+    { label: "Gujarat (GIFT City / Ahd)", value: "Gujarat" },
+    { label: "Uttar Pradesh (Ayodhya & LKO)", value: "Uttar Pradesh" },
+    { label: "Uttarakhand (Dehradun)", value: "Uttarakhand" },
+    { label: "West Bengal (Kolkata)", value: "West Bengal" },
+    { label: "Tamil Nadu (Chennai)", value: "Tamil Nadu" },
+    { label: "Kerala (Kochi)", value: "Kerala" },
+    { label: "Madhya Pradesh (Indore)", value: "Madhya Pradesh" },
+    { label: "Odisha (Bhubaneswar)", value: "Odisha" }
+  ];
   const propertyTypes = ["Apartment", "Villa", "Penthouse", "House", "Plot"];
   const bedroomOptions = [
     { label: "All", value: "" },
@@ -90,13 +108,13 @@ export const Filter = ({
         />
       </div>
 
-      {/* City / Location */}
+      {/* State / City / Location */}
       <div className="filter-section">
         <div className="filter-title">
           <MapPin size={15} color="var(--accent-primary)" />
-          <span>Location / City</span>
+          <span>State / City Destination</span>
         </div>
-        <div className="filter-options-grid">
+        <div className="filter-options-grid" style={{ maxHeight: "230px", overflowY: "auto", paddingRight: "4px" }}>
           <label className="checkbox-label">
             <input
               type="radio"
@@ -104,17 +122,19 @@ export const Filter = ({
               checked={selectedCity === ""}
               onChange={() => setSelectedCity("")}
             />
-            <span>All Cities</span>
+            <span style={{ fontWeight: selectedCity === "" ? 700 : 500 }}>All India (28 States & UTs)</span>
           </label>
-          {cities.map((city) => (
-            <label key={city} className="checkbox-label">
+          {stateAndCityList.map((item) => (
+            <label key={item.value} className="checkbox-label">
               <input
                 type="radio"
                 name="city"
-                checked={selectedCity.toLowerCase() === city.toLowerCase()}
-                onChange={() => setSelectedCity(city)}
+                checked={selectedCity.toLowerCase() === item.value.toLowerCase()}
+                onChange={() => setSelectedCity(item.value)}
               />
-              <span>{city}</span>
+              <span style={{ fontWeight: selectedCity.toLowerCase() === item.value.toLowerCase() ? 700 : 400 }}>
+                {item.label}
+              </span>
             </label>
           ))}
         </div>
