@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ShieldCheck, Target, HeartHandshake, Award, Sparkles, Building2, Users, Phone, Mail } from "lucide-react";
+import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 
 export const About = () => {
   return (
@@ -145,31 +146,32 @@ export const About = () => {
             }}
             className="founder-card-grid"
           >
-            <img
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
-              alt="Sanjay Kumar - Founder"
-              style={{
-                width: "120px",
-                height: "120px",
-                borderRadius: "50%",
-                objectFit: "cover",
-                border: "4px solid var(--accent-primary)",
-                boxShadow: "var(--shadow-md)"
-              }}
-            />
+            <div className="pro-founder-avatar-frame" style={{ width: "110px", height: "110px" }}>
+              <div className="pro-founder-avatar-inner">
+                <img
+                  src={sanjayPhoto}
+                  alt="Sanjay Kumar - Founder"
+                  className="pro-founder-avatar-img"
+                />
+              </div>
+              <span className="pro-founder-live-pulse" title="Online"></span>
+            </div>
 
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px", flexWrap: "wrap" }}>
                 <h3 style={{ margin: 0, fontSize: "1.6rem" }}>Sanjay Kumar</h3>
                 <span style={{ background: "var(--accent-emerald-light)", color: "var(--accent-emerald)", padding: "2px 8px", borderRadius: "var(--radius-full)", fontSize: "0.75rem", fontWeight: 700 }}>
                   Founder & Principal Lead
+                </span>
+                <span style={{ background: "rgba(59, 130, 246, 0.15)", color: "#3b82f6", padding: "2px 8px", borderRadius: "var(--radius-full)", fontSize: "0.75rem", fontWeight: 700 }}>
+                  📍 Darbhanga, Bihar Roots
                 </span>
               </div>
               <p style={{ color: "var(--accent-primary)", fontWeight: 600, fontSize: "0.95rem", margin: "0 0 10px" }}>
                 Managing Director, EstateHub Real Estate Technologies
               </p>
               <p style={{ color: "var(--text-secondary)", fontSize: "0.92rem", lineHeight: "1.6", margin: 0 }}>
-                Pioneering transparency and AI architectural technology across Indian real estate. Overseeing high-net-worth acquisitions, villa developments, and turnkey client portfolios with guaranteed clear titles.
+                Hailing from Darbhanga, Bihar, Sanjay Kumar is pioneering transparency, AI architectural staging, and legal certainty across Indian luxury real estate. Overseeing high-net-worth acquisitions, villa developments, and turnkey client portfolios with 100% guaranteed clear titles.
               </p>
             </div>
 

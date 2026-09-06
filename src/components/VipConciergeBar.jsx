@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Phone, Mail, MessageSquare, X, ChevronUp, ShieldCheck, Sparkles, Check } from "lucide-react";
+import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 
 export const VipConciergeBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,17 +51,18 @@ export const VipConciergeBar = () => {
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <div
                 style={{
-                  width: "42px",
-                  height: "42px",
+                  width: "44px",
+                  height: "44px",
                   borderRadius: "50%",
                   border: "2px solid #d97706",
                   overflow: "hidden",
-                  boxShadow: "0 0 10px rgba(217, 119, 6, 0.5)"
+                  boxShadow: "0 0 12px rgba(217, 119, 6, 0.6)",
+                  flexShrink: 0
                 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80"
-                  alt="Sanjay Kumar"
+                  src={sanjayPhoto}
+                  alt="Sanjay Kumar - Founder"
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
               </div>
@@ -81,8 +83,8 @@ export const VipConciergeBar = () => {
                       boxShadow: "0 0 8px #10b981"
                     }}
                   ></span>
-                  <span style={{ fontSize: "0.72rem", color: "#94a3b8", fontWeight: 600 }}>
-                    Founder Desk • Online
+                  <span style={{ fontSize: "0.72rem", color: "#93c5fd", fontWeight: 600 }}>
+                    Founder Desk (Darbhanga, Bihar) • Online
                   </span>
                 </div>
               </div>
@@ -248,15 +250,25 @@ export const VipConciergeBar = () => {
             position: "relative",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
+            width: "32px",
+            height: "32px",
+            borderRadius: "50%",
+            border: "1.5px solid #d97706",
+            overflow: "hidden",
+            flexShrink: 0
           }}
         >
-          <Phone size={18} color="#d97706" />
+          <img
+            src={sanjayPhoto}
+            alt="Sanjay Kumar"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
           <span
             style={{
               position: "absolute",
-              top: "-2px",
-              right: "-2px",
+              bottom: "0",
+              right: "0",
               width: "7px",
               height: "7px",
               borderRadius: "50%",
@@ -270,7 +282,7 @@ export const VipConciergeBar = () => {
             Sanjay Kumar
           </div>
           <div style={{ fontSize: "0.68rem", color: "#fbbf24", fontWeight: 700 }}>
-            +91 8809604880 • VIP Desk
+            VIP Advisory Desk • Bihar
           </div>
         </div>
         {isOpen ? <X size={16} color="#94a3b8" /> : <Sparkles size={15} color="#fbbf24" />}

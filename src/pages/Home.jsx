@@ -21,6 +21,7 @@ import {
   Zap,
   Wand2
 } from "lucide-react";
+import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 
 export const Home = () => {
   const { properties, agents } = usePropertyContext();
@@ -95,34 +96,18 @@ export const Home = () => {
       <section className="hero-section">
         <div className="container">
           <div className="hero-content">
-            {/* Founder Endorsement Pill with Sanjay's Actual Photo */}
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "10px",
-                padding: "6px 18px 6px 8px",
-                background: "rgba(217, 119, 6, 0.15)",
-                border: "1px solid rgba(217, 119, 6, 0.45)",
-                borderRadius: "var(--radius-full)",
-                marginBottom: "16px",
-                boxShadow: "0 0 25px rgba(217, 119, 6, 0.3)"
-              }}
-            >
-              <img
-                src="/sanjay-kumar.jpg"
-                alt="Sanjay Kumar"
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  border: "2px solid #d97706"
-                }}
-              />
+            {/* Curated by Founder Sanjay Kumar Badge */}
+            <div className="founder-hero-badge">
+              <div className="founder-hero-avatar-ring">
+                <img
+                  src={sanjayPhoto}
+                  alt="Sanjay Kumar - Founder"
+                  className="founder-hero-avatar-img"
+                />
+              </div>
               <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981", boxShadow: "0 0 8px #10b981" }}></span>
               <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--accent-gold)", letterSpacing: "0.3px" }}>
-                Curated by Sanjay Kumar (Darbhanga, Bihar) • Direct VIP Line: +91 8809604880
+                Curated by Founder Sanjay Kumar (Darbhanga, Bihar) • RERA Verified Advisory
               </span>
             </div>
 

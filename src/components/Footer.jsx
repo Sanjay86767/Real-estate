@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Building2, Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { Building2, Mail, Phone, MapPin, Send, CheckCircle2, Sparkles, ShieldCheck, Award, MessageSquare } from "lucide-react";
 import { usePropertyContext } from "../context/PropertyContext";
+import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 
 export const Footer = () => {
   const [email, setEmail] = useState("");
@@ -132,74 +133,49 @@ export const Footer = () => {
 
         {/* EXECUTIVE FOUNDER & VIP DESK SPOTLIGHT */}
         <div
+          className="founder-luxury-card"
           style={{
             marginTop: "48px",
             marginBottom: "36px",
-            padding: "32px",
-            background: "linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.96) 100%)",
-            border: "1.5px solid rgba(217, 119, 6, 0.55)",
-            borderRadius: "var(--radius-2xl)",
-            boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5), 0 0 35px rgba(217, 119, 6, 0.25)",
-            display: "flex",
-            flexDirection: "column",
-            gap: "24px",
-            position: "relative",
-            overflow: "hidden"
+            padding: "36px 32px"
           }}
         >
           {/* Subtle Ambient Golden Glow */}
           <div
             style={{
               position: "absolute",
-              top: "-50px",
-              right: "-50px",
-              width: "180px",
-              height: "180px",
+              top: "-60px",
+              right: "-60px",
+              width: "220px",
+              height: "220px",
               borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(217, 119, 6, 0.25) 0%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(217, 119, 6, 0.3) 0%, transparent 70%)",
               pointerEvents: "none"
             }}
           />
 
           {/* Top Row: Founder Identity & Bio */}
           <div style={{ display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap" }}>
-            <div
-              style={{
-                position: "relative",
-                width: "82px",
-                height: "82px",
-                borderRadius: "50%",
-                border: "3px solid #d97706",
-                overflow: "hidden",
-                boxShadow: "0 0 25px rgba(217, 119, 6, 0.6)",
-                flexShrink: 0
-              }}
-            >
-              <img
-                src="/sanjay-kumar.jpg"
-                alt="Sanjay Kumar - Founder"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
+            {/* Animated Luxury Conic Border Frame for Sanjay Kumar */}
+            <div className="pro-founder-avatar-frame" title="Sanjay Kumar - Founder & Luxury Strategist">
+              <div className="pro-founder-avatar-inner">
+                <img
+                  src={sanjayPhoto}
+                  alt="Sanjay Kumar - Founder"
+                  className="pro-founder-avatar-img"
+                />
+              </div>
               <span
-                style={{
-                  position: "absolute",
-                  bottom: "3px",
-                  right: "3px",
-                  width: "15px",
-                  height: "15px",
-                  borderRadius: "50%",
-                  background: "#10b981",
-                  border: "2.5px solid #0f172a",
-                  boxShadow: "0 0 10px #10b981"
-                }}
-                title="Direct VIP Desk Online"
+                className="pro-founder-live-pulse"
+                title="Sanjay Kumar Direct VIP Desk Online"
               ></span>
             </div>
 
             <div style={{ flex: 1 }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap", marginBottom: "6px" }}>
-                <h3 style={{ margin: 0, fontSize: "1.55rem", fontWeight: 800, color: "#ffffff", letterSpacing: "0.2px" }}>
-                  Sanjay Kumar
+                <h3 style={{ margin: 0, fontSize: "1.65rem", fontWeight: 800, color: "#ffffff", letterSpacing: "0.2px", display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <span>Sanjay Kumar</span>
+                  <Award size={20} color="var(--accent-gold)" />
                 </h3>
                 <span
                   style={{
