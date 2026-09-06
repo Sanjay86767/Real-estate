@@ -35,6 +35,22 @@ export const LiveActivityTicker = () => {
       property: "Urban Nest Smart Flat",
       propId: 5,
       time: "10 mins ago"
+    },
+    {
+      id: 5,
+      icon: <Sparkles size={15} color="#d97706" />,
+      text: "NRI Client from Dubai scheduled a private consultation with Founder Sanjay Kumar",
+      property: "Lakeview Executive Manor",
+      propId: 4,
+      time: "Just now"
+    },
+    {
+      id: 6,
+      icon: <Calendar size={15} color="#10b981" />,
+      text: "Sanjay Kumar (+91 8809604880) confirmed VIP site visit for",
+      property: "The Sovereign Penthouse Suite",
+      propId: 3,
+      time: "1 min ago"
     }
   ];
 

@@ -5,6 +5,7 @@ import SearchBar from "../components/SearchBar";
 import PropertyCard from "../components/PropertyCard";
 import AgentCard from "../components/AgentCard";
 import PropertyStoriesBar from "../components/PropertyStoriesBar";
+import LiveMarketBarometer from "../components/LiveMarketBarometer";
 import {
   ShieldCheck,
   Award,
@@ -299,6 +300,9 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* 2.8 REAL-TIME LIVE CITY TELEMETRY & MARKET BAROMETER */}
+      <LiveMarketBarometer />
 
       {/* 3. FEATURED PROPERTIES */}
       <section style={{ padding: "80px 0", background: "var(--bg-primary)" }}>
