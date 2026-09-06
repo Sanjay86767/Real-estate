@@ -260,13 +260,19 @@ export const CompareModal = () => {
                         {amenity}
                       </td>
                       {compareProperties.map((p) => {
-                        const hasIt = p.amenities.some((a) => a.toLowerCase().includes(amenity.toLowerCase()));
+                        const hasIt = p.amenities && p.amenities.some((a) => a.toLowerCase().includes(amenity.toLowerCase()) || amenity.toLowerCase().includes(a.toLowerCase()));
                         return (
                           <td key={p.id} style={{ padding: "10px 16px" }}>
                             {hasIt ? (
-                              <Check size={18} color="var(--accent-emerald)" strokeWidth={3} />
+                              <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", color: "var(--accent-emerald)", fontWeight: 800, fontSize: "0.82rem" }}>
+                                <Check size={17} color="var(--accent-emerald)" strokeWidth={3} />
+                                <span>Available</span>
+                              </div>
                             ) : (
-                              <Minus size={16} color="var(--text-muted)" />
+                              <div style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "var(--text-muted)", fontSize: "0.8rem" }}>
+                                <Minus size={14} />
+                                <span>Optional</span>
+                              </div>
                             )}
                           </td>
                         );

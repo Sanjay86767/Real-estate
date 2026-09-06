@@ -238,6 +238,31 @@ export const PropertyCard = ({ property }) => {
           </div>
         </div>
 
+        {/* Luxury Amenities Highlight Strip */}
+        <div style={{ display: "flex", gap: "6px", overflowX: "auto", padding: "6px 0", scrollbarWidth: "none", margin: "6px 0 10px", fontSize: "0.72rem", color: "var(--text-secondary)", fontWeight: 700 }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", background: "var(--bg-secondary)", padding: "3px 8px", borderRadius: "var(--radius-full)", whiteSpace: "nowrap" }} title="Swimming Pool Available">
+            🏊 Pool
+          </span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", background: "var(--bg-secondary)", padding: "3px 8px", borderRadius: "var(--radius-full)", whiteSpace: "nowrap" }} title="Gym & Fitness Suite Available">
+            🏋️ Gym
+          </span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", background: "var(--bg-secondary)", padding: "3px 8px", borderRadius: "var(--radius-full)", whiteSpace: "nowrap" }} title="Private Garden Available">
+            🌿 Garden
+          </span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", background: "var(--bg-secondary)", padding: "3px 8px", borderRadius: "var(--radius-full)", whiteSpace: "nowrap" }} title="100% Power Backup Available">
+            ⚡ Backup
+          </span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", background: "var(--bg-secondary)", padding: "3px 8px", borderRadius: "var(--radius-full)", whiteSpace: "nowrap" }} title="24/7 Security Available">
+            🛡️ Security
+          </span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", background: "var(--bg-secondary)", padding: "3px 8px", borderRadius: "var(--radius-full)", whiteSpace: "nowrap" }} title="Smart Home Automation Available">
+            🤖 Smart Home
+          </span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", background: "var(--bg-secondary)", padding: "3px 8px", borderRadius: "var(--radius-full)", whiteSpace: "nowrap" }} title="Clubhouse Access Available">
+            🏛️ Clubhouse
+          </span>
+        </div>
+
         {/* Footer Actions */}
         <div className="card-footer" style={{ display: "flex", gap: "8px", alignItems: "center" }}>
           <Link to={`/property/${property.id}`} className="btn btn-secondary btn-sm" style={{ flex: 1 }}>
