@@ -193,14 +193,19 @@
 | `/` | **Home** | Hero, search autocomplete, VIP stories bar, trust metrics, 6 featured properties, top city explorer, AI innovation cards, testimonials, CTA. |
 | `/properties` | **Properties Catalog** | Multi-facet sidebar filters (city, type, price brackets, BHK, amenities), dynamic sorting, active filter chips, **3 view modes (Grid, List, Map)**. |
 | `/property/:id` | **Property Details** | Photo gallery, 360° tour, AI Interior Styler, specs, floor plan, neighborhood radar, eco quality meter, sunlight simulator, EMI & investment calculators, agent chat, brochure generator. |
+| `/interior-studio` | **AI Interior Studio** | Dedicated studio for virtual room staging, materials catalog (Italian Marble, Smoked Oak), hex color inspector, and 4K moodboard export. |
+| `/affordability` | **Affordability Hub** | Home loan purchasing power, bank APR rate comparison (SBI, HDFC, ICICI, Kotak, Axis), state-wise stamp duty taxes, and pre-approval letters. |
+| `/market-insights` | **Market Insights** | Regional capital appreciation leaderboard, rental yield index, macroeconomic KPIs (RBI Repo), and upcoming mega infrastructure corridors. |
+| `/agent/:id` | **Advisor Showcase** | Dedicated individual consultant portfolio, verified RERA license, exclusive listings, client reviews, and VIP 1-on-1 booking scheduler. |
 | `/valuation` | **AI Valuation Engine** | Instant valuation estimator, pricing benchmarks, 3-year growth forecast, printable appraisal certificate. |
 | `/matchmaker` | **AI Matchmaker Quiz** | 4-step lifestyle quiz with match percentage ranking. |
 | `/list-property` | **List Property** | 4-step wizard to publish new listings live into state and `localStorage`. |
 | `/favorites` | **Saved Favorites** | Shortlisted properties synced with `localStorage`. |
-| `/agents` | **Our Advisors** | Verified advisor profiles with ratings, deals closed, and direct inquiry modals. |
+| `/agents` | **Our Advisors** | Verified advisor directory with city filters, ratings, deals closed, and contact modals. |
 | `/about` | **About Us** | Brand heritage, leadership, core pillars, and milestone counters. |
 | `/contact` | **Contact** | Office locations, interactive form with validation, and accordion FAQs. |
 | `/login` | **Authentication** | Glassmorphic login/register with 1-Click Instant Demo Login. |
+| `*` | **404 Not Found** | Custom luxury not found page with navigation shortcuts. |
 
 ---
 
