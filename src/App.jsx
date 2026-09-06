@@ -10,6 +10,7 @@ import AiChatbot from "./components/AiChatbot";
 import MarketTicker from "./components/MarketTicker";
 import VoiceCommander from "./components/VoiceCommander";
 import VipConciergeBar from "./components/VipConciergeBar";
+import MobileQuickBar from "./components/MobileQuickBar";
 
 // Pages
 import Home from "./pages/Home";
@@ -75,6 +76,7 @@ export function App() {
             </Routes>
           </main>
           <Footer />
+          <MobileQuickBar />
         </div>
       </BrowserRouter>
     </PropertyProvider>

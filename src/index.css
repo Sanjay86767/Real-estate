@@ -1679,4 +1679,38 @@ ul, ol {
   border-radius: 4px;
 }
 
+/* Mobile Quick Dock Bottom Bar */
+.mobile-quick-dock {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-quick-dock {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 980;
+    background: rgba(15, 23, 42, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(217, 119, 6, 0.4);
+    padding: 10px 16px;
+    box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.5);
+  }
+
+  .mobile-quick-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  body {
+    padding-bottom: 60px; /* Offset for fixed mobile bottom dock */
+  }
+}
+
 
