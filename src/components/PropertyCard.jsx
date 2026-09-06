@@ -155,7 +155,15 @@ export const PropertyCard = ({ property }) => {
         <div className="card-price-row">
           <div>
             <span className="card-price">{formatPrice(property.price)}</span>
-            <span style={{ fontSize: "0.78rem", color: "var(--accent-emerald)", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px" }}>
+            <div style={{ display: "flex", gap: "6px", alignItems: "center", marginTop: "3px", flexWrap: "wrap" }}>
+              <span style={{ fontSize: "0.74rem", color: "var(--text-muted)", fontWeight: 600 }}>
+                ₹{Math.round(property.price / property.area).toLocaleString("en-IN")}/sq.ft
+              </span>
+              <span style={{ fontSize: "0.7rem", color: "var(--accent-primary)", fontWeight: 800, background: "var(--accent-primary-light)", padding: "1px 6px", borderRadius: "4px" }}>
+                EMI ~{property.price ? (property.price * 0.8 * (8.5 / 1200) * Math.pow(1 + 8.5 / 1200, 240) / (Math.pow(1 + 8.5 / 1200, 240) - 1) >= 100000 ? `₹${((property.price * 0.8 * (8.5 / 1200) * Math.pow(1 + 8.5 / 1200, 240) / (Math.pow(1 + 8.5 / 1200, 240) - 1)) / 100000).toFixed(1)}L/mo` : `₹${Math.round((property.price * 0.8 * (8.5 / 1200) * Math.pow(1 + 8.5 / 1200, 240) / (Math.pow(1 + 8.5 / 1200, 240) - 1)) / 1000)}k/mo`) : "₹25k/mo"}
+              </span>
+            </div>
+            <span style={{ fontSize: "0.76rem", color: "var(--accent-emerald)", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px", marginTop: "3px" }}>
               <ShieldCheck size={13} color="var(--accent-emerald)" />
               {property.reraId ? `RERA: ${property.reraId.split('-')[0]}` : "Clear Title"}
             </span>
@@ -231,11 +239,22 @@ export const PropertyCard = ({ property }) => {
         </div>
 
         {/* Footer Actions */}
-        <div className="card-footer">
-          <Link to={`/property/${property.id}`} className="btn btn-secondary btn-sm" style={{ width: "100%" }}>
+        <div className="card-footer" style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <Link to={`/property/${property.id}`} className="btn btn-secondary btn-sm" style={{ flex: 1 }}>
             <span>View Details</span>
             <ArrowRight size={15} />
           </Link>
+          <a
+            href={`https://wa.me/918809604880?text=${encodeURIComponent(`Hello Sanjay ji, I am interested in ${property.title} (${property.bhk || property.bedrooms + ' BHK'}, ${property.priceFormatted}) in ${property.city}, ${property.state}. Please share brochure and details.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline btn-sm"
+            title="Chat directly on WhatsApp with Sanjay Kumar Desk"
+            style={{ padding: "8px 12px", background: "rgba(37, 211, 102, 0.1)", borderColor: "rgba(37, 211, 102, 0.3)", color: "#16a34a", textDecoration: "none", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            💬
+          </a>
         </div>
       </div>
     </div>

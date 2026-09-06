@@ -28,6 +28,8 @@ export const Properties = () => {
   const [sortBy, setSortBy] = useState("featured");
   const [viewMode, setViewMode] = useState("grid");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(24);
 
   // Sync state if URL searchParams change
   useEffect(() => {
@@ -44,6 +46,24 @@ export const Properties = () => {
     if (bedsParam !== null) setBedrooms(bedsParam);
   }, [searchParams]);
 
+  // Reset page to 1 when any filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedCity, selectedType, bedrooms, priceRange, selectedAmenities, sortBy]);
+
+  // Dynamic BHK counts across the entire dataset
+  const bhkCounts = useMemo(() => {
+    return {
+      all: properties.length,
+      bhk1: properties.filter((p) => p.bedrooms === 1).length,
+      bhk2: properties.filter((p) => p.bedrooms === 2).length,
+      bhk3: properties.filter((p) => p.bedrooms === 3).length,
+      bhk4: properties.filter((p) => p.bedrooms === 4).length,
+      bhk5: properties.filter((p) => p.bedrooms >= 5).length,
+      plots: properties.filter((p) => p.bedrooms === 0 || p.type === "Plot" || p.type === "Commercial").length
+    };
+  }, [properties]);
+
   // Reset Filters handler
   const handleResetFilters = () => {
     setSearchQuery("");
@@ -53,6 +73,7 @@ export const Properties = () => {
     setBedrooms("");
     setSelectedAmenities([]);
     setSortBy("featured");
+    setCurrentPage(1);
     setSearchParams({});
   };
 
@@ -159,6 +180,19 @@ export const Properties = () => {
     (bedrooms ? 1 : 0) +
     selectedAmenities.length;
 
+  // Pagination calculation
+  const totalPages = Math.ceil(filteredProperties.length / pageSize) || 1;
+  const paginatedProperties = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredProperties.slice(start, start + pageSize);
+  }, [filteredProperties, currentPage, pageSize]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setCurrentPage(newPage);
+    window.scrollTo({ top: 350, behavior: "smooth" });
+  };
+
   return (
     <div className="properties-page" style={{ padding: "40px 0 80px", minHeight: "85vh" }}>
       <div className="container">
@@ -174,7 +208,7 @@ export const Properties = () => {
           </p>
         </div>
 
-        {/* Quick BHK Navigation Bar */}
+        {/* Quick BHK Navigation Bar with Live Counts */}
         <div
           style={{
             display: "flex",
@@ -191,13 +225,13 @@ export const Properties = () => {
             BHK Selection:
           </span>
           {[
-            { label: "All BHKs", val: "" },
-            { label: "1 BHK", val: "1" },
-            { label: "2 BHK", val: "2" },
-            { label: "3 BHK", val: "3" },
-            { label: "4 BHK", val: "4" },
-            { label: "5+ BHK", val: "5" },
-            { label: "Plots", val: "plot" }
+            { label: "All Residences", val: "", count: bhkCounts.all },
+            { label: "1 BHK", val: "1", count: bhkCounts.bhk1 },
+            { label: "2 BHK", val: "2", count: bhkCounts.bhk2 },
+            { label: "3 BHK", val: "3", count: bhkCounts.bhk3 },
+            { label: "4 BHK", val: "4", count: bhkCounts.bhk4 },
+            { label: "5+ BHK Sky Villas", val: "5", count: bhkCounts.bhk5 },
+            { label: "Plots & Lands", val: "plot", count: bhkCounts.plots }
           ].map((item) => {
             const isActive = bedrooms === item.val || (item.val === "" && !bedrooms);
             return (
@@ -216,10 +250,24 @@ export const Properties = () => {
                   padding: "8px 16px",
                   fontSize: "0.85rem",
                   fontWeight: 700,
-                  whiteSpace: "nowrap"
+                  whiteSpace: "nowrap",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px"
                 }}
               >
-                {item.label}
+                <span>{item.label}</span>
+                <span
+                  style={{
+                    background: isActive ? "rgba(255,255,255,0.25)" : "var(--bg-secondary)",
+                    padding: "2px 7px",
+                    borderRadius: "12px",
+                    fontSize: "0.74rem",
+                    fontWeight: 800
+                  }}
+                >
+                  {item.count}
+                </span>
               </button>
             );
           })}
@@ -284,7 +332,7 @@ export const Properties = () => {
                 </button>
 
                 <span style={{ fontSize: "0.95rem", fontWeight: 600 }}>
-                  Showing <strong style={{ color: "var(--accent-primary)" }}>{filteredProperties.length}</strong> of {properties.length} properties
+                  Showing <strong style={{ color: "var(--accent-primary)" }}>{filteredProperties.length > 0 ? (currentPage - 1) * pageSize + 1 : 0}–{Math.min(currentPage * pageSize, filteredProperties.length)}</strong> of {filteredProperties.length} verified residences (Page {currentPage} of {totalPages})
                 </span>
               </div>
 
@@ -423,22 +471,124 @@ export const Properties = () => {
 
             {/* Properties Grid / List / Interactive Map */}
             {filteredProperties.length > 0 ? (
-              viewMode === "map" ? (
-                <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-                  <InteractiveMap properties={filteredProperties} />
-                  <div className="properties-grid">
-                    {filteredProperties.map((property) => (
+              <>
+                {viewMode === "map" ? (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                    <InteractiveMap properties={filteredProperties.slice(0, 48)} />
+                    <div className="properties-grid">
+                      {paginatedProperties.map((property) => (
+                        <PropertyCard key={property.id} property={property} />
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className={viewMode === "grid" ? "properties-grid" : "properties-list"}>
+                    {paginatedProperties.map((property) => (
                       <PropertyCard key={property.id} property={property} />
                     ))}
                   </div>
-                </div>
-              ) : (
-                <div className={viewMode === "grid" ? "properties-grid" : "properties-list"}>
-                  {filteredProperties.map((property) => (
-                    <PropertyCard key={property.id} property={property} />
-                  ))}
-                </div>
-              )
+                )}
+
+                {/* Pro-Level Pagination Controls */}
+                {totalPages > 1 && (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      flexWrap: "wrap",
+                      gap: "16px",
+                      marginTop: "36px",
+                      padding: "16px 20px",
+                      background: "var(--bg-surface)",
+                      border: "1px solid var(--border-light)",
+                      borderRadius: "var(--radius-md)",
+                      boxShadow: "var(--shadow-sm)"
+                    }}
+                  >
+                    {/* Page Size & Range */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
+                      <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)", fontWeight: 600 }}>
+                        Showing <strong>{(currentPage - 1) * pageSize + 1}–{Math.min(currentPage * pageSize, filteredProperties.length)}</strong> of {filteredProperties.length} listings
+                      </span>
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <span style={{ fontSize: "0.8rem", color: "var(--text-muted)", fontWeight: 600 }}>Show:</span>
+                        {[12, 24, 48, 96].map((size) => (
+                          <button
+                            key={size}
+                            onClick={() => {
+                              setPageSize(size);
+                              setCurrentPage(1);
+                            }}
+                            style={{
+                              padding: "4px 8px",
+                              borderRadius: "4px",
+                              border: pageSize === size ? "1px solid var(--accent-primary)" : "1px solid var(--border-light)",
+                              background: pageSize === size ? "var(--accent-primary)" : "var(--bg-surface)",
+                              color: pageSize === size ? "#ffffff" : "var(--text-secondary)",
+                              fontSize: "0.78rem",
+                              fontWeight: 700,
+                              cursor: "pointer"
+                            }}
+                          >
+                            {size}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Numeric Pagination Buttons */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="btn btn-secondary btn-sm"
+                        style={{ padding: "6px 12px", opacity: currentPage === 1 ? 0.4 : 1, cursor: currentPage === 1 ? "not-allowed" : "pointer", fontSize: "0.82rem" }}
+                      >
+                        Previous
+                      </button>
+
+                      {Array.from({ length: totalPages }, (_, i) => i + 1)
+                        .filter((p) => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 2)
+                        .map((p, idx, arr) => {
+                          const prev = arr[idx - 1];
+                          return (
+                            <React.Fragment key={p}>
+                              {prev && p - prev > 1 && (
+                                <span style={{ padding: "0 4px", color: "var(--text-muted)", fontSize: "0.85rem" }}>...</span>
+                              )}
+                              <button
+                                onClick={() => handlePageChange(p)}
+                                style={{
+                                  width: "34px",
+                                  height: "34px",
+                                  borderRadius: "6px",
+                                  border: currentPage === p ? "1px solid var(--accent-primary)" : "1px solid var(--border-light)",
+                                  background: currentPage === p ? "var(--accent-primary)" : "var(--bg-surface)",
+                                  color: currentPage === p ? "#ffffff" : "var(--text-primary)",
+                                  fontWeight: 700,
+                                  fontSize: "0.85rem",
+                                  cursor: "pointer"
+                                }}
+                              >
+                                {p}
+                              </button>
+                            </React.Fragment>
+                          );
+                        })}
+
+                      <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="btn btn-secondary btn-sm"
+                        style={{ padding: "6px 12px", opacity: currentPage === totalPages ? 0.4 : 1, cursor: currentPage === totalPages ? "not-allowed" : "pointer", fontSize: "0.82rem" }}
+                      >
+                        Next
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
             ) : (
               /* Empty State */
               <div

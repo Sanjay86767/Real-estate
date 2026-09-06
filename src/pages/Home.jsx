@@ -39,28 +39,40 @@ export const Home = () => {
 
   const topCities = [
     {
-      name: "Chandigarh",
-      state: "Union Territory",
-      count: "420+ Properties",
-      image: "https://images.unsplash.com/photo-1598228723793-52759bba239c?auto=format&fit=crop&w=600&q=80"
+      name: "Patna & Darbhanga",
+      state: "Bihar (Founder Sanjay Kumar's Corridor)",
+      count: "85+ Properties",
+      image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=600&q=80"
     },
     {
-      name: "Mohali",
-      state: "Punjab",
-      count: "310+ Properties",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80"
+      name: "Mumbai & Pune",
+      state: "Maharashtra",
+      count: "180+ Properties",
+      image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=600&q=80"
     },
     {
-      name: "Delhi",
-      state: "Delhi NCR / Gurgaon",
-      count: "680+ Properties",
+      name: "Delhi NCR & Gurugram",
+      state: "Delhi NCR / Haryana",
+      count: "240+ Properties",
+      image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      name: "Bangalore",
+      state: "Karnataka (Silicon Valley)",
+      count: "160+ Properties",
+      image: "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      name: "Goa Beach Villas",
+      state: "Goa",
+      count: "75+ Properties",
       image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80"
     },
     {
-      name: "Amritsar",
-      state: "Punjab",
-      count: "190+ Properties",
-      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80"
+      name: "Ayodhya & Varanasi",
+      state: "Uttar Pradesh",
+      count: "110+ Properties",
+      image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80"
     }
   ];
 

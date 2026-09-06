@@ -222,6 +222,34 @@ export const indianStates = [
     featuredCity: "Bhubaneswar",
     image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80",
     highlight: "Patia Infocity & Puri Marine Drive"
+  },
+  {
+    id: "jharkhand",
+    name: "Jharkhand",
+    zone: "East",
+    hubs: ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro"],
+    reraAuthority: "Jharkhand RERA (JRERA)",
+    avgGrowth: "+12.8% YoY",
+    tagline: "Plateau waterfall retreats, mineral steel hubs & green educational capitals",
+    capitalRate: "₹3,800 - ₹8,500 / sq.ft",
+    stampDuty: "4.0% (Jharkhand)",
+    featuredCity: "Ranchi & Jamshedpur",
+    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80",
+    highlight: "Morabadi Green Enclaves & Jubilee Park Corridor"
+  },
+  {
+    id: "andhra-pradesh",
+    name: "Andhra Pradesh",
+    zone: "South",
+    hubs: ["Visakhapatnam", "Vijayawada", "Guntur", "Tirupati"],
+    reraAuthority: "Andhra Pradesh RERA (AP RERA)",
+    avgGrowth: "+14.3% YoY",
+    tagline: "City of Destiny oceanfront promenades, executive capital boulevards & port SEZs",
+    capitalRate: "₹4,600 - ₹15,000 / sq.ft",
+    stampDuty: "5.0% (AP Urban)",
+    featuredCity: "Visakhapatnam & Vijayawada",
+    image: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80",
+    highlight: "RK Beach Promenade & Rushikonda IT Hill"
   }
 ];
 
