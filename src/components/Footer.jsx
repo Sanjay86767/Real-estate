@@ -136,59 +136,76 @@ export const Footer = () => {
             marginTop: "48px",
             marginBottom: "36px",
             padding: "32px",
-            background: "linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.95) 100%)",
-            border: "1.5px solid rgba(217, 119, 6, 0.45)",
+            background: "linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.96) 100%)",
+            border: "1.5px solid rgba(217, 119, 6, 0.55)",
             borderRadius: "var(--radius-2xl)",
-            boxShadow: "0 25px 50px rgba(0, 0, 0, 0.4), 0 0 35px rgba(217, 119, 6, 0.2)",
+            boxShadow: "0 25px 50px rgba(0, 0, 0, 0.5), 0 0 35px rgba(217, 119, 6, 0.25)",
             display: "flex",
             flexDirection: "column",
-            gap: "24px"
+            gap: "24px",
+            position: "relative",
+            overflow: "hidden"
           }}
         >
+          {/* Subtle Ambient Golden Glow */}
+          <div
+            style={{
+              position: "absolute",
+              top: "-50px",
+              right: "-50px",
+              width: "180px",
+              height: "180px",
+              borderRadius: "50%",
+              background: "radial-gradient(circle, rgba(217, 119, 6, 0.25) 0%, transparent 70%)",
+              pointerEvents: "none"
+            }}
+          />
+
           {/* Top Row: Founder Identity & Bio */}
-          <div style={{ display: "flex", alignItems: "center", gap: "22px", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap" }}>
             <div
               style={{
                 position: "relative",
-                width: "72px",
-                height: "72px",
+                width: "82px",
+                height: "82px",
                 borderRadius: "50%",
                 border: "3px solid #d97706",
                 overflow: "hidden",
-                boxShadow: "0 0 20px rgba(217, 119, 6, 0.5)",
+                boxShadow: "0 0 25px rgba(217, 119, 6, 0.6)",
                 flexShrink: 0
               }}
             >
               <img
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80"
-                alt="Sanjay Kumar"
+                src="/sanjay-kumar.jpg"
+                alt="Sanjay Kumar - Founder"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
               <span
                 style={{
                   position: "absolute",
-                  bottom: "2px",
-                  right: "2px",
-                  width: "14px",
-                  height: "14px",
+                  bottom: "3px",
+                  right: "3px",
+                  width: "15px",
+                  height: "15px",
                   borderRadius: "50%",
                   background: "#10b981",
                   border: "2.5px solid #0f172a",
                   boxShadow: "0 0 10px #10b981"
                 }}
+                title="Direct VIP Desk Online"
               ></span>
             </div>
 
             <div style={{ flex: 1 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-                <h3 style={{ margin: 0, fontSize: "1.45rem", fontWeight: 800, color: "#ffffff", letterSpacing: "0.2px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap", marginBottom: "6px" }}>
+                <h3 style={{ margin: 0, fontSize: "1.55rem", fontWeight: 800, color: "#ffffff", letterSpacing: "0.2px" }}>
                   Sanjay Kumar
                 </h3>
                 <span
                   style={{
                     padding: "4px 12px",
                     background: "rgba(217, 119, 6, 0.2)",
-                    border: "1px solid rgba(217, 119, 6, 0.5)",
+                    border: "1px solid rgba(217, 119, 6, 0.6)",
                     borderRadius: "var(--radius-full)",
                     fontSize: "0.75rem",
                     fontWeight: 800,
@@ -199,13 +216,26 @@ export const Footer = () => {
                 >
                   Founder & Principal Luxury Strategist
                 </span>
+                <span
+                  style={{
+                    padding: "4px 12px",
+                    background: "rgba(59, 130, 246, 0.18)",
+                    border: "1px solid rgba(59, 130, 246, 0.45)",
+                    borderRadius: "var(--radius-full)",
+                    fontSize: "0.75rem",
+                    fontWeight: 800,
+                    color: "#93c5fd"
+                  }}
+                >
+                  📍 Darbhanga, Bihar Roots
+                </span>
                 <span style={{ fontSize: "0.78rem", color: "#10b981", fontWeight: 700, display: "inline-flex", alignItems: "center", gap: "6px" }}>
                   <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981", boxShadow: "0 0 8px #10b981" }}></span>
                   Direct Desk Online & Available
                 </span>
               </div>
-              <p style={{ margin: "8px 0 0", color: "#94a3b8", fontSize: "0.92rem", lineHeight: 1.6, maxWidth: "800px" }}>
-                Leading high-net-worth real estate transactions, luxury villa developments, and NRI portfolio acquisitions across Chandigarh, Mohali, Delhi NCR & Bangalore.
+              <p style={{ margin: 0, color: "#94a3b8", fontSize: "0.94rem", lineHeight: 1.65, maxWidth: "840px" }}>
+                Proudly hailing from Darbhanga, Bihar, Sanjay Kumar spearheads EstateHub's elite luxury real estate network — advising high-net-worth families, entrepreneurs, and NRI investors in securing ultra-luxury villas, sky penthouses, and clear-title commercial estates across Chandigarh, Mohali, Gurugram, Bangalore & Bihar.
               </p>
             </div>
           </div>
@@ -214,7 +244,7 @@ export const Footer = () => {
           <div
             style={{
               paddingTop: "20px",
-              borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+              borderTop: "1px solid rgba(255, 255, 255, 0.12)",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
@@ -222,7 +252,7 @@ export const Footer = () => {
               gap: "16px"
             }}
           >
-            {/* Phone Number Call Box */}
+            {/* Direct VIP Contact Action Buttons */}
             <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
               <a
                 href="tel:+918809604880"
@@ -233,7 +263,7 @@ export const Footer = () => {
                   padding: "12px 24px",
                   background: "linear-gradient(135deg, #d97706 0%, #b45309 100%)",
                   color: "#ffffff",
-                  fontSize: "1rem",
+                  fontSize: "0.95rem",
                   fontWeight: 800,
                   textDecoration: "none",
                   borderRadius: "var(--radius-full)",
@@ -253,19 +283,21 @@ export const Footer = () => {
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: "8px",
-                  padding: "12px 22px",
-                  background: "#16a34a",
+                  gap: "10px",
+                  padding: "12px 24px",
+                  background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
                   color: "#ffffff",
                   fontSize: "0.95rem",
-                  fontWeight: 700,
+                  fontWeight: 800,
                   textDecoration: "none",
                   borderRadius: "var(--radius-full)",
-                  boxShadow: "0 6px 20px rgba(22, 163, 74, 0.35)"
+                  boxShadow: "0 6px 20px rgba(16, 185, 129, 0.45)",
+                  letterSpacing: "0.5px"
                 }}
-                title="Chat with Sanjay on WhatsApp"
+                title="Direct WhatsApp with Founder Sanjay Kumar"
               >
-                <span>💬 WhatsApp +91 8809604880</span>
+                <MessageSquare size={18} />
+                <span>WhatsApp +91 8809604880</span>
               </a>
 
               <a
@@ -274,10 +306,10 @@ export const Footer = () => {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "8px",
-                  padding: "11px 20px",
+                  padding: "12px 20px",
                   background: "rgba(255, 255, 255, 0.08)",
-                  border: "1px solid rgba(255, 255, 255, 0.25)",
-                  color: "#ffffff",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  color: "#e2e8f0",
                   fontSize: "0.9rem",
                   fontWeight: 600,
                   textDecoration: "none",
@@ -290,12 +322,23 @@ export const Footer = () => {
               </a>
             </div>
 
-            {/* RERA Badge & License */}
-            <div style={{ fontSize: "0.8rem", color: "#94a3b8", display: "flex", alignItems: "center", gap: "8px" }}>
+            {/* Official RERA Verification Pill */}
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "0.82rem", color: "#94a3b8" }}>
               <span style={{ color: "var(--accent-gold)", fontWeight: 700 }}>RERA Certified:</span>
-              <code style={{ background: "rgba(0,0,0,0.3)", padding: "2px 8px", borderRadius: "4px", color: "#e2e8f0" }}>
+              <span
+                style={{
+                  padding: "4px 10px",
+                  background: "rgba(15, 23, 42, 0.9)",
+                  border: "1px solid #334155",
+                  borderRadius: "4px",
+                  fontFamily: "monospace",
+                  color: "#cbd5e1",
+                  fontSize: "0.8rem",
+                  fontWeight: 700
+                }}
+              >
                 RERA-IND-ESTATE-2024-SK
-              </code>
+              </span>
             </div>
           </div>
         </div>

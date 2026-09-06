@@ -9,9 +9,10 @@ export const agents = [
     dealsClosed: "240+ Deals (₹180 Cr+)",
     phone: "+91 8809604880",
     email: "sanjay12012005@gmail.com",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+    image: "/sanjay-kumar.jpg",
+    origin: "Darbhanga, Bihar",
     city: "Chandigarh",
-    bio: "Founder & Lead Architect of EstateHub. Renowned for advisory in ultra-luxury villas, sky penthouses, and high-yield NRI residential portfolios with 100% legal RERA certification.",
+    bio: "Originally hailing from Darbhanga, Bihar, Sanjay Kumar is the visionary Founder & Principal Luxury Strategist of EstateHub. Renowned for advisory in ultra-luxury villas, sky penthouses, and high-yield residential portfolios with 100% legal RERA certification across India.",
     specialties: ["Ultra Luxury Estates", "Sky Penthouses", "NRI Portfolio Advisory", "Private Wealth Advisory"]
   },
   {

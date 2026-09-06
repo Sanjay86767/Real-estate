@@ -17,7 +17,7 @@ export const MobileQuickBar = () => {
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80"
+              src="/sanjay-kumar.jpg"
               alt="Sanjay Kumar"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
@@ -26,8 +26,8 @@ export const MobileQuickBar = () => {
             <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "#ffffff", lineHeight: 1.2 }}>
               Sanjay Kumar
             </div>
-            <div style={{ fontSize: "0.68rem", color: "#10b981", fontWeight: 700 }}>
-              🟢 Direct Founder Desk
+            <div style={{ fontSize: "0.68rem", color: "#93c5fd", fontWeight: 700 }}>
+              🟢 Darbhanga, Bihar • VIP Desk
             </div>
           </div>
         </div>
