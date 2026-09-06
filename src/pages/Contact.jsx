@@ -127,10 +127,10 @@ export const Contact = () => {
                   <Phone size={22} />
                 </div>
                 <div>
-                  <h4 style={{ fontSize: "1rem", margin: "0 0 4px" }}>Phone & WhatsApp</h4>
+                  <h4 style={{ fontSize: "1rem", margin: "0 0 4px" }}>Direct Phone & WhatsApp</h4>
                   <p style={{ fontSize: "0.9rem", margin: 0, color: "var(--text-secondary)" }}>
-                    +91 98765 43210 (Toll Free / General)<br />
-                    +91 98123 45678 (Site Visit Desk)
+                    <a href="tel:+918809604880" style={{ color: "var(--accent-primary)", fontWeight: 700 }}>+91 8809604880</a> (Founder & Client Desk)<br />
+                    <span>Mon - Sat: 9:00 AM - 8:00 PM IST</span>
                   </p>
                 </div>
               </div>
@@ -151,10 +151,10 @@ export const Contact = () => {
                   <Mail size={22} />
                 </div>
                 <div>
-                  <h4 style={{ fontSize: "1rem", margin: "0 0 4px" }}>Email Support</h4>
+                  <h4 style={{ fontSize: "1rem", margin: "0 0 4px" }}>Direct Email & Support</h4>
                   <p style={{ fontSize: "0.9rem", margin: 0, color: "var(--text-secondary)" }}>
-                    inquiries@estatehub.com<br />
-                    advisors@estatehub.com
+                    <a href="mailto:sanjay12012005@gmail.com" style={{ color: "var(--accent-primary)", fontWeight: 700 }}>sanjay12012005@gmail.com</a><br />
+                    <span>inquiries@estatehub.com</span>
                   </p>
                 </div>
               </div>

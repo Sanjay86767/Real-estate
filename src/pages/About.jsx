@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ShieldCheck, Target, HeartHandshake, Award, Sparkles, Building2, Users } from "lucide-react";
+import { ShieldCheck, Target, HeartHandshake, Award, Sparkles, Building2, Users, Phone, Mail } from "lucide-react";
 
 export const About = () => {
   return (
@@ -110,6 +110,86 @@ export const About = () => {
               <p style={{ fontSize: "0.9rem", lineHeight: "1.6" }}>
                 From bank loan sanctioning to government sub-registrar title registration and key handover ceremonies.
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Executive Leadership & Founder Spotlight */}
+        <div
+          style={{
+            background: "var(--bg-surface)",
+            border: "1px solid var(--border-light)",
+            borderRadius: "var(--radius-xl)",
+            padding: "40px",
+            boxShadow: "var(--shadow-md)",
+            marginBottom: "80px"
+          }}
+        >
+          <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 30px" }}>
+            <span style={{ fontSize: "0.8rem", color: "var(--accent-primary)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+              Executive Leadership
+            </span>
+            <h2 style={{ fontSize: "2.2rem", margin: "6px 0 0" }}>Founder & Managing Director</h2>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "auto 1fr auto",
+              gap: "30px",
+              alignItems: "center",
+              background: "var(--bg-secondary)",
+              padding: "30px",
+              borderRadius: "var(--radius-lg)",
+              border: "1px solid var(--border-light)"
+            }}
+            className="founder-card-grid"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
+              alt="Sanjay Kumar - Founder"
+              style={{
+                width: "120px",
+                height: "120px",
+                borderRadius: "50%",
+                objectFit: "cover",
+                border: "4px solid var(--accent-primary)",
+                boxShadow: "var(--shadow-md)"
+              }}
+            />
+
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
+                <h3 style={{ margin: 0, fontSize: "1.6rem" }}>Sanjay Kumar</h3>
+                <span style={{ background: "var(--accent-emerald-light)", color: "var(--accent-emerald)", padding: "2px 8px", borderRadius: "var(--radius-full)", fontSize: "0.75rem", fontWeight: 700 }}>
+                  Founder & Principal Lead
+                </span>
+              </div>
+              <p style={{ color: "var(--accent-primary)", fontWeight: 600, fontSize: "0.95rem", margin: "0 0 10px" }}>
+                Managing Director, EstateHub Real Estate Technologies
+              </p>
+              <p style={{ color: "var(--text-secondary)", fontSize: "0.92rem", lineHeight: "1.6", margin: 0 }}>
+                Pioneering transparency and AI architectural technology across Indian real estate. Overseeing high-net-worth acquisitions, villa developments, and turnkey client portfolios with guaranteed clear titles.
+              </p>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", minWidth: "190px" }}>
+              <a
+                href="tel:+918809604880"
+                className="btn btn-primary btn-sm"
+                style={{ gap: "8px", justifyContent: "center" }}
+              >
+                <Phone size={15} />
+                <span>+91 8809604880</span>
+              </a>
+              <a
+                href="mailto:sanjay12012005@gmail.com"
+                className="btn btn-secondary btn-sm"
+                style={{ gap: "8px", justifyContent: "center" }}
+              >
+                <Mail size={15} />
+                <span>Send Direct Email</span>
+              </a>
             </div>
           </div>
         </div>

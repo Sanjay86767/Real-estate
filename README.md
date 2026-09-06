@@ -259,6 +259,24 @@ npm run preview
 
 ---
 
+## 👨‍💻 Project Lead & Architect
+
+<div align="center">
+
+### **Sanjay Kumar**
+*Founder & Principal Frontend Architect — EstateHub*
+
+[![GitHub](https://img.shields.io/badge/GitHub-Sanjay86767-181717?style=for-the-badge&logo=github)](https://github.com/Sanjay86767)
+[![Email](https://img.shields.io/badge/Email-sanjay12012005%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:sanjay12012005@gmail.com)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-%2B91_8809604880-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/918809604880)
+
+📞 **Direct Phone / WhatsApp**: `+91 8809604880`  
+✉️ **Direct Email**: `sanjay12012005@gmail.com`
+
+</div>
+
+---
+
 ## 📄 License
 
 This project is licensed under the **MIT License** — feel free to use, modify, and distribute for educational and commercial purposes.
@@ -266,5 +284,5 @@ This project is licensed under the **MIT License** — feel free to use, modify,
 ---
 
 <div align="center">
-  <sub>Engineered with passion by <b>EstateHub Team</b> • 2026</sub>
+  <sub>Engineered with passion by <b>Sanjay Kumar</b> & <b>EstateHub Team</b> • 2026</sub>
 </div>

@@ -101,8 +101,9 @@ export const Login = () => {
   // Quick 1-Click Demo Login
   const handleDemoLogin = () => {
     loginUser({
-      name: "Priya Sharma",
-      email: "priya.sharma@example.com"
+      name: "Sanjay Kumar",
+      email: "sanjay12012005@gmail.com",
+      phone: "+91 8809604880"
     });
     navigate("/properties");
   };

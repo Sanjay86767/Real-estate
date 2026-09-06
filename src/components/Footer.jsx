@@ -117,14 +117,14 @@ export const Footer = () => {
                 </button>
               </form>
             )}
-            <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "6px", fontSize: "0.85rem", color: "#94a3b8" }}>
+            <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "8px", fontSize: "0.85rem", color: "#94a3b8" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <Phone size={14} color="var(--accent-primary)" />
-                <span>+91 98765 43210</span>
+                <a href="tel:+918809604880" style={{ color: "#cbd5e1" }}>+91 8809604880</a>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <Mail size={14} color="var(--accent-primary)" />
-                <span>inquiries@estatehub.com</span>
+                <a href="mailto:sanjay12012005@gmail.com" style={{ color: "#cbd5e1" }}>sanjay12012005@gmail.com</a>
               </div>
             </div>
           </div>

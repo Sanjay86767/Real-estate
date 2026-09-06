@@ -1,18 +1,18 @@
 export const agents = [
   {
     id: 1,
-    name: "John Sharma",
-    role: "Senior Luxury Property Consultant",
-    experience: "9+ Years",
-    rating: 4.9,
-    reviewsCount: 84,
-    dealsClosed: "115+ Deals",
-    phone: "+91 98765 43210",
-    email: "john.sharma@estatehub.com",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80",
+    name: "Sanjay Kumar",
+    role: "Founder & Chief Luxury Real Estate Strategist",
+    experience: "10+ Years",
+    rating: 5.0,
+    reviewsCount: 186,
+    dealsClosed: "240+ Deals (₹180 Cr+)",
+    phone: "+91 8809604880",
+    email: "sanjay12012005@gmail.com",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
     city: "Chandigarh",
-    bio: "Specializing in high-end luxury villas and duplexes across Chandigarh & Mohali. Known for seamless closing and complete paperwork assistance.",
-    specialties: ["Luxury Villas", "Duplexes", "NRI Investments"]
+    bio: "Founder & Lead Architect of EstateHub. Renowned for advisory in ultra-luxury villas, sky penthouses, and high-yield NRI residential portfolios with 100% legal RERA certification.",
+    specialties: ["Ultra Luxury Estates", "Sky Penthouses", "NRI Portfolio Advisory", "Private Wealth Advisory"]
   },
   {
     id: 2,
