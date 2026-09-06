@@ -1,0 +1,79 @@
+export const agents = [
+  {
+    id: 1,
+    name: "John Sharma",
+    role: "Senior Luxury Property Consultant",
+    experience: "9+ Years",
+    rating: 4.9,
+    reviewsCount: 84,
+    dealsClosed: "115+ Deals",
+    phone: "+91 98765 43210",
+    email: "john.sharma@estatehub.com",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80",
+    city: "Chandigarh",
+    bio: "Specializing in high-end luxury villas and duplexes across Chandigarh & Mohali. Known for seamless closing and complete paperwork assistance.",
+    specialties: ["Luxury Villas", "Duplexes", "NRI Investments"]
+  },
+  {
+    id: 2,
+    name: "Priya Malhotra",
+    role: "Residential & High-Rise Specialist",
+    experience: "7+ Years",
+    rating: 4.8,
+    reviewsCount: 62,
+    dealsClosed: "88+ Deals",
+    phone: "+91 98123 45678",
+    email: "priya.malhotra@estatehub.com",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
+    city: "Mohali",
+    bio: "Passionate about helping young families find their dream starter homes and gated community apartments with maximum lifestyle amenities.",
+    specialties: ["Gated Apartments", "First-Time Buyers", "Home Loans"]
+  },
+  {
+    id: 3,
+    name: "Vikram Sengupta",
+    role: "Commercial & Land Advisor",
+    experience: "12+ Years",
+    rating: 5.0,
+    reviewsCount: 104,
+    dealsClosed: "140+ Deals",
+    phone: "+91 97654 32109",
+    email: "vikram.sengupta@estatehub.com",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80",
+    city: "Delhi NCR",
+    bio: "Veteran property strategist specializing in commercial hubs, luxury penthouses, and strategic plots across Delhi NCR and Gurgaon.",
+    specialties: ["Commercial Spaces", "Penthouses", "High-Yield Plots"]
+  },
+  {
+    id: 4,
+    name: "Amanpreet Kaur",
+    role: "Heritage & Farmhouse Consultant",
+    experience: "6+ Years",
+    rating: 4.9,
+    reviewsCount: 51,
+    dealsClosed: "65+ Deals",
+    phone: "+91 98888 12345",
+    email: "amanpreet.k@estatehub.com",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80",
+    city: "Amritsar",
+    bio: "Focused on premium farmhouses, independent kothis, and luxury estates in Amritsar and Jalandhar region.",
+    specialties: ["Independent Kothis", "Farmhouses", "Eco Estates"]
+  },
+  {
+    id: 5,
+    name: "Rajesh Varma",
+    role: "Tech-City Real Estate Lead",
+    experience: "8+ Years",
+    rating: 4.8,
+    reviewsCount: 78,
+    dealsClosed: "95+ Deals",
+    phone: "+91 99001 22334",
+    email: "rajesh.varma@estatehub.com",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+    city: "Bangalore",
+    bio: "Helping IT professionals and entrepreneurs invest in smart homes, luxury penthouses, and green gated communities in Bangalore.",
+    specialties: ["Smart Tech Homes", "Villas", "Rental Portfolios"]
+  }
+];
+
+export default agents;

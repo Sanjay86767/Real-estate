@@ -1,0 +1,253 @@
+import React from "react";
+import { Filter as FilterIcon, RotateCcw, Search, MapPin, IndianRupee, Home, Check } from "lucide-react";
+
+export const Filter = ({
+  searchQuery,
+  setSearchQuery,
+  selectedCity,
+  setSelectedCity,
+  selectedType,
+  setSelectedType,
+  priceRange,
+  setPriceRange,
+  bedrooms,
+  setBedrooms,
+  selectedAmenities,
+  setSelectedAmenities,
+  onResetFilters,
+  totalResults
+}) => {
+  const cities = ["Chandigarh", "Mohali", "Amritsar", "Delhi", "Bangalore"];
+  const propertyTypes = ["Apartment", "Villa", "Penthouse", "House", "Plot"];
+  const bedroomOptions = ["Any", "1", "2", "3", "4+"];
+  const amenitiesList = [
+    "Swimming Pool",
+    "Gym & Fitness Suite",
+    "Private Garden",
+    "Power Backup",
+    "24/7 Security",
+    "Smart Home Automation",
+    "Clubhouse Access"
+  ];
+
+  const handleAmenityToggle = (amenity) => {
+    if (selectedAmenities.includes(amenity)) {
+      setSelectedAmenities(selectedAmenities.filter((a) => a !== amenity));
+    } else {
+      setSelectedAmenities([...selectedAmenities, amenity]);
+    }
+  };
+
+  return (
+    <aside className="filter-panel" aria-label="Property Filters">
+      {/* Header */}
+      <div className="filter-header">
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <FilterIcon size={18} color="var(--accent-primary)" />
+          <h3 style={{ fontSize: "1.1rem", margin: 0 }}>Filter Properties</h3>
+        </div>
+        <button
+          onClick={onResetFilters}
+          className="btn btn-secondary btn-sm"
+          style={{ padding: "4px 10px", fontSize: "0.8rem", gap: "4px" }}
+          title="Reset all filters"
+        >
+          <RotateCcw size={13} />
+          <span>Reset</span>
+        </button>
+      </div>
+
+      {/* Keyword Search */}
+      <div className="filter-section">
+        <label className="filter-title" htmlFor="filter-search-input">
+          <Search size={15} color="var(--accent-primary)" />
+          <span>Search Keyword</span>
+        </label>
+        <input
+          id="filter-search-input"
+          type="text"
+          placeholder="e.g. Luxury Villa, Sector 70..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "10px 14px",
+            borderRadius: "var(--radius-sm)",
+            border: "1px solid var(--border-light)",
+            background: "var(--bg-secondary)",
+            color: "var(--text-primary)",
+            fontSize: "0.9rem",
+            outline: "none"
+          }}
+        />
+      </div>
+
+      {/* City / Location */}
+      <div className="filter-section">
+        <div className="filter-title">
+          <MapPin size={15} color="var(--accent-primary)" />
+          <span>Location / City</span>
+        </div>
+        <div className="filter-options-grid">
+          <label className="checkbox-label">
+            <input
+              type="radio"
+              name="city"
+              checked={selectedCity === ""}
+              onChange={() => setSelectedCity("")}
+            />
+            <span>All Cities</span>
+          </label>
+          {cities.map((city) => (
+            <label key={city} className="checkbox-label">
+              <input
+                type="radio"
+                name="city"
+                checked={selectedCity.toLowerCase() === city.toLowerCase()}
+                onChange={() => setSelectedCity(city)}
+              />
+              <span>{city}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Property Type */}
+      <div className="filter-section">
+        <div className="filter-title">
+          <Home size={15} color="var(--accent-primary)" />
+          <span>Property Type</span>
+        </div>
+        <div className="chip-group">
+          <button
+            type="button"
+            className={`chip-btn ${selectedType === "" ? "active" : ""}`}
+            onClick={() => setSelectedType("")}
+          >
+            All
+          </button>
+          {propertyTypes.map((type) => (
+            <button
+              key={type}
+              type="button"
+              className={`chip-btn ${selectedType === type ? "active" : ""}`}
+              onClick={() => setSelectedType(selectedType === type ? "" : type)}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Price Range */}
+      <div className="filter-section">
+        <div className="filter-title">
+          <IndianRupee size={15} color="var(--accent-primary)" />
+          <span>Price Budget</span>
+        </div>
+        <div className="filter-options-grid">
+          <label className="checkbox-label">
+            <input
+              type="radio"
+              name="price"
+              checked={priceRange === ""}
+              onChange={() => setPriceRange("")}
+            />
+            <span>Any Budget</span>
+          </label>
+          <label className="checkbox-label">
+            <input
+              type="radio"
+              name="price"
+              checked={priceRange === "under-50l"}
+              onChange={() => setPriceRange("under-50l")}
+            />
+            <span>Under ₹50 Lakh</span>
+          </label>
+          <label className="checkbox-label">
+            <input
+              type="radio"
+              name="price"
+              checked={priceRange === "50l-1cr"}
+              onChange={() => setPriceRange("50l-1cr")}
+            />
+            <span>₹50 Lakh – ₹1 Crore</span>
+          </label>
+          <label className="checkbox-label">
+            <input
+              type="radio"
+              name="price"
+              checked={priceRange === "1cr-2cr"}
+              onChange={() => setPriceRange("1cr-2cr")}
+            />
+            <span>₹1 Crore – ₹2 Crore</span>
+          </label>
+          <label className="checkbox-label">
+            <input
+              type="radio"
+              name="price"
+              checked={priceRange === "above-2cr"}
+              onChange={() => setPriceRange("above-2cr")}
+            />
+            <span>Above ₹2 Crore</span>
+          </label>
+        </div>
+      </div>
+
+      {/* Bedrooms */}
+      <div className="filter-section">
+        <div className="filter-title">
+          <span>Bedrooms (BHK)</span>
+        </div>
+        <div className="chip-group">
+          {bedroomOptions.map((opt) => (
+            <button
+              key={opt}
+              type="button"
+              className={`chip-btn ${bedrooms === opt || (opt === "Any" && !bedrooms) ? "active" : ""}`}
+              onClick={() => setBedrooms(opt === "Any" ? "" : opt)}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Amenities */}
+      <div className="filter-section">
+        <div className="filter-title">
+          <span>Amenities</span>
+        </div>
+        <div className="filter-options-grid">
+          {amenitiesList.map((amenity) => (
+            <label key={amenity} className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={selectedAmenities.includes(amenity)}
+                onChange={() => handleAmenityToggle(amenity)}
+              />
+              <span>{amenity}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Results Count Banner */}
+      <div
+        style={{
+          padding: "12px",
+          background: "var(--bg-secondary)",
+          borderRadius: "var(--radius-sm)",
+          textAlign: "center",
+          fontSize: "0.85rem",
+          fontWeight: 600,
+          color: "var(--text-secondary)"
+        }}
+      >
+        Found <strong>{totalResults}</strong> matching properties
+      </div>
+    </aside>
+  );
+};
+
+export default Filter;
