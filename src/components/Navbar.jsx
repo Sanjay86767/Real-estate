@@ -74,16 +74,6 @@ export const Navbar = () => {
 
         {/* Right Actions: List Property, Currency, Unit, Theme, Favorites, Auth, Mobile Toggle */}
         <div className="nav-actions">
-          {/* VIP Desk Hotline */}
-          <a
-            href="tel:+918809604880"
-            className="vip-nav-hotline"
-            title="Direct Call Founder Sanjay Kumar: +91 8809604880"
-          >
-            <Phone size={13} />
-            <span>+91 8809604880</span>
-          </a>
-
           {/* List Property CTA */}
           <Link
             to="/list-property"
