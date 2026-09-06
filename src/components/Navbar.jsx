@@ -9,7 +9,9 @@ import {
   User,
   LogOut,
   Menu,
-  X
+  X,
+  Phone,
+  Mail
 } from "lucide-react";
 
 export const Navbar = () => {
@@ -72,6 +74,16 @@ export const Navbar = () => {
 
         {/* Right Actions: List Property, Currency, Unit, Theme, Favorites, Auth, Mobile Toggle */}
         <div className="nav-actions">
+          {/* VIP Desk Hotline */}
+          <a
+            href="tel:+918809604880"
+            className="vip-nav-hotline"
+            title="Direct Call Founder Sanjay Kumar: +91 8809604880"
+          >
+            <Phone size={13} />
+            <span>+91 8809604880</span>
+          </a>
+
           {/* List Property CTA */}
           <Link
             to="/list-property"
@@ -218,6 +230,37 @@ export const Navbar = () => {
             Login / Sign Up
           </Link>
         )}
+
+        {/* Founder VIP Desk Contact */}
+        <div style={{
+          marginTop: "20px",
+          padding: "14px",
+          background: "var(--bg-secondary)",
+          borderRadius: "var(--radius-md)",
+          border: "1px solid var(--border-color)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px"
+        }}>
+          <div style={{ fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "1px", color: "var(--accent-gold)", fontWeight: 800 }}>
+            Founder & Client Desk
+          </div>
+          <div style={{ fontWeight: 800, fontSize: "0.95rem", color: "var(--text-primary)" }}>
+            Sanjay Kumar
+          </div>
+          <a
+            href="tel:+918809604880"
+            style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--accent-primary)", fontWeight: 700, textDecoration: "none", fontSize: "0.85rem" }}
+          >
+            <Phone size={14} /> +91 8809604880
+          </a>
+          <a
+            href="mailto:sanjay12012005@gmail.com"
+            style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--text-secondary)", textDecoration: "none", fontSize: "0.82rem" }}
+          >
+            <Mail size={14} /> sanjay12012005@gmail.com
+          </a>
+        </div>
       </div>
     </header>
   );
