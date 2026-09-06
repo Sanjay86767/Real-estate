@@ -176,20 +176,20 @@ export const Home = () => {
         <div className="container">
           <div className="stats-grid">
             <div className="stat-item">
-              <div className="stat-number">4,200+</div>
-              <div className="stat-label">Curated Luxury Estates</div>
+              <div className="stat-number">10,000+</div>
+              <div className="stat-label">Verified Pan-India Residences</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number">99.6%</div>
+              <div className="stat-number">99.8%</div>
               <div className="stat-label">Client Satisfaction Rate</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number">₹4,500 Cr+</div>
+              <div className="stat-number">₹8,500 Cr+</div>
               <div className="stat-label">Transactions Facilitated</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number">16+</div>
-              <div className="stat-label">Metro Growth Hubs</div>
+              <div className="stat-number">28+</div>
+              <div className="stat-label">Indian States & UTs</div>
             </div>
           </div>
         </div>

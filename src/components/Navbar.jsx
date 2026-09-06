@@ -27,9 +27,11 @@ import {
   TrendingUp,
   Brain,
   Wand2,
-  Zap
+  Zap,
+  FileText
 } from "lucide-react";
 import sanjayPhoto from "../assets/sanjay-kumar.jpg";
+import BrochureHubModal from "./BrochureHubModal";
 
 export const Navbar = () => {
   const {
@@ -46,6 +48,7 @@ export const Navbar = () => {
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [showBrochureHub, setShowBrochureHub] = useState(false);
   const dropdownTimeoutRef = useRef(null);
   const navRef = useRef(null);
   const navigate = useNavigate();
@@ -93,11 +96,15 @@ export const Navbar = () => {
       {/* 1. TOP LUXURY UTILITY & FOUNDER DESK BAR */}
       <div className="navbar-top-utility-bar">
         <div className="container navbar-top-container">
-          {/* Left: RERA Clearance & Active Activity */}
+          {/* Left: 10,000+ Inventory Indicator & RERA Clearance */}
           <div className="navbar-top-left">
+            <span className="navbar-top-pill inventory-pill" style={{ color: "var(--accent-gold)", fontWeight: 800 }}>
+              <Sparkles size={13} color="var(--accent-gold)" />
+              <span>✨ <strong>10,000+</strong> Pan-India Residences Online</span>
+            </span>
             <span className="navbar-top-pill rera-pill">
               <ShieldCheck size={13} color="var(--accent-emerald)" />
-              <span>RERA Registered: <strong>RERA-IND-ESTATE-2024-SK</strong></span>
+              <span>100% RERA Certified</span>
             </span>
             <span className="navbar-top-pill pulse-pill">
               <span className="live-dot-pulse"></span>
@@ -105,8 +112,20 @@ export const Navbar = () => {
             </span>
           </div>
 
-          {/* Right: Founder Sanjay Kumar VIP Direct Desk, Currency & Unit */}
+          {/* Right: Instant Brochure Center, Founder Sanjay Kumar VIP Direct Desk, Currency & Unit */}
           <div className="navbar-top-right">
+            {/* Quick Instant Brochure Launcher */}
+            <button
+              type="button"
+              onClick={() => setShowBrochureHub(true)}
+              className="top-brochure-launcher-btn"
+              title="Open Official Digital Brochure Center (10,000+ Verified PDFs)"
+            >
+              <FileText size={12} />
+              <span>Instant Brochure Hub</span>
+              <span className="top-brochure-tag">PDF</span>
+            </button>
+
             {/* Founder VIP Desk Chip - Sleek, Executive, Pro-Level (No Raw Phone Digits in Header) */}
             <Link
               to="/agents"
@@ -181,29 +200,30 @@ export const Navbar = () => {
               onClick={() => toggleDropdown("properties")}
             >
               <span>Properties</span>
+              <span className="navbar-10k-glow-badge">10,000+</span>
               <ChevronDown size={14} className="dropdown-arrow" />
             </button>
 
-            <div className="nav-dropdown-menu mega-menu-properties" style={{ width: "680px" }}>
+            <div className="nav-dropdown-menu mega-menu-properties" style={{ width: "690px" }}>
               <div className="dropdown-header-banner">
-                <span className="dropdown-badge">34 Verified Residences Across 28 Indian States & UTs</span>
-                <h4>Browse by Configuration & Regional State Hubs</h4>
+                <span className="dropdown-badge">✨ 10,000+ Verified Luxury Residences Across 28 Indian States & UTs</span>
+                <h4>5,450+ 1 BHKs • 2,500+ 2 BHKs • 1,300+ 3 BHKs • 500+ 4 BHKs • 100+ Mansions</h4>
               </div>
 
               {/* 2-Column Mega Layout: BHKs on left, Pan-India States on right */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                {/* Left Column: BHK Configurations */}
+                {/* Left Column: BHK Configurations with Real Inventory Counts */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                   <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                    BHK Configurations
+                    BHK Configurations (10,000 Online)
                   </span>
                   <Link to="/properties?beds=1" className="mega-menu-card" onClick={handleNavClick}>
                     <div className="mega-card-icon" style={{ background: "rgba(59, 130, 246, 0.15)", color: "#3b82f6" }}>
                       1 BHK
                     </div>
                     <div>
-                      <strong>1 BHK Smart Flats</strong>
-                      <span>Airport Road, Cyber City & Bangalore</span>
+                      <strong>1 BHK Smart Tech Flats (5,450+ Units)</strong>
+                      <span>Darbhanga, Patna, Bangalore, Pune & Mumbai</span>
                     </div>
                   </Link>
 
@@ -212,8 +232,8 @@ export const Navbar = () => {
                       2 BHK
                     </div>
                     <div>
-                      <strong>2 BHK Modern Residences</strong>
-                      <span>Wave Estate, GIFT City & Zirakpur</span>
+                      <strong>2 BHK Modern Residences (2,500+ Units)</strong>
+                      <span>Wave Estate, GIFT City, Baner & Zirakpur</span>
                     </div>
                   </Link>
 
@@ -222,8 +242,8 @@ export const Navbar = () => {
                       3 BHK
                     </div>
                     <div>
-                      <strong>3 BHK Skyline High-Rises</strong>
-                      <span>Patna Ganga Riverfront, Pune & Kochi</span>
+                      <strong>3 BHK Skyline High-Rises (1,300+ Units)</strong>
+                      <span>Patna Ganga Riverfront, Powai & Kochi</span>
                     </div>
                   </Link>
 
@@ -232,8 +252,8 @@ export const Navbar = () => {
                       4 BHK
                     </div>
                     <div>
-                      <strong>4 BHK Royal Kothis & Villas</strong>
-                      <span>Raj Darbhanga, Worli Sea Face & ECR</span>
+                      <strong>4 BHK Royal Kothis & Villas (500+ Units)</strong>
+                      <span>Raj Darbhanga, Worli Coastal & ECR</span>
                     </div>
                   </Link>
 
@@ -242,7 +262,7 @@ export const Navbar = () => {
                       5+ BHK
                     </div>
                     <div>
-                      <strong>5+ BHK Penthouses</strong>
+                      <strong>5+ BHK Penthouses & Mansions (100+ Units)</strong>
                       <span>Jubilee Hills & Sovereign Golf Enclaves</span>
                     </div>
                   </Link>
@@ -251,7 +271,7 @@ export const Navbar = () => {
                 {/* Right Column: Key Indian States Hubs */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                   <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "var(--accent-gold)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                    Pan-India State Corridors
+                    Pan-India Regional Corridors
                   </span>
                   <Link to="/properties?state=Bihar" className="mega-menu-card" onClick={handleNavClick} style={{ border: "1px solid rgba(217, 119, 6, 0.4)" }}>
                     <div className="mega-card-icon" style={{ background: "rgba(217, 119, 6, 0.15)", color: "#d97706" }}>
@@ -259,7 +279,7 @@ export const Navbar = () => {
                     </div>
                     <div>
                       <strong>Bihar (Darbhanga & Patna)</strong>
-                      <span>Sanjay Kumar's Roots • Heritage Kothis</span>
+                      <span>Sanjay Kumar's Native Corridor • Royal Heritage</span>
                     </div>
                   </Link>
 
@@ -269,7 +289,7 @@ export const Navbar = () => {
                     </div>
                     <div>
                       <strong>Maharashtra (Mumbai & Pune)</strong>
-                      <span>Worli Sea Face & Koregaon Park</span>
+                      <span>Worli Sea Face, Bandra BKC & Kharadi</span>
                     </div>
                   </Link>
 
@@ -279,7 +299,7 @@ export const Navbar = () => {
                     </div>
                     <div>
                       <strong>Goa Coastal Beachfront</strong>
-                      <span>Candolim Portuguese Private Pool Villas</span>
+                      <span>Candolim & Siolim Private Pool Villas</span>
                     </div>
                   </Link>
 
@@ -288,8 +308,8 @@ export const Navbar = () => {
                       UP
                     </div>
                     <div>
-                      <strong>Uttar Pradesh (Ayodhya / LKO)</strong>
-                      <span>Ram Mandir Corridor Approved Villas</span>
+                      <strong>Uttar Pradesh (Ayodhya & Noida)</strong>
+                      <span>Ram Mandir Corridor & Expressway Hubs</span>
                     </div>
                   </Link>
 
@@ -299,24 +319,57 @@ export const Navbar = () => {
                     </div>
                     <div>
                       <strong>Karnataka (Bangalore)</strong>
-                      <span>Indiranagar & Whitefield Tech Mansions</span>
+                      <span>Whitefield, Electronic City & Indiranagar</span>
                     </div>
                   </Link>
                 </div>
               </div>
 
-              <div className="dropdown-footer-cta" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <a href="#pan-india-states" className="dropdown-explore-link" onClick={handleNavClick}>
-                  <Compass size={14} />
-                  <span>Interactive 28 States & UTs Map</span>
-                </a>
+              <div className="dropdown-footer-cta" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleNavClick();
+                    setShowBrochureHub(true);
+                  }}
+                  className="dropdown-explore-link"
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent-gold)", fontWeight: 700, display: "inline-flex", alignItems: "center", gap: "6px" }}
+                >
+                  <FileText size={14} color="#fbbf24" />
+                  <span>📄 Digital Brochure Center (10,000+ PDFs)</span>
+                </button>
                 <Link to="/properties" className="dropdown-explore-link" onClick={handleNavClick}>
-                  <span>Explore Full 34 Pan-India Catalog</span>
+                  <span>Explore Full 10,000+ Nationwide Catalog</span>
                   <ArrowRight size={14} />
                 </Link>
               </div>
             </div>
           </div>
+
+          {/* Highlighted Digital Brochure Hub Button */}
+          <button
+            type="button"
+            onClick={() => setShowBrochureHub(true)}
+            className="nav-link pro-brochure-nav-pill"
+            title="Open Digital Brochure Center (10,000+ Verified PDFs)"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              background: "rgba(245, 158, 11, 0.08)",
+              border: "1px solid rgba(245, 158, 11, 0.4)",
+              borderRadius: "var(--radius-full)",
+              padding: "6px 12px",
+              cursor: "pointer",
+              fontWeight: 700
+            }}
+          >
+            <FileText size={14} color="#fbbf24" />
+            <span>Brochure Hub</span>
+            <span className="pro-pdf-chip" style={{ background: "linear-gradient(135deg, #d97706, #fbbf24)", color: "#0f172a", fontSize: "0.62rem", padding: "1px 6px", borderRadius: "8px", fontWeight: 800 }}>
+              PDF PRO
+            </span>
+          </button>
 
           {/* Dropdown: AI Real Estate Suite */}
           <div
@@ -415,6 +468,27 @@ export const Navbar = () => {
 
         {/* Right Actions Hub */}
         <div className="nav-actions">
+          {/* Quick Instant Brochure Center Trigger */}
+          <button
+            type="button"
+            onClick={() => setShowBrochureHub(true)}
+            className="btn btn-outline btn-sm pro-brochure-action-btn"
+            title="Download Official Property Brochures (PDF)"
+            style={{
+              borderColor: "rgba(245, 158, 11, 0.4)",
+              background: "rgba(245, 158, 11, 0.08)",
+              color: "var(--text-primary)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "5px",
+              padding: "6px 12px",
+              fontWeight: 700
+            }}
+          >
+            <FileText size={14} color="#fbbf24" />
+            <span className="pro-brochure-text">Brochures</span>
+          </button>
+
           {/* List Property Premium Gold CTA */}
           <Link
             to="/list-property"
@@ -533,6 +607,35 @@ export const Navbar = () => {
           </button>
         </div>
 
+        {/* Mobile Digital Brochure Center Action */}
+        <div style={{ padding: "12px 0 6px" }}>
+          <button
+            type="button"
+            onClick={() => {
+              handleNavClick();
+              setShowBrochureHub(true);
+            }}
+            className="btn"
+            style={{
+              width: "100%",
+              background: "linear-gradient(135deg, #1e293b, #0f172a)",
+              border: "1.5px solid var(--accent-gold)",
+              color: "#fbbf24",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
+              fontWeight: 800,
+              padding: "10px",
+              borderRadius: "var(--radius-md)",
+              cursor: "pointer"
+            }}
+          >
+            <FileText size={16} color="#fbbf24" />
+            <span>📄 Instant Brochure Center (10,000+ PDFs)</span>
+          </button>
+        </div>
+
         {/* Categorized Mobile Navigation Links */}
         <div className="mobile-nav-scroll">
           <div className="mobile-nav-section-title">
@@ -645,6 +748,11 @@ export const Navbar = () => {
           )}
         </div>
       </div>
+
+      {/* 4. DIGITAL BROCHURE HUB MODAL */}
+      {showBrochureHub && (
+        <BrochureHubModal onClose={() => setShowBrochureHub(false)} />
+      )}
     </header>
   );
 };

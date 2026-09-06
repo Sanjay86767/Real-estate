@@ -354,7 +354,72 @@ ul, ol {
 .navbar-top-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+}
+
+.top-brochure-launcher-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(217, 119, 6, 0.28));
+  border: 1px solid rgba(245, 158, 11, 0.55);
+  color: #fbbf24;
+  padding: 3px 11px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.top-brochure-launcher-btn:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.32), rgba(217, 119, 6, 0.48));
+  border-color: #fbbf24;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+.top-brochure-tag {
+  background: linear-gradient(135deg, #d97706, #fbbf24);
+  color: #0f172a;
+  font-size: 0.6rem;
+  font-weight: 900;
+  padding: 0 5px;
+  border-radius: 6px;
+  letter-spacing: 0.3px;
+}
+
+.navbar-10k-glow-badge {
+  background: linear-gradient(135deg, #d97706, #fbbf24);
+  color: #0f172a;
+  font-size: 0.64rem;
+  font-weight: 900;
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+  margin-left: 6px;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.45);
+  letter-spacing: 0.2px;
+  display: inline-block;
+}
+
+.pro-brochure-nav-pill:hover {
+  background: rgba(245, 158, 11, 0.18) !important;
+  border-color: #fbbf24 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+}
+
+.pro-brochure-action-btn:hover {
+  background: rgba(245, 158, 11, 0.22) !important;
+  border-color: #fbbf24 !important;
+  color: #fbbf24 !important;
+  transform: translateY(-1px);
+}
+
+.brochure-card-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-top-founder-chip {

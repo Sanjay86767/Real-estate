@@ -1,13 +1,15 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Bed, Bath, Maximize2, MapPin, Heart, ArrowRight, Scale, ShieldCheck, Sparkles, ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import { Bed, Bath, Maximize2, MapPin, Heart, ArrowRight, Scale, ShieldCheck, Sparkles, ChevronLeft, ChevronRight, Eye, FileText } from "lucide-react";
 import { usePropertyContext } from "../context/PropertyContext";
 import { playClickSound } from "../utils/effects";
+import PropertyBrochureModal from "./PropertyBrochureModal";
 
 export const PropertyCard = ({ property }) => {
   const { isFavorite, toggleFavorite, compareList, toggleCompare, formatPrice, formatArea } = usePropertyContext();
   const favoriteActive = isFavorite(property.id);
   const isCompared = compareList.includes(property.id);
+  const [showBrochureModal, setShowBrochureModal] = useState(false);
 
   // Multi-image preview index
   const [activeImgIndex, setActiveImgIndex] = useState(0);
@@ -264,24 +266,46 @@ export const PropertyCard = ({ property }) => {
         </div>
 
         {/* Footer Actions */}
-        <div className="card-footer" style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+        <div className="card-footer" style={{ display: "flex", gap: "6px", alignItems: "center" }}>
           <Link to={`/property/${property.id}`} className="btn btn-secondary btn-sm" style={{ flex: 1 }}>
-            <span>View Details</span>
-            <ArrowRight size={15} />
+            <span>Details</span>
+            <ArrowRight size={14} />
           </Link>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              playClickSound();
+              setShowBrochureModal(true);
+            }}
+            className="btn btn-outline btn-sm pro-brochure-card-btn"
+            title="Instant PDF Brochure & RERA Prospectus"
+            style={{ padding: "8px 10px", fontSize: "0.78rem", fontWeight: 700, display: "inline-flex", alignItems: "center", gap: "4px" }}
+          >
+            <FileText size={13} color="var(--accent-primary)" />
+            <span>Brochure</span>
+          </button>
           <a
             href={`https://wa.me/918809604880?text=${encodeURIComponent(`Hello Sanjay ji, I am interested in ${property.title} (${property.bhk || property.bedrooms + ' BHK'}, ${property.priceFormatted}) in ${property.city}, ${property.state}. Please share brochure and details.`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline btn-sm"
             title="Chat directly on WhatsApp with Sanjay Kumar Desk"
-            style={{ padding: "8px 12px", background: "rgba(37, 211, 102, 0.1)", borderColor: "rgba(37, 211, 102, 0.3)", color: "#16a34a", textDecoration: "none", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+            style={{ padding: "8px 10px", background: "rgba(37, 211, 102, 0.1)", borderColor: "rgba(37, 211, 102, 0.3)", color: "#16a34a", textDecoration: "none", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
             onClick={(e) => e.stopPropagation()}
           >
             💬
           </a>
         </div>
       </div>
+
+      {showBrochureModal && (
+        <PropertyBrochureModal
+          property={property}
+          onClose={() => setShowBrochureModal(false)}
+        />
+      )}
     </div>
   );
 };

@@ -10,21 +10,53 @@ import {
   CheckCircle2,
   Award,
   QrCode,
-  Share2
+  Share2,
+  MessageSquare
 } from "lucide-react";
 import { usePropertyContext } from "../context/PropertyContext";
 import { playSuccessSound } from "../utils/effects";
+import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 
 export const PropertyBrochureModal = ({ property, agent, onClose }) => {
   const { formatPrice, formatArea, currency } = usePropertyContext();
   const printContentRef = useRef(null);
+
+  if (!property) return null;
 
   const handlePrint = () => {
     playSuccessSound();
     window.print();
   };
 
+  const effectiveAgent = agent || {
+    name: "Sanjay Kumar",
+    title: "Founder & Managing Director",
+    phone: "+91 8809604880",
+    email: "sanjay@estatehub.com",
+    image: sanjayPhoto
+  };
+
+  const safeImages = property.images && property.images.length > 0 ? property.images : [
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
+  ];
+
+  const safeAmenities = property.amenities && property.amenities.length > 0 ? property.amenities : [
+    "Swimming Pool",
+    "Gym & Fitness Suite",
+    "Private Garden",
+    "Power Backup",
+    "24/7 Security",
+    "Smart Home Automation",
+    "Clubhouse Access",
+    "Covered Car Parking"
+  ];
+
   const pricePerSqFt = Math.round(property.price / (property.area || 1));
+
+  const handleShareWhatsApp = () => {
+    const text = `Hello Sanjay ji, I am reviewing the official brochure for ${property.title} (${property.bhk || property.bedrooms + ' BHK'}, ${property.priceFormatted}) in ${property.city}, ${property.state}. RERA ID: ${property.reraId}. Please share official allocation details.`;
+    window.open(`https://wa.me/918809604880?text=${encodeURIComponent(text)}`, "_blank");
+  };
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -64,7 +96,16 @@ export const PropertyBrochureModal = ({ property, agent, onClose }) => {
             </span>
           </div>
 
-          <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+          <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+            <button
+              onClick={handleShareWhatsApp}
+              className="btn btn-sm"
+              style={{ gap: "6px", background: "rgba(34, 197, 94, 0.2)", color: "#4ade80", border: "1px solid rgba(34, 197, 94, 0.4)" }}
+              title="Share brochure details directly on WhatsApp"
+            >
+              <MessageSquare size={16} />
+              <span>WhatsApp Sanjay Desk</span>
+            </button>
             <button
               onClick={handlePrint}
               className="btn btn-primary btn-sm"
@@ -156,7 +197,7 @@ export const PropertyBrochureModal = ({ property, agent, onClose }) => {
               }}
             >
               <img
-                src={property.images[0]}
+                src={safeImages[0]}
                 alt={property.title}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
@@ -273,7 +314,7 @@ export const PropertyBrochureModal = ({ property, agent, onClose }) => {
               Key Lifestyle & Club Amenities
             </h3>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px" }}>
-              {property.amenities.map((amenity, idx) => (
+              {safeAmenities.map((amenity, idx) => (
                 <div
                   key={idx}
                   style={{
@@ -305,16 +346,16 @@ export const PropertyBrochureModal = ({ property, agent, onClose }) => {
             {/* Senior Advisor Card */}
             <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
               <img
-                src={agent.image}
-                alt={agent.name}
+                src={effectiveAgent.image}
+                alt={effectiveAgent.name}
                 style={{ width: "56px", height: "56px", borderRadius: "50%", objectFit: "cover" }}
               />
               <div>
                 <span style={{ fontSize: "0.75rem", color: "#64748b", textTransform: "uppercase", fontWeight: 700 }}>
                   Assigned Private Portfolio Lead
                 </span>
-                <h4 style={{ margin: 0, fontSize: "1.05rem", color: "#0f172a" }}>{agent.name}</h4>
-                <div style={{ fontSize: "0.82rem", color: "#2563eb", fontWeight: 600 }}>{agent.email} • {agent.phone}</div>
+                <h4 style={{ margin: 0, fontSize: "1.05rem", color: "#0f172a" }}>{effectiveAgent.name}</h4>
+                <div style={{ fontSize: "0.82rem", color: "#2563eb", fontWeight: 600 }}>{effectiveAgent.email} • {effectiveAgent.phone}</div>
               </div>
             </div>
 
