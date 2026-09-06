@@ -22,6 +22,10 @@ import Login from "./pages/Login";
 import ListProperty from "./pages/ListProperty";
 import Valuation from "./pages/Valuation";
 import Matchmaker from "./pages/Matchmaker";
+import AffordabilityPage from "./pages/AffordabilityPage";
+import InteriorStudio from "./pages/InteriorStudio";
+import MarketInsights from "./pages/MarketInsights";
+import AgentDetails from "./pages/AgentDetails";
 import NotFound from "./pages/NotFound";
 
 // Scroll to top helper on route navigation
@@ -61,6 +65,10 @@ export function App() {
               <Route path="/list-property" element={<ListProperty />} />
               <Route path="/valuation" element={<Valuation />} />
               <Route path="/matchmaker" element={<Matchmaker />} />
+              <Route path="/affordability" element={<AffordabilityPage />} />
+              <Route path="/interior-studio" element={<InteriorStudio />} />
+              <Route path="/market-insights" element={<MarketInsights />} />
+              <Route path="/agent/:id" element={<AgentDetails />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

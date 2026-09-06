@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Star, Phone, Mail, Award, CheckCircle } from "lucide-react";
 import { usePropertyContext } from "../context/PropertyContext";
 
@@ -16,7 +17,9 @@ export const AgentCard = ({ agent, onContactClick }) => {
   return (
     <div className="agent-card">
       <div className="agent-avatar-box">
-        <img src={agent.image} alt={agent.name} loading="lazy" />
+        <Link to={`/agent/${agent.id}`}>
+          <img src={agent.image} alt={agent.name} loading="lazy" />
+        </Link>
         <div
           style={{
             position: "absolute",
@@ -33,7 +36,9 @@ export const AgentCard = ({ agent, onContactClick }) => {
         </div>
       </div>
 
-      <h3 className="agent-name">{agent.name}</h3>
+      <h3 className="agent-name">
+        <Link to={`/agent/${agent.id}`}>{agent.name}</Link>
+      </h3>
       <p className="agent-role">{agent.role}</p>
 
       {/* Ratings */}

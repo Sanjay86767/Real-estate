@@ -50,17 +50,23 @@ export const Navbar = () => {
           <NavLink to="/properties" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
             Properties
           </NavLink>
+          <NavLink to="/interior-studio" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
+            AI Studio
+          </NavLink>
+          <NavLink to="/affordability" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
+            Affordability
+          </NavLink>
+          <NavLink to="/market-insights" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
+            Market Trends
+          </NavLink>
           <NavLink to="/valuation" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
-            AI Valuation
+            AI Valuer
           </NavLink>
           <NavLink to="/matchmaker" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
-            AI Matchmaker
+            Matchmaker
           </NavLink>
           <NavLink to="/agents" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
             Agents
-          </NavLink>
-          <NavLink to="/contact" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
-            Contact
           </NavLink>
         </nav>
 
@@ -169,6 +175,15 @@ export const Navbar = () => {
         </NavLink>
         <NavLink to="/properties" className="mobile-nav-link" onClick={handleNavClick}>
           Properties
+        </NavLink>
+        <NavLink to="/interior-studio" className="mobile-nav-link" onClick={handleNavClick}>
+          🎨 AI Interior Staging Studio
+        </NavLink>
+        <NavLink to="/affordability" className="mobile-nav-link" onClick={handleNavClick}>
+          🏦 Loan Affordability & Stamp Duty
+        </NavLink>
+        <NavLink to="/market-insights" className="mobile-nav-link" onClick={handleNavClick}>
+          📈 Live Market Trends & Heatmap
         </NavLink>
         <NavLink to="/valuation" className="mobile-nav-link" onClick={handleNavClick}>
           🧠 AI Valuation Engine
