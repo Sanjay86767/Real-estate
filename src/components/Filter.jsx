@@ -19,7 +19,15 @@ export const Filter = ({
 }) => {
   const cities = ["Chandigarh", "Mohali", "Amritsar", "Delhi", "Bangalore"];
   const propertyTypes = ["Apartment", "Villa", "Penthouse", "House", "Plot"];
-  const bedroomOptions = ["Any", "1", "2", "3", "4+"];
+  const bedroomOptions = [
+    { label: "All", value: "" },
+    { label: "1 BHK", value: "1" },
+    { label: "2 BHK", value: "2" },
+    { label: "3 BHK", value: "3" },
+    { label: "4 BHK", value: "4" },
+    { label: "5+ BHK", value: "5" },
+    { label: "Plots", value: "plot" }
+  ];
   const amenitiesList = [
     "Swimming Pool",
     "Gym & Fitness Suite",
@@ -202,12 +210,12 @@ export const Filter = ({
         <div className="chip-group">
           {bedroomOptions.map((opt) => (
             <button
-              key={opt}
+              key={opt.label}
               type="button"
-              className={`chip-btn ${bedrooms === opt || (opt === "Any" && !bedrooms) ? "active" : ""}`}
-              onClick={() => setBedrooms(opt === "Any" ? "" : opt)}
+              className={`chip-btn ${bedrooms === opt.value || (opt.value === "" && !bedrooms) ? "active" : ""}`}
+              onClick={() => setBedrooms(opt.value)}
             >
-              {opt}
+              {opt.label}
             </button>
           ))}
         </div>

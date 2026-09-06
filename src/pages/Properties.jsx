@@ -58,14 +58,24 @@ export const Properties = () => {
   const filteredProperties = useMemo(() => {
     return properties
       .filter((item) => {
-        // Keyword Search
+        // Keyword Search (handles 1 BHK - 5 BHK, Vastu, RERA, city, location)
         if (searchQuery.trim() !== "") {
-          const q = searchQuery.toLowerCase();
+          const q = searchQuery.toLowerCase().trim();
+          const bhkMatch = q.match(/([1-5])\s*bhk/);
+          if (bhkMatch) {
+            const num = parseInt(bhkMatch[1]);
+            if (item.bedrooms === num) return true;
+          }
+
           const matchTitle = item.title.toLowerCase().includes(q);
           const matchLoc = item.location.toLowerCase().includes(q);
+          const matchCity = item.city.toLowerCase().includes(q);
           const matchDesc = item.description.toLowerCase().includes(q);
           const matchType = item.type.toLowerCase().includes(q);
-          if (!matchTitle && !matchLoc && !matchDesc && !matchType) return false;
+          const matchBhk = item.bhk ? item.bhk.toLowerCase().includes(q) : false;
+          const matchRera = item.reraId ? item.reraId.toLowerCase().includes(q) : false;
+          const matchVastu = item.vastuStatus ? item.vastuStatus.toLowerCase().includes(q) : false;
+          if (!matchTitle && !matchLoc && !matchCity && !matchDesc && !matchType && !matchBhk && !matchRera && !matchVastu) return false;
         }
 
         // City Filter
@@ -78,12 +88,22 @@ export const Properties = () => {
           return false;
         }
 
-        // Bedrooms Filter
+        // Bedrooms Filter (supports 1 BHK to 5+ BHK and Plots)
         if (bedrooms) {
-          if (bedrooms === "1" && item.bedrooms !== 1) return false;
-          if (bedrooms === "2" && item.bedrooms !== 2) return false;
-          if (bedrooms === "3" && item.bedrooms !== 3) return false;
-          if (bedrooms === "4+" && item.bedrooms < 4) return false;
+          const cleanBed = bedrooms.toString().replace(/\s*bhk/i, "").trim().toLowerCase();
+          if (cleanBed === "0" || cleanBed === "plot" || cleanBed === "plots") {
+            if (item.bedrooms !== 0 && item.type.toLowerCase() !== "plot") return false;
+          } else if (cleanBed === "1" && item.bedrooms !== 1) {
+            return false;
+          } else if (cleanBed === "2" && item.bedrooms !== 2) {
+            return false;
+          } else if (cleanBed === "3" && item.bedrooms !== 3) {
+            return false;
+          } else if (cleanBed === "4" && item.bedrooms !== 4) {
+            return false;
+          } else if ((cleanBed === "5" || cleanBed === "5+" || cleanBed === "4+") && item.bedrooms < 5) {
+            return false;
+          }
         }
 
         // Price Range Filter
@@ -136,15 +156,66 @@ export const Properties = () => {
     <div className="properties-page" style={{ padding: "40px 0 80px", minHeight: "85vh" }}>
       <div className="container">
         {/* Page Header */}
-        <div style={{ marginBottom: "30px" }}>
+        <div style={{ marginBottom: "24px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--accent-primary)", fontSize: "0.85rem", fontWeight: 700, textTransform: "uppercase" }}>
             <Home size={16} />
             <span>Prime Real Estate Catalog</span>
           </div>
           <h1 style={{ fontSize: "2.4rem", marginTop: "6px" }}>Explore Properties</h1>
           <p style={{ marginTop: "4px" }}>
-            Discover residential and commercial properties across top regions with real-time price & specification filters.
+            Discover verified 1 BHK, 2 BHK, 3 BHK, 4 BHK, 5 BHK luxury residences and plots across India with real-time price & Vastu filters.
           </p>
+        </div>
+
+        {/* Quick BHK Navigation Bar */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            marginBottom: "28px",
+            overflowX: "auto",
+            paddingBottom: "8px",
+            scrollbarWidth: "none"
+          }}
+          className="bhk-quick-bar"
+        >
+          <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+            BHK Selection:
+          </span>
+          {[
+            { label: "All BHKs", val: "" },
+            { label: "1 BHK", val: "1" },
+            { label: "2 BHK", val: "2" },
+            { label: "3 BHK", val: "3" },
+            { label: "4 BHK", val: "4" },
+            { label: "5+ BHK", val: "5" },
+            { label: "Plots", val: "plot" }
+          ].map((item) => {
+            const isActive = bedrooms === item.val || (item.val === "" && !bedrooms);
+            return (
+              <button
+                key={item.label}
+                type="button"
+                onClick={() => {
+                  setBedrooms(item.val);
+                  const p = new URLSearchParams(searchParams);
+                  if (item.val) p.set("beds", item.val);
+                  else p.delete("beds");
+                  setSearchParams(p);
+                }}
+                className={`chip-btn ${isActive ? "active" : ""}`}
+                style={{
+                  padding: "8px 16px",
+                  fontSize: "0.85rem",
+                  fontWeight: 700,
+                  whiteSpace: "nowrap"
+                }}
+              >
+                {item.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Catalog Layout: Sidebar + Listings */}

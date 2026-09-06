@@ -439,6 +439,139 @@ export const PropertyDetails = () => {
               </div>
             </div>
 
+            {/* 1.5 Indian Regulatory & Vastu Compliance Matrix */}
+            <div
+              style={{
+                background: "var(--bg-surface)",
+                border: "1px solid var(--border-light)",
+                borderRadius: "var(--radius-lg)",
+                padding: "24px",
+                marginBottom: "32px",
+                boxShadow: "var(--shadow-sm)"
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px", flexWrap: "wrap", gap: "10px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <ShieldCheck size={22} color="var(--accent-emerald)" />
+                  <h3 style={{ fontSize: "1.25rem", margin: 0 }}>RERA & Vastu Shastra Compliance</h3>
+                </div>
+                {property.reraId && (
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      padding: "6px 14px",
+                      borderRadius: "var(--radius-full)",
+                      background: "var(--accent-emerald-light)",
+                      color: "var(--accent-emerald)",
+                      fontWeight: 800,
+                      fontSize: "0.82rem"
+                    }}
+                  >
+                    <CheckCircle2 size={15} />
+                    Verified RERA: {property.reraId}
+                  </span>
+                )}
+              </div>
+
+              {/* Vastu & Area Breakdown Grid */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                  gap: "14px",
+                  marginBottom: "20px"
+                }}
+              >
+                <div style={{ padding: "14px", background: "var(--bg-secondary)", borderRadius: "var(--radius-sm)" }}>
+                  <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700, display: "block" }}>
+                    🧭 Vastu Orientation
+                  </span>
+                  <strong style={{ fontSize: "0.95rem", color: "var(--accent-primary)" }}>{property.vastuStatus || "100% Vastu Compliant"}</strong>
+                  <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginTop: "4px", margin: 0 }}>
+                    {property.vastuDetails?.entrance || `Facing: ${property.facing}`}
+                  </p>
+                </div>
+
+                <div style={{ padding: "14px", background: "var(--bg-secondary)", borderRadius: "var(--radius-sm)" }}>
+                  <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700, display: "block" }}>
+                    📐 Carpet vs Super Area
+                  </span>
+                  <strong style={{ fontSize: "0.95rem" }}>{property.carpetArea || `${property.area} sq.ft`}</strong>
+                  <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginTop: "4px", margin: 0 }}>
+                    Super Built-up: {property.area} sq.ft
+                  </p>
+                </div>
+
+                <div style={{ padding: "14px", background: "var(--bg-secondary)", borderRadius: "var(--radius-sm)" }}>
+                  <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700, display: "block" }}>
+                    🛕 Dedicated Pooja Mandir
+                  </span>
+                  <strong style={{ fontSize: "0.95rem" }}>{property.poojaRoom ? "Yes, Included" : "N/A"}</strong>
+                  <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginTop: "4px", margin: 0 }}>
+                    {property.poojaRoom || "Provision for mandir in layout"}
+                  </p>
+                </div>
+
+                <div style={{ padding: "14px", background: "var(--bg-secondary)", borderRadius: "var(--radius-sm)" }}>
+                  <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700, display: "block" }}>
+                    🛌 Domestic Servant Quarters
+                  </span>
+                  <strong style={{ fontSize: "0.95rem" }}>{property.servantQuarters ? "Dedicated / Attached" : "Common"}</strong>
+                  <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginTop: "4px", margin: 0 }}>
+                    {property.servantQuarters || "Township domestic staff facility"}
+                  </p>
+                </div>
+              </div>
+
+              {/* Title & Bank Loan Pre-approvals */}
+              <div
+                style={{
+                  padding: "14px 16px",
+                  borderRadius: "var(--radius-sm)",
+                  background: "var(--bg-primary)",
+                  border: "1px dashed var(--border-light)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  gap: "12px"
+                }}
+              >
+                <div>
+                  <span style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 700, display: "block" }}>
+                    🏛️ Legal Title & Authority Clearance
+                  </span>
+                  <span style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--text-primary)" }}>
+                    {property.approvals || "Freehold Title Registry • Verified Clear Mutation"}
+                  </span>
+                </div>
+
+                {property.bankApprovals && (
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap" }}>
+                    <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 600 }}>Pre-Approved:</span>
+                    {property.bankApprovals.map((bank, bIdx) => (
+                      <span
+                        key={bIdx}
+                        style={{
+                          fontSize: "0.75rem",
+                          fontWeight: 700,
+                          padding: "2px 8px",
+                          borderRadius: "4px",
+                          background: "var(--bg-surface)",
+                          border: "1px solid var(--border-light)",
+                          color: "var(--text-secondary)"
+                        }}
+                      >
+                        {bank}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
             {/* 2. Description */}
             <div
               style={{

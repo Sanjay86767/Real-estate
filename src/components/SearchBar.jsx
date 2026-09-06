@@ -71,17 +71,30 @@ export const SearchBar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Real-time matched properties for autocomplete preview
+  // Real-time matched properties for autocomplete preview (supports 1 BHK - 5 BHK, Vastu, RERA, City)
   const liveMatches = properties.filter((p) => {
     if (!keyword.trim()) return false;
-    const q = keyword.toLowerCase();
+    const q = keyword.toLowerCase().trim();
+    
+    // Check BHK pattern e.g. "1bhk", "2 bhk", "3bhk"
+    const bhkMatch = q.match(/([1-5])\s*bhk/);
+    if (bhkMatch) {
+      const num = parseInt(bhkMatch[1]);
+      if (p.bedrooms === num) return true;
+    }
+
     return (
       p.title.toLowerCase().includes(q) ||
       p.city.toLowerCase().includes(q) ||
       p.location.toLowerCase().includes(q) ||
-      p.type.toLowerCase().includes(q)
+      p.type.toLowerCase().includes(q) ||
+      (p.bhk && p.bhk.toLowerCase().includes(q)) ||
+      (p.tagline && p.tagline.toLowerCase().includes(q)) ||
+      (p.reraId && p.reraId.toLowerCase().includes(q)) ||
+      (p.vastuStatus && p.vastuStatus.toLowerCase().includes(q)) ||
+      (p.description && p.description.toLowerCase().includes(q))
     );
-  }).slice(0, 4);
+  }).slice(0, 5);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -258,6 +271,60 @@ export const SearchBar = () => {
         )}
       </div>
 
+      {/* Quick Instant BHK & Category Discovery Chips */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          marginBottom: "16px",
+          overflowX: "auto",
+          paddingBottom: "4px",
+          scrollbarWidth: "none"
+        }}
+      >
+        <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+          🔥 Quick Search:
+        </span>
+        {[
+          { label: "1 BHK Flats", beds: "1" },
+          { label: "2 BHK Flats", beds: "2" },
+          { label: "3 BHK High-Rise", beds: "3" },
+          { label: "4 BHK Luxury Kothis", beds: "4" },
+          { label: "5 BHK Penthouses", beds: "5" },
+          { label: "Villa Plots", type: "Plot" },
+          { label: "🧭 100% Vastu", query: "vastu" }
+        ].map((chip, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={() => {
+              if (chip.beds) {
+                navigate(`/properties?beds=${chip.beds}`);
+              } else if (chip.type) {
+                navigate(`/properties?type=${chip.type}`);
+              } else if (chip.query) {
+                navigate(`/properties?q=${chip.query}`);
+              }
+            }}
+            style={{
+              padding: "5px 12px",
+              borderRadius: "var(--radius-full)",
+              background: "var(--bg-secondary)",
+              border: "1px solid var(--border-light)",
+              fontSize: "0.78rem",
+              fontWeight: 600,
+              color: "var(--text-primary)",
+              whiteSpace: "nowrap",
+              cursor: "pointer",
+              transition: "all 0.2s ease"
+            }}
+          >
+            {chip.label}
+          </button>
+        ))}
+      </div>
+
       <form onSubmit={handleSearch}>
         <div className="search-grid">
           {/* Location Field */}
@@ -330,7 +397,7 @@ export const SearchBar = () => {
             <label htmlFor="search-beds">
               <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
                 <Layers size={13} color="var(--accent-primary)" />
-                Bedrooms
+                Bedrooms (BHK)
               </span>
             </label>
             <select
@@ -338,11 +405,12 @@ export const SearchBar = () => {
               value={bedrooms}
               onChange={(e) => setBedrooms(e.target.value)}
             >
-              <option value="">Any Bedrooms</option>
+              <option value="">Any Bedrooms / BHK</option>
               <option value="1">1 BHK</option>
               <option value="2">2 BHK</option>
               <option value="3">3 BHK</option>
-              <option value="4">4+ BHK</option>
+              <option value="4">4 BHK</option>
+              <option value="5">5+ BHK</option>
             </select>
           </div>
 

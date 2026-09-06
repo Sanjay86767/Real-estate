@@ -113,13 +113,13 @@ export const PropertyCard = ({ property }) => {
 
         {/* Top Badges */}
         <div className="card-badges">
+          <span className="badge badge-bhk" style={{ background: "rgba(15, 23, 42, 0.9)", color: "#38bdf8", fontWeight: 800, border: "1px solid rgba(56, 189, 248, 0.4)" }}>
+            {property.bhk || (property.bedrooms > 0 ? `${property.bedrooms} BHK` : "Plot Land")}
+          </span>
           {property.featured && (
             <span className="badge badge-featured">Featured</span>
           )}
           <span className="badge badge-type">{property.type}</span>
-          <span className={`badge ${property.status === "For Rent" ? "badge-rent" : "badge-sale"}`}>
-            {property.status}
-          </span>
         </div>
 
         {/* Action Buttons: Compare & Favorite */}
@@ -155,8 +155,9 @@ export const PropertyCard = ({ property }) => {
         <div className="card-price-row">
           <div>
             <span className="card-price">{formatPrice(property.price)}</span>
-            <span style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 600, display: "block" }}>
-              {property.status === "For Rent" ? "/ month" : "Verified Clear Title"}
+            <span style={{ fontSize: "0.78rem", color: "var(--accent-emerald)", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px" }}>
+              <ShieldCheck size={13} color="var(--accent-emerald)" />
+              {property.reraId ? `RERA: ${property.reraId.split('-')[0]}` : "Clear Title"}
             </span>
           </div>
 
@@ -178,18 +179,16 @@ export const PropertyCard = ({ property }) => {
           </div>
         </div>
 
-        {/* Real-Time Live Viewers & Endorsement */}
+        {/* Real-Time Live Viewers & Vastu Status */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", margin: "6px 0 10px", paddingBottom: "6px", borderBottom: "1px dashed var(--border-light)" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 600 }}>
             <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981", boxShadow: "0 0 6px #10b981", display: "inline-block" }}></span>
             <Eye size={12} color="#10b981" />
             <span>{8 + ((property.id * 7) % 15)} live viewers</span>
           </div>
-          {property.featured && (
-            <span style={{ fontSize: "0.7rem", color: "var(--accent-gold)", fontWeight: 800, letterSpacing: "0.2px" }}>
-              ✨ Sanjay's Top Pick
-            </span>
-          )}
+          <span style={{ fontSize: "0.7rem", color: "var(--accent-gold)", fontWeight: 800, letterSpacing: "0.2px" }}>
+            🧭 100% Vastu
+          </span>
         </div>
 
         {/* Title */}
@@ -210,7 +209,7 @@ export const PropertyCard = ({ property }) => {
           {property.bedrooms > 0 ? (
             <div className="card-feature-item" title={`${property.bedrooms} Bedrooms`}>
               <Bed size={16} color="var(--accent-primary)" />
-              <span>{property.bedrooms} Beds</span>
+              <span>{property.bedrooms} BHK</span>
             </div>
           ) : (
             <div className="card-feature-item" title="Open Plot">
@@ -225,7 +224,7 @@ export const PropertyCard = ({ property }) => {
             </div>
           )}
 
-          <div className="card-feature-item" title={`${property.area} Square Feet`}>
+          <div className="card-feature-item" title={`${property.area} Sq.Ft Super Built-Up`}>
             <Maximize2 size={15} color="var(--accent-primary)" />
             <span>{formatArea(property.area)}</span>
           </div>
