@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ShieldCheck, Target, HeartHandshake, Award, Sparkles, Building2, Users, Phone, Mail } from "lucide-react";
-import sanjayPhoto from "../assets/sanjay-kumar.jpg";
+import { ShieldCheck, Target, HeartHandshake, Award, Sparkles, Building2, Users } from "lucide-react";
 
 export const About = () => {
   return (
@@ -115,83 +114,73 @@ export const About = () => {
           </div>
         </div>
 
-        {/* Executive Leadership & Founder Spotlight */}
+        {/* Institutional Scale & Trust Metrics */}
         <div
           style={{
-            background: "var(--bg-surface)",
-            border: "1px solid var(--border-light)",
-            borderRadius: "var(--radius-xl)",
-            padding: "40px",
-            boxShadow: "var(--shadow-md)",
-            marginBottom: "80px"
+            background: "linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%)",
+            border: "1px solid rgba(217, 119, 6, 0.35)",
+            borderRadius: "var(--radius-2xl)",
+            padding: "48px 36px",
+            boxShadow: "0 20px 45px rgba(0, 0, 0, 0.3)",
+            marginBottom: "60px",
+            position: "relative",
+            overflow: "hidden"
           }}
         >
-          <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 30px" }}>
-            <span style={{ fontSize: "0.8rem", color: "var(--accent-primary)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em" }}>
-              Executive Leadership
+          <div style={{ textAlign: "center", maxWidth: "680px", margin: "0 auto 36px" }}>
+            <span style={{ fontSize: "0.78rem", color: "var(--accent-gold)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              <Sparkles size={14} /> Institutional Excellence & Trust
             </span>
-            <h2 style={{ fontSize: "2.2rem", margin: "6px 0 0" }}>Founder & Managing Director</h2>
+            <h2 style={{ fontSize: "2.3rem", margin: "8px 0 10px", color: "#ffffff", letterSpacing: "-0.5px" }}>
+              India's Premier Luxury Real Estate Network
+            </h2>
+            <p style={{ color: "#94a3b8", fontSize: "0.96rem", lineHeight: 1.6, margin: 0 }}>
+              Benchmarked against global architectural standards, delivering absolute legal transparency and curated acquisitions across northern and metropolitan India.
+            </p>
           </div>
 
+          {/* 4-Pillar Metric Grid */}
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "auto 1fr auto",
-              gap: "30px",
-              alignItems: "center",
-              background: "var(--bg-secondary)",
-              padding: "30px",
-              borderRadius: "var(--radius-lg)",
-              border: "1px solid var(--border-light)"
+              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+              gap: "20px"
             }}
-            className="founder-card-grid"
           >
-            <div className="pro-founder-avatar-frame" style={{ width: "110px", height: "110px" }}>
-              <div className="pro-founder-avatar-inner">
-                <img
-                  src={sanjayPhoto}
-                  alt="Sanjay Kumar - Founder"
-                  className="pro-founder-avatar-img"
-                />
-              </div>
-              <span className="pro-founder-live-pulse" title="Online"></span>
+            <div style={{ background: "rgba(255, 255, 255, 0.04)", border: "1px solid rgba(255, 255, 255, 0.08)", padding: "24px 20px", borderRadius: "var(--radius-lg)", textAlign: "center" }}>
+              <strong style={{ display: "block", fontSize: "2.2rem", fontWeight: 800, color: "var(--accent-gold)", marginBottom: "4px" }}>
+                ₹1,850 Cr+
+              </strong>
+              <span style={{ fontSize: "0.85rem", color: "#cbd5e1", fontWeight: 600 }}>
+                High-Net-Worth Portfolio Volume
+              </span>
             </div>
 
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px", flexWrap: "wrap" }}>
-                <h3 style={{ margin: 0, fontSize: "1.6rem" }}>Sanjay Kumar</h3>
-                <span style={{ background: "var(--accent-emerald-light)", color: "var(--accent-emerald)", padding: "2px 8px", borderRadius: "var(--radius-full)", fontSize: "0.75rem", fontWeight: 700 }}>
-                  Founder & Principal Lead
-                </span>
-                <span style={{ background: "rgba(59, 130, 246, 0.15)", color: "#3b82f6", padding: "2px 8px", borderRadius: "var(--radius-full)", fontSize: "0.75rem", fontWeight: 700 }}>
-                  📍 Darbhanga, Bihar Roots
-                </span>
-              </div>
-              <p style={{ color: "var(--accent-primary)", fontWeight: 600, fontSize: "0.95rem", margin: "0 0 10px" }}>
-                Managing Director, EstateHub Real Estate Technologies
-              </p>
-              <p style={{ color: "var(--text-secondary)", fontSize: "0.92rem", lineHeight: "1.6", margin: 0 }}>
-                Hailing from Darbhanga, Bihar, Sanjay Kumar is pioneering transparency, AI architectural staging, and legal certainty across Indian luxury real estate. Overseeing high-net-worth acquisitions, villa developments, and turnkey client portfolios with 100% guaranteed clear titles.
-              </p>
+            <div style={{ background: "rgba(255, 255, 255, 0.04)", border: "1px solid rgba(255, 255, 255, 0.08)", padding: "24px 20px", borderRadius: "var(--radius-lg)", textAlign: "center" }}>
+              <strong style={{ display: "block", fontSize: "2.2rem", fontWeight: 800, color: "#10b981", marginBottom: "4px" }}>
+                100%
+              </strong>
+              <span style={{ fontSize: "0.85rem", color: "#cbd5e1", fontWeight: 600 }}>
+                RERA Legal Title Clearance Guarantee
+              </span>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px", minWidth: "190px" }}>
-              <a
-                href="tel:+918809604880"
-                className="btn btn-primary btn-sm"
-                style={{ gap: "8px", justifyContent: "center" }}
-              >
-                <Phone size={15} />
-                <span>+91 8809604880</span>
-              </a>
-              <a
-                href="mailto:sanjay12012005@gmail.com"
-                className="btn btn-secondary btn-sm"
-                style={{ gap: "8px", justifyContent: "center" }}
-              >
-                <Mail size={15} />
-                <span>Send Direct Email</span>
-              </a>
+            <div style={{ background: "rgba(255, 255, 255, 0.04)", border: "1px solid rgba(255, 255, 255, 0.08)", padding: "24px 20px", borderRadius: "var(--radius-lg)", textAlign: "center" }}>
+              <strong style={{ display: "block", fontSize: "2.2rem", fontWeight: 800, color: "#60a5fa", marginBottom: "4px" }}>
+                4,200+
+              </strong>
+              <span style={{ fontSize: "0.85rem", color: "#cbd5e1", fontWeight: 600 }}>
+                Families & NRI Investors Handed Over
+              </span>
+            </div>
+
+            <div style={{ background: "rgba(255, 255, 255, 0.04)", border: "1px solid rgba(255, 255, 255, 0.08)", padding: "24px 20px", borderRadius: "var(--radius-lg)", textAlign: "center" }}>
+              <strong style={{ display: "block", fontSize: "2.2rem", fontWeight: 800, color: "#ec4899", marginBottom: "4px" }}>
+                99.8%
+              </strong>
+              <span style={{ fontSize: "0.85rem", color: "#cbd5e1", fontWeight: 600 }}>
+                On-Time Possession & Deed Delivery
+              </span>
             </div>
           </div>
         </div>
