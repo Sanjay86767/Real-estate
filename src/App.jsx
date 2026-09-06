@@ -9,6 +9,7 @@ import LiveActivityTicker from "./components/LiveActivityTicker";
 import AiChatbot from "./components/AiChatbot";
 import MarketTicker from "./components/MarketTicker";
 import VoiceCommander from "./components/VoiceCommander";
+import VipConciergeBar from "./components/VipConciergeBar";
 
 // Pages
 import Home from "./pages/Home";
@@ -52,6 +53,7 @@ export function App() {
           <LiveActivityTicker />
           <VoiceCommander />
           <AiChatbot />
+          <VipConciergeBar />
           <main style={{ flexGrow: 1 }}>
             <Routes>
               <Route path="/" element={<Home />} />

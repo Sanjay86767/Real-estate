@@ -94,15 +94,35 @@ export const Home = () => {
       <section className="hero-section">
         <div className="container">
           <div className="hero-content">
+            {/* Founder Endorsement Pill */}
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                padding: "8px 20px",
+                background: "rgba(217, 119, 6, 0.12)",
+                border: "1px solid rgba(217, 119, 6, 0.4)",
+                borderRadius: "var(--radius-full)",
+                marginBottom: "16px",
+                boxShadow: "0 0 20px rgba(217, 119, 6, 0.25)"
+              }}
+            >
+              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981", boxShadow: "0 0 8px #10b981" }}></span>
+              <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--accent-gold)", letterSpacing: "0.5px" }}>
+                Curated by Sanjay Kumar • Direct VIP Desk: +91 8809604880
+              </span>
+            </div>
+
             <div className="hero-tagline-pill">
               <Sparkles size={16} />
-              <span>India's Most Trusted Real Estate Finder</span>
+              <span>India's Most Prestigious Luxury Real Estate Platform</span>
             </div>
             <h1 className="hero-title">
-              Find Your <span>Dream Home</span><br />In Prime Locations
+              Find Your <span>Dream Estate</span><br />In Prime Corridors
             </h1>
             <p className="hero-desc">
-              Explore thousands of handpicked villas, modern apartments, and premium plots with verified titles and dedicated real estate advisors.
+              Explore thousands of handpicked villas, penthouses, and prime commercial plots with 100% verified titles and private advisory led by Sanjay Kumar.
             </p>
 
             {/* Quick Search Component */}
@@ -121,17 +141,17 @@ export const Home = () => {
             >
               <div className="hero-trust-badge">
                 <span className="live-dot-pulse"></span>
-                <span>🔥 34 Site Visits Booked Today</span>
+                <span>🔥 48 VIP Tours Scheduled Today</span>
               </div>
 
               <div className="hero-trust-badge">
                 <ShieldCheck size={14} color="var(--accent-emerald)" />
-                <span>100% Freehold Cleared Titles</span>
+                <span>100% Freehold & RERA Cleared</span>
               </div>
 
               <div className="hero-trust-badge">
                 <Star size={14} fill="var(--accent-gold)" color="var(--accent-gold)" />
-                <span>4.9/5 Rating (1,400+ Families)</span>
+                <span>4.98/5 High-Net-Worth Client Rating</span>
               </div>
             </div>
           </div>
@@ -146,20 +166,20 @@ export const Home = () => {
         <div className="container">
           <div className="stats-grid">
             <div className="stat-item">
-              <div className="stat-number">1,500+</div>
-              <div className="stat-label">Verified Listings</div>
+              <div className="stat-number">4,200+</div>
+              <div className="stat-label">Curated Luxury Estates</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number">98.6%</div>
-              <div className="stat-label">Happy Homeowners</div>
+              <div className="stat-number">99.6%</div>
+              <div className="stat-label">Client Satisfaction Rate</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number">₹450 Cr+</div>
-              <div className="stat-label">Properties Transacted</div>
+              <div className="stat-number">₹4,500 Cr+</div>
+              <div className="stat-label">Transactions Facilitated</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number">45+</div>
-              <div className="stat-label">Expert Real Estate Advisors</div>
+              <div className="stat-number">16+</div>
+              <div className="stat-label">Metro Growth Hubs</div>
             </div>
           </div>
         </div>
