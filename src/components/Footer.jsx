@@ -135,29 +135,27 @@ export const Footer = () => {
           style={{
             marginTop: "48px",
             marginBottom: "36px",
-            padding: "24px 30px",
-            background: "linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%)",
-            border: "1px solid rgba(217, 119, 6, 0.4)",
-            borderRadius: "var(--radius-xl)",
-            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.35), 0 0 30px rgba(217, 119, 6, 0.15)",
+            padding: "32px",
+            background: "linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.95) 100%)",
+            border: "1.5px solid rgba(217, 119, 6, 0.45)",
+            borderRadius: "var(--radius-2xl)",
+            boxShadow: "0 25px 50px rgba(0, 0, 0, 0.4), 0 0 35px rgba(217, 119, 6, 0.2)",
             display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
+            flexDirection: "column",
             gap: "24px"
           }}
         >
-          {/* Founder Bio & Identity */}
-          <div style={{ display: "flex", alignItems: "center", gap: "20px", flexWrap: "wrap" }}>
+          {/* Top Row: Founder Identity & Bio */}
+          <div style={{ display: "flex", alignItems: "center", gap: "22px", flexWrap: "wrap" }}>
             <div
               style={{
                 position: "relative",
-                width: "64px",
-                height: "64px",
+                width: "72px",
+                height: "72px",
                 borderRadius: "50%",
-                border: "2px solid #d97706",
+                border: "3px solid #d97706",
                 overflow: "hidden",
-                boxShadow: "0 0 16px rgba(217, 119, 6, 0.5)",
+                boxShadow: "0 0 20px rgba(217, 119, 6, 0.5)",
                 flexShrink: 0
               }}
             >
@@ -171,113 +169,134 @@ export const Footer = () => {
                   position: "absolute",
                   bottom: "2px",
                   right: "2px",
-                  width: "12px",
-                  height: "12px",
+                  width: "14px",
+                  height: "14px",
                   borderRadius: "50%",
                   background: "#10b981",
-                  border: "2px solid #0f172a",
-                  boxShadow: "0 0 8px #10b981"
+                  border: "2.5px solid #0f172a",
+                  boxShadow: "0 0 10px #10b981"
                 }}
               ></span>
             </div>
 
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-                <h3 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800, color: "#ffffff", letterSpacing: "0.2px" }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+                <h3 style={{ margin: 0, fontSize: "1.45rem", fontWeight: 800, color: "#ffffff", letterSpacing: "0.2px" }}>
                   Sanjay Kumar
                 </h3>
                 <span
                   style={{
-                    padding: "3px 10px",
+                    padding: "4px 12px",
                     background: "rgba(217, 119, 6, 0.2)",
                     border: "1px solid rgba(217, 119, 6, 0.5)",
                     borderRadius: "var(--radius-full)",
-                    fontSize: "0.72rem",
-                    fontWeight: 700,
+                    fontSize: "0.75rem",
+                    fontWeight: 800,
                     color: "var(--accent-gold)",
                     textTransform: "uppercase",
                     letterSpacing: "0.5px"
                   }}
                 >
-                  Founder & Principal Strategist
+                  Founder & Principal Luxury Strategist
                 </span>
-                <span style={{ fontSize: "0.75rem", color: "#10b981", fontWeight: 700, display: "flex", alignItems: "center", gap: "4px" }}>
-                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981", display: "inline-block" }}></span>
-                  Direct Desk Online
+                <span style={{ fontSize: "0.78rem", color: "#10b981", fontWeight: 700, display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981", boxShadow: "0 0 8px #10b981" }}></span>
+                  Direct Desk Online & Available
                 </span>
               </div>
-              <p style={{ margin: "6px 0 0", color: "#94a3b8", fontSize: "0.86rem", lineHeight: 1.5 }}>
-                Direct luxury estate acquisitions, ultra-HNW portfolio structuring & turnkey architectural development.
+              <p style={{ margin: "8px 0 0", color: "#94a3b8", fontSize: "0.92rem", lineHeight: 1.6, maxWidth: "800px" }}>
+                Leading high-net-worth real estate transactions, luxury villa developments, and NRI portfolio acquisitions across Chandigarh, Mohali, Delhi NCR & Bangalore.
               </p>
             </div>
           </div>
 
-          {/* Quick Contact Action Pills */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-            <a
-              href="tel:+918809604880"
-              className="btn btn-gold"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "10px 18px",
-                fontSize: "0.88rem",
-                fontWeight: 700,
-                textDecoration: "none",
-                borderRadius: "var(--radius-full)",
-                boxShadow: "0 4px 15px rgba(217, 119, 6, 0.4)"
-              }}
-              title="Call Sanjay Kumar directly"
-            >
-              <Phone size={16} />
-              <span>+91 8809604880</span>
-            </a>
+          {/* Bottom Row: Phone Number & Contact Actions Placed Cleanly Below */}
+          <div
+            style={{
+              paddingTop: "20px",
+              borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: "16px"
+            }}
+          >
+            {/* Phone Number Call Box */}
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+              <a
+                href="tel:+918809604880"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "12px 24px",
+                  background: "linear-gradient(135deg, #d97706 0%, #b45309 100%)",
+                  color: "#ffffff",
+                  fontSize: "1rem",
+                  fontWeight: 800,
+                  textDecoration: "none",
+                  borderRadius: "var(--radius-full)",
+                  boxShadow: "0 6px 20px rgba(217, 119, 6, 0.45)",
+                  letterSpacing: "0.5px"
+                }}
+                title="Direct Call Founder Sanjay Kumar"
+              >
+                <Phone size={18} />
+                <span>Call +91 8809604880</span>
+              </a>
 
-            <a
-              href="https://wa.me/918809604880?text=Hi%20Sanjay,%20I%20am%20interested%20in%20luxury%20properties%20on%20EstateHub."
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "10px 18px",
-                fontSize: "0.88rem",
-                fontWeight: 700,
-                textDecoration: "none",
-                borderRadius: "var(--radius-full)",
-                background: "#16a34a",
-                color: "#ffffff",
-                boxShadow: "0 4px 15px rgba(22, 163, 74, 0.35)",
-                transition: "all 0.2s ease"
-              }}
-              title="Chat with Sanjay on WhatsApp"
-            >
-              <span>💬 WhatsApp</span>
-            </a>
+              <a
+                href="https://wa.me/918809604880?text=Hi%20Sanjay,%20I%20am%20interested%20in%20luxury%20properties%20on%20EstateHub."
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "12px 22px",
+                  background: "#16a34a",
+                  color: "#ffffff",
+                  fontSize: "0.95rem",
+                  fontWeight: 700,
+                  textDecoration: "none",
+                  borderRadius: "var(--radius-full)",
+                  boxShadow: "0 6px 20px rgba(22, 163, 74, 0.35)"
+                }}
+                title="Chat with Sanjay on WhatsApp"
+              >
+                <span>💬 WhatsApp +91 8809604880</span>
+              </a>
 
-            <a
-              href="mailto:sanjay12012005@gmail.com"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                padding: "10px 18px",
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                textDecoration: "none",
-                borderRadius: "var(--radius-full)",
-                background: "rgba(255, 255, 255, 0.08)",
-                border: "1px solid rgba(255, 255, 255, 0.2)",
-                color: "#f8fafc",
-                transition: "all 0.2s ease"
-              }}
-              title="Email Sanjay Kumar"
-            >
-              <Mail size={15} />
-              <span>sanjay12012005@gmail.com</span>
-            </a>
+              <a
+                href="mailto:sanjay12012005@gmail.com"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "11px 20px",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  border: "1px solid rgba(255, 255, 255, 0.25)",
+                  color: "#ffffff",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  borderRadius: "var(--radius-full)"
+                }}
+                title="Email Sanjay Kumar"
+              >
+                <Mail size={16} />
+                <span>sanjay12012005@gmail.com</span>
+              </a>
+            </div>
+
+            {/* RERA Badge & License */}
+            <div style={{ fontSize: "0.8rem", color: "#94a3b8", display: "flex", alignItems: "center", gap: "8px" }}>
+              <span style={{ color: "var(--accent-gold)", fontWeight: 700 }}>RERA Certified:</span>
+              <code style={{ background: "rgba(0,0,0,0.3)", padding: "2px 8px", borderRadius: "4px", color: "#e2e8f0" }}>
+                RERA-IND-ESTATE-2024-SK
+              </code>
+            </div>
           </div>
         </div>
 

@@ -89,17 +89,42 @@ export const AgentCard = ({ agent, onContactClick }) => {
         {agent.bio}
       </p>
 
+      {/* Direct Phone Number Pill */}
+      <a
+        href={`tel:${agent.phone}`}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "8px",
+          padding: "8px 14px",
+          background: "rgba(37, 99, 235, 0.08)",
+          border: "1px solid rgba(37, 99, 235, 0.25)",
+          borderRadius: "var(--radius-full)",
+          color: "var(--accent-primary)",
+          fontWeight: 700,
+          fontSize: "0.86rem",
+          textDecoration: "none",
+          marginBottom: "14px",
+          transition: "var(--transition)"
+        }}
+        title={`Call ${agent.name} directly`}
+      >
+        <Phone size={14} />
+        <span>{agent.phone}</span>
+      </a>
+
       {/* Action Buttons */}
       <div className="agent-contact-actions">
-        <button
-          onClick={handleCall}
+        <a
+          href={`tel:${agent.phone}`}
           className="btn btn-secondary btn-sm"
-          style={{ flex: 1, gap: "6px" }}
+          style={{ flex: 1, gap: "6px", textDecoration: "none" }}
           title="Call agent"
         >
           <Phone size={14} color="var(--accent-primary)" />
           <span>Call</span>
-        </button>
+        </a>
 
         <button
           onClick={handleEmail}
