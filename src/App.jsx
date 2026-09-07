@@ -12,6 +12,7 @@ import VoiceCommander from "./components/VoiceCommander";
 import VipConciergeBar from "./components/VipConciergeBar";
 import MobileAppDock from "./components/MobileAppDock";
 import RealtimeLiveEngine from "./components/RealtimeLiveEngine";
+import CommandPalette from "./components/CommandPalette";
 
 // Pages
 import Home from "./pages/Home";
@@ -58,6 +59,7 @@ export function App() {
           <CompareModal />
           <LiveActivityTicker />
           <VoiceCommander />
+          <CommandPalette />
           <AiChatbot />
           <VipConciergeBar />
           <main style={{ flexGrow: 1 }}>
