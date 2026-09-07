@@ -6,6 +6,7 @@ import Filter from "../components/Filter";
 import InteractiveMap from "../components/InteractiveMap";
 import BrochureHubModal from "../components/BrochureHubModal";
 import PropertiesSidebarContent from "../components/PropertiesSidebarContent";
+import IndiaStateExplorer from "../components/IndiaStateExplorer";
 import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 import {
   LayoutGrid,
@@ -220,16 +221,118 @@ export const Properties = () => {
   return (
     <div className="properties-page" style={{ padding: "40px 0 80px", minHeight: "85vh" }}>
       <div className="container">
-        {/* Page Header */}
-        <div style={{ marginBottom: "24px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--accent-primary)", fontSize: "0.85rem", fontWeight: 700, textTransform: "uppercase" }}>
-            <Home size={16} />
-            <span>Prime Real Estate Catalog</span>
+        {/* Elite Page Header & Unique Real Estate Portfolio Showcase */}
+        <div
+          style={{
+            marginBottom: "28px",
+            padding: "32px 28px",
+            background: "linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%)",
+            border: "1px solid rgba(212, 175, 55, 0.4)",
+            borderRadius: "var(--radius-xl)",
+            boxShadow: "0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(212, 175, 55, 0.12)",
+            position: "relative",
+            overflow: "hidden"
+          }}
+        >
+          {/* Ambient Glow */}
+          <div
+            style={{
+              position: "absolute",
+              top: "-50px",
+              right: "-50px",
+              width: "250px",
+              height: "250px",
+              borderRadius: "50%",
+              background: "radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%)",
+              pointerEvents: "none"
+            }}
+          />
+
+          <div style={{ position: "relative", zIndex: 2 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px", flexWrap: "wrap" }}>
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  padding: "4px 12px",
+                  borderRadius: "var(--radius-full)",
+                  background: "linear-gradient(135deg, #d4af37, #f59e0b)",
+                  color: "#0f172a",
+                  fontSize: "0.74rem",
+                  fontWeight: 900,
+                  letterSpacing: "0.5px"
+                }}
+              >
+                <Crown size={13} />
+                <span>ALL RESIDENCES & UNIQUE REAL ESTATE</span>
+              </span>
+
+              <span style={{ fontSize: "0.76rem", color: "#94a3b8", fontWeight: 700 }}>
+                100% Freehold RERA Cleared • 28 Indian States & UTs
+              </span>
+            </div>
+
+            <h1 style={{ fontSize: "2.4rem", margin: "6px 0 10px", color: "#ffffff", fontWeight: 900 }}>
+              India's Premier Real Estate Portfolio
+            </h1>
+
+            <p style={{ color: "#cbd5e1", fontSize: "0.95rem", maxWidth: "850px", margin: "0 0 20px", lineHeight: 1.5 }}>
+              From royal Mithila heritage kothis in Darbhanga to Arabian Sea horizon mansions in Mumbai, beachfront pool villas in Goa & DLF golf suites in NCR.
+            </p>
+
+            {/* Unique Architectural Style Badges (Instant Click Filters) */}
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+              <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#d4af37", textTransform: "uppercase", letterSpacing: "0.5px", marginRight: "4px" }}>
+                Signature Themes:
+              </span>
+
+              {[
+                { label: "🏰 Royal Heritage Kothis", query: "Kothi", state: "Bihar" },
+                { label: "🌊 Worli Coastal Mansions", query: "Mansion", city: "Mumbai" },
+                { label: "🏖️ Goa Beachfront Pool Villas", query: "Villa", state: "Goa" },
+                { label: "🏌️ Golf Horizon Duplexes", query: "Penthouse", city: "Gurugram" },
+                { label: "🌿 Net-Zero Eco Penthouses", query: "Villa", city: "Bangalore" },
+                { label: "🛕 Temple Corridor Plots", query: "Plot", city: "Ayodhya" }
+              ].map((theme, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => {
+                    const p = new URLSearchParams();
+                    if (theme.query) p.set("q", theme.query);
+                    if (theme.city) p.set("city", theme.city);
+                    if (theme.state) p.set("state", theme.state);
+                    setSearchParams(p);
+                  }}
+                  style={{
+                    padding: "6px 14px",
+                    borderRadius: "var(--radius-full)",
+                    background: "rgba(255, 255, 255, 0.08)",
+                    border: "1px solid rgba(255, 255, 255, 0.18)",
+                    color: "#f8fafc",
+                    fontSize: "0.78rem",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    transition: "all 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "#d4af37";
+                    e.currentTarget.style.background = "rgba(212, 175, 55, 0.2)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.18)";
+                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
+                  }}
+                >
+                  <span>{theme.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
-          <h1 style={{ fontSize: "2.4rem", marginTop: "6px" }}>Explore Properties</h1>
-          <p style={{ marginTop: "4px" }}>
-            Discover verified 1 BHK, 2 BHK, 3 BHK, 4 BHK, 5 BHK luxury residences and plots across India with real-time price & Vastu filters.
-          </p>
         </div>
 
         {/* Quick BHK Navigation Bar with Live Counts */}
@@ -653,6 +756,108 @@ export const Properties = () => {
                 </button>
               </div>
             )}
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Pan-India 36 States & UTs Explorer Section */}
+      <div style={{ marginTop: "40px" }}>
+        <IndiaStateExplorer />
+      </div>
+
+      {/* 3. Founder Sanjay Kumar Institutional Advisory & VIP NRI Desk Banner */}
+      <div className="container" style={{ marginTop: "40px" }}>
+        <div
+          style={{
+            padding: "36px 32px",
+            background: "linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9))",
+            border: "1px solid rgba(212, 175, 55, 0.4)",
+            borderRadius: "var(--radius-xl)",
+            boxShadow: "0 25px 60px rgba(0,0,0,0.5), 0 0 30px rgba(212, 175, 55, 0.12)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "24px"
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "20px", flexWrap: "wrap" }}>
+            <div style={{ position: "relative" }}>
+              <img
+                src={sanjayPhoto}
+                alt="Sanjay Kumar - Founder"
+                style={{
+                  width: "74px",
+                  height: "74px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  border: "3px solid #d97706",
+                  boxShadow: "0 0 20px rgba(217, 119, 6, 0.6)"
+                }}
+              />
+              <span
+                style={{
+                  position: "absolute",
+                  bottom: "3px",
+                  right: "3px",
+                  width: "15px",
+                  height: "15px",
+                  borderRadius: "50%",
+                  background: "#10b981",
+                  border: "2px solid #0f172a"
+                }}
+              />
+            </div>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
+                <h3 style={{ margin: 0, fontSize: "1.3rem", color: "#ffffff", fontWeight: 800 }}>
+                  Founder Advisory Desk: Sanjay Kumar
+                </h3>
+                <ShieldCheck size={18} color="#10b981" />
+              </div>
+              <p style={{ margin: 0, fontSize: "0.86rem", color: "#94a3b8", maxWidth: "620px", lineHeight: 1.45 }}>
+                Principal Investment Consultant • Darbhanga, Bihar. Providing high-net-worth NRI portfolio allocations, off-market royal estates, ancestral land clearances & 100% legal RERA title verification.
+              </p>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
+            <a
+              href="tel:+918809604880"
+              className="btn btn-gold"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "12px 22px",
+                fontWeight: 800,
+                textDecoration: "none"
+              }}
+            >
+              <Phone size={15} />
+              <span>Call +91 8809604880</span>
+            </a>
+
+            <a
+              href="https://wa.me/918809604880?text=Hello%20Sanjay%20ji,%20I%20am%20exploring%20properties%20on%20EstateHub%20and%20need%20custom%20advisory."
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "12px 22px",
+                background: "#25D366",
+                color: "#ffffff",
+                borderRadius: "var(--radius-md)",
+                fontWeight: 800,
+                textDecoration: "none",
+                boxShadow: "0 4px 14px rgba(37, 211, 102, 0.4)"
+              }}
+            >
+              <MessageSquare size={15} />
+              <span>WhatsApp Founder</span>
+            </a>
           </div>
         </div>
       </div>
