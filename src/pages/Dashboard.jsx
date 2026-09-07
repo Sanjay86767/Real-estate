@@ -45,7 +45,7 @@ export const Dashboard = ({ defaultTab }) => {
 
   const myListedProperties = properties.filter((p) => p.isCustom);
   const [activeTab, setActiveTab] = useState(
-    queryTab || defaultTab || (myListedProperties.length > 0 ? "my-properties" : "visits")
+    queryTab || defaultTab || "visits"
   );
 
   useEffect(() => {
@@ -250,32 +250,53 @@ export const Dashboard = ({ defaultTab }) => {
         </div>
 
         {/* Main Section Tabs: My Properties | Visits | Deals | Portfolio */}
-        <div style={{ display: "flex", gap: "10px", borderBottom: "2px solid var(--border-light)", marginBottom: "28px", overflowX: "auto" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            background: "var(--bg-surface)",
+            padding: "8px",
+            borderRadius: "var(--radius-xl)",
+            border: "1px solid var(--border-light)",
+            marginBottom: "32px",
+            overflowX: "auto",
+            boxShadow: "var(--shadow-sm)"
+          }}
+        >
           {[
-            { id: "my-properties", label: `🏡 My Listed Properties (${myListedProperties.length})` },
-            { id: "visits", label: `🗓️ ${t("upcomingInspections")} (${scheduledVisits.length})` },
-            { id: "deals", label: `📑 ${t("myOffers")} (${offers.length})` },
-            { id: "portfolio", label: `❤️ ${t("savedWatchlist")} (${favoriteProps.length})` }
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              style={{
-                padding: "12px 20px",
-                background: "none",
-                border: "none",
-                borderBottom: activeTab === tab.id ? "3px solid var(--accent-gold)" : "3px solid transparent",
-                fontWeight: 800,
-                fontSize: "0.95rem",
-                color: activeTab === tab.id ? "var(--accent-gold)" : "var(--text-secondary)",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-                whiteSpace: "nowrap"
-              }}
-            >
-              {tab.label}
-            </button>
-          ))}
+            { id: "my-properties", label: `🏡 My Listed Properties (${myListedProperties.length})`, count: myListedProperties.length, color: "#f59e0b" },
+            { id: "visits", label: `🗓️ Site Visit List (${scheduledVisits.length})`, count: scheduledVisits.length, color: "#3b82f6" },
+            { id: "deals", label: `📑 My Offers & Deals (${offers.length})`, count: offers.length, color: "#d97706" },
+            { id: "portfolio", label: `❤️ Saved Watchlist (${favoriteProps.length})`, count: favoriteProps.length, color: "#ec4899" }
+          ].map((tab) => {
+            const isSelected = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                style={{
+                  flex: 1,
+                  padding: "13px 18px",
+                  borderRadius: "var(--radius-lg)",
+                  border: isSelected ? `1.5px solid ${tab.color}` : "1px solid transparent",
+                  background: isSelected ? "linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(15, 23, 42, 0.95))" : "transparent",
+                  fontWeight: 800,
+                  fontSize: "0.92rem",
+                  color: isSelected ? "#ffffff" : "var(--text-secondary)",
+                  cursor: "pointer",
+                  transition: "all 0.25s ease",
+                  whiteSpace: "nowrap",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  boxShadow: isSelected ? "0 4px 18px rgba(0,0,0,0.25)" : "none"
+                }}
+              >
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* TAB 0: MY LISTED PROPERTIES (PROPERTIES ADDED BY USER) */}
@@ -460,114 +481,202 @@ export const Dashboard = ({ defaultTab }) => {
               <div
                 style={{
                   background: "var(--bg-surface)",
-                  borderRadius: "var(--radius-lg)",
-                  padding: "48px 24px",
+                  borderRadius: "var(--radius-xl)",
+                  padding: "60px 24px",
                   textAlign: "center",
                   border: "1px dashed var(--border-light)"
                 }}
               >
-                <Calendar size={48} color="var(--text-muted)" style={{ margin: "0 auto 16px" }} />
-                <h3 style={{ margin: "0 0 8px" }}>No Site Inspections Scheduled</h3>
-                <p style={{ color: "var(--text-secondary)", marginBottom: "20px" }}>
-                  Book a private luxury tour with verified keyholders and architects.
+                <div
+                  style={{
+                    width: "72px",
+                    height: "72px",
+                    borderRadius: "50%",
+                    background: "rgba(59, 130, 246, 0.15)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "0 auto 20px"
+                  }}
+                >
+                  <Calendar size={36} color="#3b82f6" />
+                </div>
+                <h3 style={{ margin: "0 0 8px", fontSize: "1.35rem", fontWeight: 800 }}>
+                  No Site Inspections Scheduled Yet
+                </h3>
+                <p style={{ color: "var(--text-secondary)", marginBottom: "24px", maxWidth: "480px", margin: "0 auto 24px" }}>
+                  Book a private VIP physical tour or virtual inspection on any residence with verified keyholders and architects.
                 </p>
-                <Link to="/properties" className="btn btn-primary">
+                <Link to="/properties" className="btn btn-primary" style={{ padding: "12px 28px", fontWeight: 800 }}>
                   Explore Residences to Inspect
                 </Link>
               </div>
             ) : (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "20px" }}>
-                {scheduledVisits.map((visit) => (
-                  <div
-                    key={visit.id}
-                    style={{
-                      background: "var(--bg-surface)",
-                      border: "1px solid var(--border-light)",
-                      borderRadius: "var(--radius-xl)",
-                      padding: "24px",
-                      boxShadow: "var(--shadow-sm)",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between"
-                    }}
-                  >
-                    <div>
-                      {/* Badge and Status */}
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                        <span
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "24px" }}>
+                {scheduledVisits.map((visit) => {
+                  const matchedProp = properties.find((p) => p.id === Number(visit.propertyId));
+                  const visitImage = matchedProp
+                    ? (matchedProp.images && matchedProp.images[0]) || matchedProp.image
+                    : "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80";
+                  const propPrice = matchedProp ? formatPrice(matchedProp.price) : null;
+
+                  return (
+                    <div
+                      key={visit.id}
+                      style={{
+                        background: "var(--bg-surface)",
+                        border: "1.5px solid rgba(59, 130, 246, 0.4)",
+                        borderRadius: "var(--radius-xl)",
+                        overflow: "hidden",
+                        boxShadow: "0 10px 28px rgba(0,0,0,0.14)",
+                        display: "flex",
+                        flexDirection: "column",
+                        transition: "all 0.3s ease"
+                      }}
+                    >
+                      {/* Property Image Banner with Visit Badges */}
+                      <div style={{ position: "relative", height: "180px" }}>
+                        <img
+                          src={visitImage}
+                          alt={visit.propertyTitle}
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        />
+                        <div
                           style={{
-                            background: "rgba(16, 185, 129, 0.15)",
-                            color: "#10b981",
-                            padding: "3px 10px",
-                            borderRadius: "12px",
-                            fontSize: "0.72rem",
-                            fontWeight: 800,
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "4px"
+                            position: "absolute",
+                            inset: 0,
+                            background: "linear-gradient(to top, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.15) 60%)"
                           }}
-                        >
-                          <CheckCircle2 size={12} />
-                          <span>{visit.status}</span>
-                        </span>
-                        <span style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>
-                          {visit.type}
-                        </span>
-                      </div>
+                        />
 
-                      <h3 style={{ margin: "0 0 6px", fontSize: "1.15rem", fontWeight: 800 }}>
-                        {visit.propertyTitle}
-                      </h3>
+                        {/* Top Badges */}
+                        <div style={{ position: "absolute", top: "12px", left: "12px", right: "12px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          <span
+                            style={{
+                              background: "linear-gradient(135deg, #10b981, #059669)",
+                              color: "#ffffff",
+                              padding: "4px 12px",
+                              borderRadius: "20px",
+                              fontSize: "0.74rem",
+                              fontWeight: 900,
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "5px",
+                              boxShadow: "0 4px 12px rgba(16, 185, 129, 0.4)"
+                            }}
+                          >
+                            <CheckCircle2 size={13} />
+                            <span>INSPECTION CONFIRMED</span>
+                          </span>
 
-                      <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--text-secondary)", fontSize: "0.82rem", marginBottom: "16px" }}>
-                        <MapPin size={14} color="var(--accent-primary)" />
-                        <span>{visit.location}</span>
-                      </div>
-
-                      {/* Time & Agent Details */}
-                      <div style={{ background: "var(--bg-main)", borderRadius: "var(--radius-md)", padding: "12px", marginBottom: "16px", border: "1px solid var(--border-light)" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px", fontSize: "0.85rem", fontWeight: 700 }}>
-                          <Clock size={15} color="#3b82f6" />
-                          <span>{visit.date} at {visit.time}</span>
+                          <span
+                            style={{
+                              background: "rgba(15, 23, 42, 0.85)",
+                              backdropFilter: "blur(6px)",
+                              color: "#93c5fd",
+                              fontSize: "0.72rem",
+                              fontWeight: 800,
+                              padding: "4px 10px",
+                              borderRadius: "12px",
+                              border: "1px solid rgba(59, 130, 246, 0.3)"
+                            }}
+                          >
+                            {visit.type || "VIP Private Inspection"}
+                          </span>
                         </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.8rem", color: "var(--text-secondary)" }}>
-                          <UserCheck size={15} color="#d97706" />
-                          <span>Escort: <strong>{visit.agentName}</strong></span>
+
+                        {/* Price & Pass ID */}
+                        <div style={{ position: "absolute", bottom: "10px", left: "14px", right: "14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          {propPrice && (
+                            <span style={{ color: "#fbbf24", fontWeight: 900, fontSize: "1.1rem", textShadow: "0 2px 8px rgba(0,0,0,0.8)" }}>
+                              {propPrice}
+                            </span>
+                          )}
+                          <span style={{ color: "#cbd5e1", fontSize: "0.72rem", background: "rgba(0,0,0,0.65)", padding: "2px 8px", borderRadius: "6px", fontWeight: 700 }}>
+                            PASS: #{visit.id.toString().slice(-6).toUpperCase()}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Content Details */}
+                      <div style={{ padding: "20px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                        <div>
+                          <h3 style={{ margin: "0 0 6px", fontSize: "1.2rem", fontWeight: 800 }}>
+                            {visit.propertyTitle}
+                          </h3>
+
+                          <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--text-secondary)", fontSize: "0.85rem", marginBottom: "16px" }}>
+                            <MapPin size={15} color="var(--accent-primary)" style={{ flexShrink: 0 }} />
+                            <span>{visit.location}</span>
+                          </div>
+
+                          {/* Inspection Timing & Escort Box */}
+                          <div
+                            style={{
+                              background: "linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(15, 23, 42, 0.6))",
+                              borderRadius: "var(--radius-md)",
+                              padding: "14px",
+                              marginBottom: "16px",
+                              border: "1px solid rgba(59, 130, 246, 0.25)"
+                            }}
+                          >
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px", fontSize: "0.92rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                              <Clock size={16} color="#3b82f6" />
+                              <span>{visit.date} at {visit.time}</span>
+                            </div>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.84rem", color: "var(--text-secondary)" }}>
+                              <UserCheck size={16} color="#f59e0b" />
+                              <span>Dedicated Escort: <strong style={{ color: "var(--text-primary)" }}>{visit.agentName}</strong></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Visit Actions: View Property, Google Cal, Call, Cancel */}
+                        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", paddingTop: "14px", borderTop: "1px solid var(--border-light)" }}>
+                          <Link
+                            to={`/property/${visit.propertyId}`}
+                            className="btn btn-primary btn-sm"
+                            style={{ flex: 1, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px", textDecoration: "none" }}
+                          >
+                            <ExternalLink size={13} />
+                            <span>View Property</span>
+                          </Link>
+
+                          <a
+                            href={getGoogleCalendarUrl(visit)}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="btn btn-outline btn-sm"
+                            style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}
+                            title="Sync with Google Calendar"
+                          >
+                            <Calendar size={13} />
+                            <span>Google Cal</span>
+                          </a>
+
+                          <a
+                            href={`tel:${visit.agentPhone}`}
+                            className="btn btn-secondary btn-sm"
+                            style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
+                            title={`Call ${visit.agentName}`}
+                          >
+                            <Phone size={13} />
+                            <span>Call</span>
+                          </a>
+
+                          <button
+                            onClick={() => cancelVisit(visit.id)}
+                            className="btn-icon btn-sm"
+                            title="Cancel Inspection"
+                            style={{ color: "#ef4444" }}
+                          >
+                            <Trash2 size={15} />
+                          </button>
                         </div>
                       </div>
                     </div>
-
-                    {/* Visit Actions */}
-                    <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", paddingTop: "14px", borderTop: "1px solid var(--border-light)" }}>
-                      <a
-                        href={getGoogleCalendarUrl(visit)}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="btn btn-outline btn-sm"
-                        style={{ flex: 1, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
-                      >
-                        <Calendar size={13} />
-                        <span>Add to Google Cal</span>
-                      </a>
-                      <a
-                        href={`tel:${visit.agentPhone}`}
-                        className="btn btn-secondary btn-sm"
-                        style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}
-                      >
-                        <Phone size={13} />
-                        <span>Call</span>
-                      </a>
-                      <button
-                        onClick={() => cancelVisit(visit.id)}
-                        className="btn-icon btn-sm"
-                        title="Cancel Inspection"
-                        style={{ color: "#ef4444" }}
-                      >
-                        <Trash2 size={15} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
