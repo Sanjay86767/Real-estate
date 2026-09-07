@@ -115,10 +115,29 @@ export const PropertyCard = ({ property }) => {
 
         {/* Top Badges */}
         <div className="card-badges">
+          {property.isCustom && (
+            <span
+              className="badge"
+              style={{
+                background: "linear-gradient(135deg, #f59e0b, #d97706)",
+                color: "#ffffff",
+                fontWeight: 900,
+                border: "1px solid #fbbf24",
+                boxShadow: "0 0 12px rgba(245, 158, 11, 0.6)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "4px",
+                letterSpacing: "0.3px"
+              }}
+            >
+              <Sparkles size={11} color="#ffffff" />
+              <span>Added By You</span>
+            </span>
+          )}
           <span className="badge badge-bhk" style={{ background: "rgba(15, 23, 42, 0.9)", color: "#38bdf8", fontWeight: 800, border: "1px solid rgba(56, 189, 248, 0.4)" }}>
             {property.bhk || (property.bedrooms > 0 ? `${property.bedrooms} BHK` : "Plot Land")}
           </span>
-          {property.featured && (
+          {property.featured && !property.isCustom && (
             <span className="badge badge-featured">Featured</span>
           )}
           <span className="badge badge-type">{property.type}</span>

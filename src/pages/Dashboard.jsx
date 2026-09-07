@@ -33,12 +33,15 @@ export const Dashboard = () => {
     offers,
     updateOfferStatus,
     formatPrice,
+    deleteCustomProperty,
+    addToast,
     user,
     t,
     toggleFavorite
   } = usePropertyContext();
 
-  const [activeTab, setActiveTab] = useState("visits"); // 'visits' | 'deals' | 'portfolio'
+  const myListedProperties = properties.filter((p) => p.isCustom);
+  const [activeTab, setActiveTab] = useState(myListedProperties.length > 0 ? "my-properties" : "visits");
   const [selectedPropertyForOffer, setSelectedPropertyForOffer] = useState(null);
 
   // Calculate tracked portfolio value from favorites
@@ -216,9 +219,10 @@ export const Dashboard = () => {
           </div>
         </div>
 
-        {/* Main Section Tabs: Visits | Deals | Portfolio */}
-        <div style={{ display: "flex", gap: "10px", borderBottom: "2px solid var(--border-light)", marginBottom: "28px" }}>
+        {/* Main Section Tabs: My Properties | Visits | Deals | Portfolio */}
+        <div style={{ display: "flex", gap: "10px", borderBottom: "2px solid var(--border-light)", marginBottom: "28px", overflowX: "auto" }}>
           {[
+            { id: "my-properties", label: `🏡 My Listed Properties (${myListedProperties.length})` },
             { id: "visits", label: `🗓️ ${t("upcomingInspections")} (${scheduledVisits.length})` },
             { id: "deals", label: `📑 ${t("myOffers")} (${offers.length})` },
             { id: "portfolio", label: `❤️ ${t("savedWatchlist")} (${favoriteProps.length})` }
@@ -235,13 +239,189 @@ export const Dashboard = () => {
                 fontSize: "0.95rem",
                 color: activeTab === tab.id ? "var(--accent-gold)" : "var(--text-secondary)",
                 cursor: "pointer",
-                transition: "all 0.2s ease"
+                transition: "all 0.2s ease",
+                whiteSpace: "nowrap"
               }}
             >
               {tab.label}
             </button>
           ))}
         </div>
+
+        {/* TAB 0: MY LISTED PROPERTIES (PROPERTIES ADDED BY USER) */}
+        {activeTab === "my-properties" && (
+          <div>
+            {myListedProperties.length === 0 ? (
+              <div
+                style={{
+                  background: "var(--bg-surface)",
+                  borderRadius: "var(--radius-lg)",
+                  padding: "48px 24px",
+                  textAlign: "center",
+                  border: "1px dashed var(--border-light)"
+                }}
+              >
+                <Building2 size={48} color="var(--accent-gold)" style={{ margin: "0 auto 16px" }} />
+                <h3 style={{ margin: "0 0 8px" }}>No Properties Listed Yet</h3>
+                <p style={{ color: "var(--text-secondary)", marginBottom: "20px", maxWidth: "520px", margin: "0 auto 20px" }}>
+                  List your residential apartments, luxury villas, or royal heritage kothis on EstateHub to connect with verified buyers nationwide.
+                </p>
+                <Link to="/list-property" className="btn btn-gold" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <Plus size={16} />
+                  <span>+ List Your First Property</span>
+                </Link>
+              </div>
+            ) : (
+              <div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "12px" }}>
+                  <div>
+                    <h3 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800 }}>
+                      Your Live Listings Portfolio ({myListedProperties.length})
+                    </h3>
+                    <p style={{ margin: "4px 0 0", color: "var(--text-secondary)", fontSize: "0.85rem" }}>
+                      Properties you have published are live on EstateHub, pinned to the top of the All Residences catalog.
+                    </p>
+                  </div>
+                  <Link to="/list-property" className="btn btn-gold btn-sm" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                    <Plus size={14} />
+                    <span>+ Add Another Property</span>
+                  </Link>
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "22px" }}>
+                  {myListedProperties.map((prop) => {
+                    const propImage = (prop.images && prop.images[0]) || prop.image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80";
+                    return (
+                      <div
+                        key={prop.id}
+                        style={{
+                          background: "var(--bg-surface)",
+                          border: "1.5px solid rgba(245, 158, 11, 0.45)",
+                          borderRadius: "var(--radius-xl)",
+                          overflow: "hidden",
+                          boxShadow: "0 10px 25px rgba(0,0,0,0.12)",
+                          display: "flex",
+                          flexDirection: "column"
+                        }}
+                      >
+                        <div style={{ position: "relative", height: "200px" }}>
+                          <img
+                            src={propImage}
+                            alt={prop.title}
+                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                          />
+                          <div
+                            style={{
+                              position: "absolute",
+                              top: "12px",
+                              left: "12px",
+                              background: "linear-gradient(135deg, #10b981, #059669)",
+                              color: "#ffffff",
+                              fontSize: "0.72rem",
+                              fontWeight: 900,
+                              padding: "4px 10px",
+                              borderRadius: "20px",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "5px",
+                              boxShadow: "0 4px 10px rgba(16, 185, 129, 0.4)"
+                            }}
+                          >
+                            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ffffff", display: "inline-block" }}></span>
+                            <span>LIVE & VERIFIED</span>
+                          </div>
+
+                          <div
+                            style={{
+                              position: "absolute",
+                              bottom: "12px",
+                              left: "12px",
+                              background: "rgba(15, 23, 42, 0.9)",
+                              backdropFilter: "blur(6px)",
+                              color: "#fbbf24",
+                              fontSize: "1.15rem",
+                              fontWeight: 900,
+                              padding: "4px 12px",
+                              borderRadius: "8px",
+                              border: "1px solid rgba(245, 158, 11, 0.4)"
+                            }}
+                          >
+                            {formatPrice(prop.price)}
+                          </div>
+                        </div>
+
+                        <div style={{ padding: "20px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                          <div>
+                            <div style={{ display: "flex", gap: "8px", alignItems: "center", marginBottom: "8px", flexWrap: "wrap" }}>
+                              <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "var(--accent-primary)", background: "var(--accent-primary-light)", padding: "2px 8px", borderRadius: "4px" }}>
+                                {prop.type}
+                              </span>
+                              <span style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>
+                                {prop.bedrooms ? `${prop.bedrooms} BHK` : "Plot"} • {prop.area} sq.ft
+                              </span>
+                              <span style={{ fontSize: "0.75rem", color: "#10b981", fontWeight: 700 }}>
+                                {prop.status || "Ready to Move"}
+                              </span>
+                            </div>
+
+                            <h3 style={{ margin: "0 0 6px", fontSize: "1.15rem", fontWeight: 800 }}>
+                              {prop.title}
+                            </h3>
+
+                            <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "var(--text-secondary)", fontSize: "0.82rem", marginBottom: "16px" }}>
+                              <MapPin size={13} color="var(--accent-gold)" />
+                              <span>{prop.location || `${prop.city}`}</span>
+                            </div>
+                          </div>
+
+                          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", borderTop: "1px solid var(--border-light)", paddingTop: "14px" }}>
+                            <Link
+                              to={`/property/${prop.id}`}
+                              className="btn btn-gold btn-sm"
+                              style={{ flex: 1, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px", textDecoration: "none" }}
+                            >
+                              <span>👁️ View Live Page</span>
+                              <ExternalLink size={13} />
+                            </Link>
+
+                            <button
+                              onClick={() => {
+                                const url = `${window.location.origin}/property/${prop.id}`;
+                                navigator.clipboard.writeText(url);
+                                addToast("Direct link copied to clipboard! 📋", "success");
+                              }}
+                              className="btn btn-secondary btn-sm"
+                              title="Copy Direct Link"
+                              style={{ display: "inline-flex", alignItems: "center", gap: "5px" }}
+                            >
+                              <Share2 size={13} />
+                              <span>Share</span>
+                            </button>
+
+                            {deleteCustomProperty && (
+                              <button
+                                onClick={() => {
+                                  if (window.confirm(`Delete "${prop.title}" from your listings?`)) {
+                                    deleteCustomProperty(prop.id);
+                                  }
+                                }}
+                                className="btn-icon btn-sm"
+                                title="Delete Listing"
+                                style={{ color: "#ef4444", borderColor: "rgba(239, 68, 68, 0.3)" }}
+                              >
+                                <Trash2 size={15} />
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* TAB 1: SCHEDULED SITE VISITS */}
         {activeTab === "visits" && (

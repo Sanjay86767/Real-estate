@@ -56,6 +56,10 @@ export const Properties = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(24);
   const [showBrochureHub, setShowBrochureHub] = useState(false);
+  const [filterMyListingsOnly, setFilterMyListingsOnly] = useState(searchParams.get("myListings") === "true");
+
+  // User-added custom properties
+  const myListedProperties = useMemo(() => properties.filter((p) => p.isCustom), [properties]);
 
   // Sync state if URL searchParams change
   useEffect(() => {
@@ -179,15 +183,27 @@ export const Properties = () => {
           if (!hasAllAmenities) return false;
         }
 
+        // My Listings Only filter
+        if (filterMyListingsOnly && !item.isCustom) return false;
+
         return true;
       })
       .sort((a, b) => {
+        // User custom properties always prioritized at top of featured & newest
+        if (sortBy === "featured") {
+          if (a.isCustom && !b.isCustom) return -1;
+          if (!a.isCustom && b.isCustom) return 1;
+          return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+        }
+        if (sortBy === "newest") {
+          if (a.isCustom && !b.isCustom) return -1;
+          if (!a.isCustom && b.isCustom) return 1;
+          return (b.yearBuilt || 0) - (a.yearBuilt || 0);
+        }
         if (sortBy === "price-asc") return a.price - b.price;
         if (sortBy === "price-desc") return b.price - a.price;
         if (sortBy === "area-desc") return b.area - a.area;
-        if (sortBy === "newest") return b.yearBuilt - a.yearBuilt;
-        // Default: featured first
-        return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+        return 0;
       });
   }, [
     properties,
@@ -197,7 +213,8 @@ export const Properties = () => {
     bedrooms,
     priceRange,
     selectedAmenities,
-    sortBy
+    sortBy,
+    filterMyListingsOnly
   ]);
 
   // Active filter count
@@ -366,8 +383,92 @@ export const Properties = () => {
 
         {/* Full-Width Main Listings Section */}
         <div style={{ width: "100%" }}>
-            {/* Control Bar: Active filters, Sorting, View Toggle, Mobile Filter Button */}
+          {/* User Added Properties Banner */}
+          {myListedProperties.length > 0 && (
             <div
+              style={{
+                background: "linear-gradient(135deg, rgba(217, 119, 6, 0.18), rgba(15, 23, 42, 0.95))",
+                border: "1.5px solid rgba(245, 158, 11, 0.6)",
+                borderRadius: "var(--radius-lg)",
+                padding: "16px 24px",
+                marginBottom: "24px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "14px",
+                boxShadow: "0 8px 24px rgba(245, 158, 11, 0.15)"
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+                <div
+                  style={{
+                    width: "42px",
+                    height: "42px",
+                    borderRadius: "50%",
+                    background: "linear-gradient(135deg, #f59e0b, #d97706)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#ffffff",
+                    fontSize: "1.2rem",
+                    boxShadow: "0 0 15px rgba(245, 158, 11, 0.5)",
+                    flexShrink: 0
+                  }}
+                >
+                  🏡
+                </div>
+                <div>
+                  <div style={{ fontWeight: 800, fontSize: "1rem", color: "var(--text-primary)" }}>
+                    You have {myListedProperties.length} active property listing{myListedProperties.length > 1 ? "s" : ""} published live!
+                  </div>
+                  <div style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginTop: "2px" }}>
+                    Your added properties are pinned to the top of this catalog and tracked in your Investor Dashboard.
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                <button
+                  type="button"
+                  onClick={() => setFilterMyListingsOnly((prev) => !prev)}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: "var(--radius-full)",
+                    background: filterMyListingsOnly ? "linear-gradient(135deg, #f59e0b, #d97706)" : "rgba(245, 158, 11, 0.15)",
+                    border: "1px solid rgba(245, 158, 11, 0.6)",
+                    color: filterMyListingsOnly ? "#ffffff" : "#fbbf24",
+                    fontWeight: 800,
+                    fontSize: "0.82rem",
+                    cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px"
+                  }}
+                >
+                  <span>{filterMyListingsOnly ? "Showing Only My Listings ✓" : `Filter: My Listings (${myListedProperties.length})`}</span>
+                </button>
+                <Link
+                  to="/dashboard"
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: "var(--radius-full)",
+                    background: "rgba(255, 255, 255, 0.08)",
+                    border: "1px solid rgba(255, 255, 255, 0.2)",
+                    color: "var(--text-primary)",
+                    fontWeight: 700,
+                    fontSize: "0.82rem",
+                    textDecoration: "none"
+                  }}
+                >
+                  Investor Dashboard →
+                </Link>
+              </div>
+            </div>
+          )}
+
+          {/* Control Bar: Active filters, Sorting, View Toggle, Mobile Filter Button */}
+          <div
               style={{
                 display: "flex",
                 alignItems: "center",

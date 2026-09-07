@@ -14,8 +14,10 @@ export const PropertyProvider = ({ children }) => {
       if (customProps) {
         const parsed = JSON.parse(customProps);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          // Validate that parsed entries have required fields
-          const validCustom = parsed.filter(p => p && p.id && p.title);
+          // Validate that parsed entries have required fields and mark them as custom
+          const validCustom = parsed
+            .filter((p) => p && p.id && p.title)
+            .map((p) => ({ ...p, isCustom: true, featured: true }));
           if (validCustom.length > 0) {
             return [...validCustom, ...propertiesData];
           }
@@ -385,17 +387,22 @@ export const PropertyProvider = ({ children }) => {
   const addCustomProperty = (newProperty) => {
     const formattedNewProp = {
       ...newProperty,
-      id: Date.now(),
+      id: newProperty.id || Date.now(),
       yearBuilt: newProperty.yearBuilt || new Date().getFullYear(),
-      featured: false,
-      agentId: 1
+      featured: true,
+      isCustom: true,
+      isNew: true,
+      createdAt: new Date().toISOString(),
+      agentId: newProperty.agentId || 1
     };
 
     setProperties((prev) => {
-      const updated = [formattedNewProp, ...prev];
+      const filtered = prev.filter((p) => p.id !== formattedNewProp.id);
+      const updated = [formattedNewProp, ...filtered];
       try {
         const customProps = JSON.parse(localStorage.getItem("estatehub_custom_properties") || "[]");
-        localStorage.setItem("estatehub_custom_properties", JSON.stringify([formattedNewProp, ...customProps]));
+        const existingFiltered = customProps.filter((p) => p.id !== formattedNewProp.id);
+        localStorage.setItem("estatehub_custom_properties", JSON.stringify([formattedNewProp, ...existingFiltered]));
       } catch (e) {
         console.error("Could not persist custom property", e);
       }
@@ -407,6 +414,19 @@ export const PropertyProvider = ({ children }) => {
 
     addToast(`"${formattedNewProp.title}" published live successfully! 🎉`, "success");
     return formattedNewProp.id;
+  };
+
+  // Delete Custom Property (User-added property)
+  const deleteCustomProperty = (id) => {
+    setProperties((prev) => prev.filter((p) => p.id !== id));
+    try {
+      const customProps = JSON.parse(localStorage.getItem("estatehub_custom_properties") || "[]");
+      const updated = customProps.filter((p) => p.id !== id);
+      localStorage.setItem("estatehub_custom_properties", JSON.stringify(updated));
+    } catch (e) {
+      console.error("Could not remove custom property", e);
+    }
+    addToast("Property listing removed successfully", "info");
   };
 
   const toggleTheme = () => {
@@ -429,6 +449,7 @@ export const PropertyProvider = ({ children }) => {
         properties,
         agents,
         addCustomProperty,
+        deleteCustomProperty,
         favorites,
         toggleFavorite,
         isFavorite,
