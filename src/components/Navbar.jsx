@@ -43,7 +43,11 @@ export const Navbar = () => {
     currency,
     setCurrency,
     unit,
-    setUnit
+    setUnit,
+    language,
+    toggleLanguage,
+    t,
+    backendStatus
   } = usePropertyContext();
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -110,6 +114,32 @@ export const Navbar = () => {
               <span className="live-dot-pulse"></span>
               <span>48 VIP Tours Active</span>
             </span>
+            <Link
+              to="/admin"
+              className="navbar-top-pill"
+              style={{
+                background: "rgba(99, 102, 241, 0.15)",
+                border: "1px solid rgba(99, 102, 241, 0.35)",
+                color: "var(--accent-primary, #6366f1)",
+                fontWeight: 800,
+                fontSize: "0.74rem",
+                textDecoration: "none",
+                cursor: "pointer"
+              }}
+              title={`MERN Architecture: ${backendStatus?.mode || "Node + Express + MongoDB"} - Click to open Enterprise Cloud Admin Portal`}
+            >
+              <span
+                style={{
+                  width: "7px",
+                  height: "7px",
+                  borderRadius: "50%",
+                  background: backendStatus?.status === "online" ? "#10b981" : "#f59e0b",
+                  display: "inline-block",
+                  marginRight: "4px"
+                }}
+              ></span>
+              <span>{backendStatus?.status === "online" ? "MERN Live (Admin ⚙️)" : "MERN Ready"}</span>
+            </Link>
           </div>
 
           {/* Right: Instant Brochure Center, Founder Sanjay Kumar VIP Direct Desk, Currency & Unit */}
@@ -146,8 +176,16 @@ export const Navbar = () => {
               <span className="navbar-top-founder-badge">VIP Desk</span>
             </Link>
 
-            {/* Currency & Unit Switchers */}
+            {/* Language, Currency & Unit Switchers */}
             <div className="navbar-top-switches">
+              <button
+                onClick={toggleLanguage}
+                className="top-switch-btn"
+                title="Toggle Language (English / हिन्दी)"
+                style={{ fontWeight: 800, color: "var(--accent-gold)", borderColor: "rgba(245, 158, 11, 0.4)" }}
+              >
+                {language === "en" ? "🇮🇳 हिन्दी" : "🇬🇧 English"}
+              </button>
               <button
                 onClick={() => setCurrency(currency === "INR" ? "USD" : "INR")}
                 className="top-switch-btn"
@@ -420,6 +458,16 @@ export const Navbar = () => {
                 </div>
               </Link>
 
+              <Link to="/deal-desk" className="dropdown-item-row" onClick={handleNavClick}>
+                <div className="dropdown-item-icon" style={{ color: "#d97706", background: "rgba(217, 119, 6, 0.12)" }}>
+                  <Sparkles size={17} />
+                </div>
+                <div>
+                  <strong>{t("dealDesk")}</strong>
+                  <span>AI Offer Probability & Legal LOI Term Sheet</span>
+                </div>
+              </Link>
+
               <Link to="/market-insights" className="dropdown-item-row" onClick={handleNavClick}>
                 <div className="dropdown-item-icon" style={{ color: "#10b981", background: "rgba(16, 185, 129, 0.12)" }}>
                   <TrendingUp size={17} />
@@ -443,7 +491,7 @@ export const Navbar = () => {
               className="nav-link dropdown-toggle-btn"
               onClick={() => toggleDropdown("finance")}
             >
-              <span>Calculators</span>
+              <span>{t("calculators")}</span>
               <ChevronDown size={14} className="dropdown-arrow" />
             </button>
 
@@ -462,7 +510,26 @@ export const Navbar = () => {
 
           {/* Advisory & Agents */}
           <NavLink to="/agents" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
-            Advisory Desk
+            {t("advisoryDesk")}
+          </NavLink>
+
+          {/* Command Center (Dashboard) */}
+          <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              <span>{t("dashboard")}</span>
+              <span
+                style={{
+                  background: "linear-gradient(135deg, #10b981, #059669)",
+                  color: "#ffffff",
+                  fontSize: "0.62rem",
+                  padding: "1px 6px",
+                  borderRadius: "10px",
+                  fontWeight: 800
+                }}
+              >
+                PRO
+              </span>
+            </span>
           </NavLink>
         </nav>
 
@@ -525,10 +592,10 @@ export const Navbar = () => {
           {/* User Auth or VIP Founder Avatar Button */}
           {user ? (
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <div className="nav-user-chip">
+              <Link to="/dashboard" className="nav-user-chip" title="Open Investor Command Center" style={{ textDecoration: "none" }}>
                 <User size={15} color="var(--accent-primary)" />
                 <span>{user.name.split(" ")[0]}</span>
-              </div>
+              </Link>
               <button
                 onClick={logoutUser}
                 className="btn-icon"

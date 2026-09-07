@@ -21,20 +21,39 @@ export const Filter = ({
     { label: "Bihar (Darbhanga & Patna)", value: "Bihar" },
     { label: "Maharashtra (Mumbai & Pune)", value: "Maharashtra" },
     { label: "Delhi NCR / Gurugram", value: "Delhi" },
+    { label: "Haryana (Gurugram & Faridabad)", value: "Haryana" },
     { label: "Punjab (Mohali & Amritsar)", value: "Punjab" },
     { label: "Chandigarh (UT)", value: "Chandigarh" },
     { label: "Karnataka (Bangalore)", value: "Karnataka" },
     { label: "Telangana (Hyderabad)", value: "Telangana" },
+    { label: "Tamil Nadu (Chennai)", value: "Tamil Nadu" },
+    { label: "Kerala (Kochi)", value: "Kerala" },
+    { label: "Andhra Pradesh (Vizag)", value: "Andhra Pradesh" },
     { label: "Goa (Candolim Beach)", value: "Goa" },
     { label: "Rajasthan (Jaipur)", value: "Rajasthan" },
     { label: "Gujarat (GIFT City / Ahd)", value: "Gujarat" },
     { label: "Uttar Pradesh (Ayodhya & LKO)", value: "Uttar Pradesh" },
     { label: "Uttarakhand (Dehradun)", value: "Uttarakhand" },
-    { label: "West Bengal (Kolkata)", value: "West Bengal" },
-    { label: "Tamil Nadu (Chennai)", value: "Tamil Nadu" },
-    { label: "Kerala (Kochi)", value: "Kerala" },
+    { label: "Himachal Pradesh (Shimla)", value: "Himachal Pradesh" },
     { label: "Madhya Pradesh (Indore)", value: "Madhya Pradesh" },
-    { label: "Odisha (Bhubaneswar)", value: "Odisha" }
+    { label: "Chhattisgarh (Raipur)", value: "Chhattisgarh" },
+    { label: "West Bengal (Kolkata)", value: "West Bengal" },
+    { label: "Odisha (Bhubaneswar)", value: "Odisha" },
+    { label: "Jharkhand (Ranchi)", value: "Jharkhand" },
+    { label: "Assam (Guwahati)", value: "Assam" },
+    { label: "Meghalaya (Shillong)", value: "Meghalaya" },
+    { label: "Sikkim (Gangtok)", value: "Sikkim" },
+    { label: "Arunachal Pradesh (Itanagar)", value: "Arunachal Pradesh" },
+    { label: "Nagaland (Kohima)", value: "Nagaland" },
+    { label: "Manipur (Imphal)", value: "Manipur" },
+    { label: "Mizoram (Aizawl)", value: "Mizoram" },
+    { label: "Tripura (Agartala)", value: "Tripura" },
+    { label: "Jammu & Kashmir (Srinagar)", value: "Jammu" },
+    { label: "Ladakh (Leh)", value: "Ladakh" },
+    { label: "Puducherry (Pondicherry)", value: "Puducherry" },
+    { label: "Andaman & Nicobar Islands", value: "Andaman" },
+    { label: "Lakshadweep (Kavaratti)", value: "Lakshadweep" },
+    { label: "Dadra & NH & Daman & Diu", value: "Dadra" }
   ];
   const propertyTypes = ["Apartment", "Villa", "Penthouse", "House", "Plot"];
   const bedroomOptions = [
@@ -122,7 +141,7 @@ export const Filter = ({
               checked={selectedCity === ""}
               onChange={() => setSelectedCity("")}
             />
-            <span style={{ fontWeight: selectedCity === "" ? 700 : 500 }}>All India (28 States & UTs)</span>
+            <span style={{ fontWeight: selectedCity === "" ? 700 : 500 }}>All India (36 States & UTs)</span>
           </label>
           {stateAndCityList.map((item) => (
             <label key={item.value} className="checkbox-label">

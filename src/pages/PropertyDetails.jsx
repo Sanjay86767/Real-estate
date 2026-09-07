@@ -14,6 +14,12 @@ import AiInteriorStyler from "../components/AiInteriorStyler";
 import EcoQualityMeter from "../components/EcoQualityMeter";
 import PropertyBrochureModal from "../components/PropertyBrochureModal";
 import AffordabilityCalculator from "../components/AffordabilityCalculator";
+import DealDeskModal from "../components/DealDeskModal";
+import SpatialStudioModal from "../components/SpatialStudioModal";
+import VastuRadar from "../components/VastuRadar";
+import LegalVaultModal from "../components/LegalVaultModal";
+import MortgageStudioModal from "../components/MortgageStudioModal";
+import EscrowModal from "../components/EscrowModal";
 import {
   MapPin,
   Bed,
@@ -37,6 +43,7 @@ import {
   Clock,
   Printer,
   FileText,
+  Lock,
   Sparkles
 } from "lucide-react";
 
@@ -62,8 +69,13 @@ export const PropertyDetails = () => {
   // Gallery active image index & Modals state
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [showVirtualTour, setShowVirtualTour] = useState(false);
+  const [showSpatialStudio, setShowSpatialStudio] = useState(false);
+  const [showDealDesk, setShowDealDesk] = useState(false);
   const [showSiteVisitModal, setShowSiteVisitModal] = useState(false);
   const [showBrochureModal, setShowBrochureModal] = useState(false);
+  const [showLegalVault, setShowLegalVault] = useState(false);
+  const [showMortgageStudio, setShowMortgageStudio] = useState(false);
+  const [showEscrowModal, setShowEscrowModal] = useState(false);
 
   // Inquiry Form State
   const [inquiryName, setInquiryName] = useState("");
@@ -172,14 +184,25 @@ export const PropertyDetails = () => {
             </button>
 
             <button
+              onClick={() => setShowDealDesk(true)}
+              className="btn btn-gold btn-sm"
+              style={{ gap: "6px", display: "inline-flex", alignItems: "center" }}
+              title="Submit an offer with instant AI acceptance score"
+            >
+              <Sparkles size={15} />
+              <span>Make Offer / Deal Desk</span>
+            </button>
+
+            <button
               onClick={handleShare}
               className="btn btn-secondary btn-sm"
               style={{ gap: "6px" }}
-              title="Share property link"
+              title="Share this Property"
             >
               <Share2 size={16} />
               <span>Share</span>
             </button>
+
             <button
               onClick={() => toggleFavorite(property.id)}
               className={`btn btn-secondary btn-sm ${favoriteActive ? "active" : ""}`}
@@ -255,16 +278,116 @@ export const PropertyDetails = () => {
           </div>
         </div>
 
+        {/* Executive Pro Action Toolbar */}
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            flexWrap: "wrap",
+            marginBottom: "28px",
+            padding: "14px 18px",
+            background: "var(--bg-card)",
+            border: "1px solid var(--border-light)",
+            borderRadius: "var(--radius-lg)",
+            alignItems: "center",
+            boxShadow: "var(--shadow-sm)"
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => setShowLegalVault(true)}
+            style={{
+              padding: "9px 18px",
+              borderRadius: "var(--radius-full)",
+              background: "rgba(16, 185, 129, 0.12)",
+              border: "1px solid rgba(16, 185, 129, 0.35)",
+              color: "#10b981",
+              fontSize: "0.84rem",
+              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              gap: "7px",
+              cursor: "pointer"
+            }}
+          >
+            <ShieldCheck size={16} />
+            <span>🛡️ AI RERA Title Due Diligence (98/100)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setShowMortgageStudio(true)}
+            style={{
+              padding: "9px 18px",
+              borderRadius: "var(--radius-full)",
+              background: "rgba(59, 130, 246, 0.12)",
+              border: "1px solid rgba(59, 130, 246, 0.35)",
+              color: "#3b82f6",
+              fontSize: "0.84rem",
+              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              gap: "7px",
+              cursor: "pointer"
+            }}
+          >
+            <Building size={16} />
+            <span>🏦 Bank Mortgage Desk (SBI @ 8.40%)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setShowDealDesk(true)}
+            style={{
+              padding: "9px 18px",
+              borderRadius: "var(--radius-full)",
+              background: "rgba(212, 175, 55, 0.12)",
+              border: "1px solid rgba(212, 175, 55, 0.35)",
+              color: "#d4af37",
+              fontSize: "0.84rem",
+              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              gap: "7px",
+              cursor: "pointer"
+            }}
+          >
+            <Sparkles size={16} />
+            <span>🤝 AI Deal Desk & LOI Engine</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setShowEscrowModal(true)}
+            style={{
+              padding: "9px 18px",
+              borderRadius: "var(--radius-full)",
+              background: "linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(16, 185, 129, 0.2))",
+              border: "1px solid rgba(212, 175, 55, 0.4)",
+              color: "var(--text-primary)",
+              fontSize: "0.84rem",
+              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              gap: "7px",
+              cursor: "pointer"
+            }}
+          >
+            <Lock size={15} color="#d4af37" />
+            <span>Lock with Earnest Escrow</span>
+          </button>
+        </div>
+
         {/* Photo Gallery: Main View + Thumbnails */}
         <div style={{ marginBottom: "40px" }}>
           <div
             style={{
               position: "relative",
-              height: "500px",
-              borderRadius: "var(--radius-lg)",
+              height: "520px",
+              borderRadius: "var(--radius-xl)",
               overflow: "hidden",
-              boxShadow: "var(--shadow-md)",
-              marginBottom: "16px"
+              marginBottom: "16px",
+              boxShadow: "var(--shadow-md)"
             }}
           >
             <img
@@ -272,6 +395,32 @@ export const PropertyDetails = () => {
               alt={`${property.title} - View ${activeImageIndex + 1}`}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
+
+            {/* 3D Spatial Studio Button */}
+            <button
+              onClick={() => setShowSpatialStudio(true)}
+              style={{
+                position: "absolute",
+                top: "16px",
+                left: "16px",
+                background: "linear-gradient(135deg, #d97706, #fbbf24)",
+                color: "#0f172a",
+                padding: "8px 16px",
+                borderRadius: "var(--radius-full)",
+                fontSize: "0.85rem",
+                fontWeight: 800,
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                border: "1px solid rgba(255,255,255,0.4)",
+                boxShadow: "0 4px 14px rgba(245, 158, 11, 0.4)",
+                cursor: "pointer",
+                zIndex: 10
+              }}
+            >
+              <Sparkles size={16} color="#0f172a" />
+              <span>3D Spatial Studio & Skyline</span>
+            </button>
 
             {/* 360 Tour Launcher Badge */}
             <button
@@ -292,7 +441,8 @@ export const PropertyDetails = () => {
                 gap: "8px",
                 border: "1px solid rgba(255,255,255,0.3)",
                 boxShadow: "0 4px 14px rgba(0,0,0,0.3)",
-                cursor: "pointer"
+                cursor: "pointer",
+                zIndex: 10
               }}
             >
               <Compass size={16} color="#60a5fa" />
@@ -658,6 +808,11 @@ export const PropertyDetails = () => {
               <SunLightingSimulator property={property} />
             </div>
 
+            {/* 7.5 AI Vastu & Energy Spatial Audit Radar */}
+            <div style={{ marginBottom: "32px" }}>
+              <VastuRadar property={property} />
+            </div>
+
             {/* 8. Embedded EMI Calculator */}
             <div style={{ marginBottom: "32px" }}>
               <EmiCalculator initialPrice={property.price} />
@@ -682,7 +837,7 @@ export const PropertyDetails = () => {
               className="btn btn-gold"
               style={{
                 width: "100%",
-                marginBottom: "20px",
+                marginBottom: "12px",
                 padding: "16px 20px",
                 boxShadow: "var(--shadow-md)",
                 display: "flex",
@@ -694,6 +849,29 @@ export const PropertyDetails = () => {
             >
               <Calendar size={20} />
               <span>Book Site Visit / Video Tour</span>
+            </button>
+
+            {/* Direct AI Deal Desk Offer Button */}
+            <button
+              onClick={() => setShowDealDesk(true)}
+              className="btn btn-outline"
+              style={{
+                width: "100%",
+                marginBottom: "20px",
+                padding: "14px 20px",
+                borderColor: "var(--accent-gold)",
+                background: "rgba(245, 158, 11, 0.08)",
+                color: "var(--text-primary)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "10px",
+                fontSize: "0.95rem",
+                fontWeight: 800
+              }}
+            >
+              <Sparkles size={18} color="#d97706" />
+              <span>Make Offer / AI Deal Desk</span>
             </button>
             {/* Agent Info Card */}
             <div
@@ -917,6 +1095,46 @@ export const PropertyDetails = () => {
             property={property}
             agent={agent}
             onClose={() => setShowBrochureModal(false)}
+          />
+        )}
+
+        {/* AI Deal Desk Negotiation & LOI Modal */}
+        {showDealDesk && (
+          <DealDeskModal
+            property={property}
+            onClose={() => setShowDealDesk(false)}
+          />
+        )}
+
+        {/* 3D Spatial Walkthrough Studio Modal */}
+        {showSpatialStudio && (
+          <SpatialStudioModal
+            property={property}
+            onClose={() => setShowSpatialStudio(false)}
+          />
+        )}
+
+        {/* AI RERA Legal Vault & Title Due Diligence */}
+        {showLegalVault && (
+          <LegalVaultModal
+            property={property}
+            onClose={() => setShowLegalVault(false)}
+          />
+        )}
+
+        {/* Multi-Bank Mortgage Structuring Desk */}
+        {showMortgageStudio && (
+          <MortgageStudioModal
+            property={property}
+            onClose={() => setShowMortgageStudio(false)}
+          />
+        )}
+
+        {/* Earnest Token Deposit & Escrow Engine */}
+        {showEscrowModal && (
+          <EscrowModal
+            property={property}
+            onClose={() => setShowEscrowModal(false)}
           />
         )}
       </div>

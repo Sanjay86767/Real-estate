@@ -55,7 +55,7 @@ export const IndiaStateExplorer = () => {
             }}
           >
             <Compass size={15} />
-            <span>Pan-India Real Estate Network • 28 States & UTs</span>
+            <span>Pan-India Real Estate Network • All 36 States & UTs</span>
           </div>
 
           <h2 style={{ fontSize: "2.4rem", margin: "8px 0 14px", lineHeight: "1.25" }}>
@@ -233,7 +233,7 @@ export const IndiaStateExplorer = () => {
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
             <Link to="/properties" className="btn btn-gold btn-sm">
               <Building2 size={15} />
-              <span>Browse All 34 Residences</span>
+              <span>Browse 10,000+ Residences</span>
             </Link>
             <Link to="/agents" className="btn btn-outline btn-sm" style={{ color: "#ffffff", borderColor: "rgba(255,255,255,0.25)" }}>
               <span>Consult State Advisors</span>

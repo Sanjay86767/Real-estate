@@ -28,6 +28,10 @@ import AffordabilityPage from "./pages/AffordabilityPage";
 import InteriorStudio from "./pages/InteriorStudio";
 import MarketInsights from "./pages/MarketInsights";
 import AgentDetails from "./pages/AgentDetails";
+import Dashboard from "./pages/Dashboard";
+import DealDesk from "./pages/DealDesk";
+import AdminPortal from "./pages/AdminPortal";
+import EstateBot from "./components/EstateBot";
 import NotFound from "./pages/NotFound";
 
 // Scroll to top helper on route navigation
@@ -61,6 +65,9 @@ export function App() {
               <Route path="/properties" element={<Properties />} />
               <Route path="/property/:id" element={<PropertyDetails />} />
               <Route path="/favorites" element={<Favorites />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/deal-desk" element={<DealDesk />} />
+              <Route path="/admin" element={<AdminPortal />} />
               <Route path="/agents" element={<Agents />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
@@ -75,6 +82,7 @@ export function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
+          <EstateBot />
           <Footer />
           <MobileQuickBar />
         </div>

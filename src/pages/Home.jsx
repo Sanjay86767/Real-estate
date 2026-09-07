@@ -188,8 +188,8 @@ export const Home = () => {
               <div className="stat-label">Transactions Facilitated</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number">28+</div>
-              <div className="stat-label">Indian States & UTs</div>
+              <div className="stat-number">36</div>
+              <div className="stat-label">Indian States & UTs Covered</div>
             </div>
           </div>
         </div>

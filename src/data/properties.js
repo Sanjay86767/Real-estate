@@ -1,6 +1,6 @@
 // ============================================================================
 // EstateHub Pro-Grade Real Estate Database
-// 10,000+ Verified Nationwide Residences across 28 Indian States & UTs
+// 10,000+ Verified Nationwide Residences across ALL 36 Indian States & UTs
 // High-Performance Deterministic In-Memory Repository
 // ============================================================================
 
@@ -3738,11 +3738,126 @@ const locations = [
   { city: "Indore", state: "Madhya Pradesh", locality: "Super Corridor TCS Infosys Hub", rera: "P-IND-24", agentId: 2, baseRate: 4200 },
   { city: "Bhopal", state: "Madhya Pradesh", locality: "Arera Colony E-7 Enclave", rera: "P-BPL-24", agentId: 2, baseRate: 3900 },
 
-  // Odisha & Jharkhand
+  // Odisha
   { city: "Bhubaneswar", state: "Odisha", locality: "Patia Infocity Tech Corridor", rera: "RP/19/2024", agentId: 2, baseRate: 4200 },
+  { city: "Cuttack", state: "Odisha", locality: "Mahanadi Ring Road VIP Zone", rera: "RP/19/2024", agentId: 2, baseRate: 3600 },
+  { city: "Puri", state: "Odisha", locality: "Jagannath Temple Boulevard", rera: "RP/19/2024", agentId: 2, baseRate: 4800 },
+
+  // Jharkhand
   { city: "Ranchi", state: "Jharkhand", locality: "Morabadi Open Grounds VIP", rera: "JHARERA/PR", agentId: 1, baseRate: 3800 },
+  { city: "Jamshedpur", state: "Jharkhand", locality: "Jubilee Park XLRI Corridor", rera: "JHARERA/PR", agentId: 1, baseRate: 4200 },
+  { city: "Dhanbad", state: "Jharkhand", locality: "Hirapur Coal Capital Boulevard", rera: "JHARERA/PR", agentId: 1, baseRate: 3200 },
+
+  // Andhra Pradesh
   { city: "Visakhapatnam", state: "Andhra Pradesh", locality: "Madhurawada IT SEZ Beach Vista", rera: "P032801", agentId: 2, baseRate: 4400 },
-  { city: "Dehradun", state: "Uttarakhand", locality: "Rajpur Road Foothills", rera: "UKRERA", agentId: 3, baseRate: 5200 }
+  { city: "Vijayawada", state: "Andhra Pradesh", locality: "Amaravati Capital Green Boulevard", rera: "P032802", agentId: 2, baseRate: 3800 },
+  { city: "Tirupati", state: "Andhra Pradesh", locality: "Tirumala Foothills Sacred Corridor", rera: "P032803", agentId: 2, baseRate: 4200 },
+
+  // Uttarakhand
+  { city: "Dehradun", state: "Uttarakhand", locality: "Rajpur Road Foothills", rera: "UKRERA/001", agentId: 3, baseRate: 5200 },
+  { city: "Rishikesh", state: "Uttarakhand", locality: "Laxman Jhula Ganga View Road", rera: "UKRERA/002", agentId: 3, baseRate: 5800 },
+  { city: "Haridwar", state: "Uttarakhand", locality: "Har Ki Pauri Ashram Corridor", rera: "UKRERA/003", agentId: 3, baseRate: 4400 },
+
+  // ===== NEWLY ADDED STATES & UTs — ALL 16 MISSING REGIONS =====
+
+  // Haryana (separate from Delhi NCR)
+  { city: "Karnal", state: "Haryana", locality: "GT Road Smart City Corridor", rera: "HRERA-KRN", agentId: 3, baseRate: 3800 },
+  { city: "Panipat", state: "Haryana", locality: "Textile City Industrial Zone", rera: "HRERA-PNP", agentId: 3, baseRate: 3400 },
+  { city: "Sonipat", state: "Haryana", locality: "KMP Expressway Delhi Gate", rera: "HRERA-SNP", agentId: 3, baseRate: 4200 },
+  { city: "Faridabad", state: "Haryana", locality: "Sector 86 Neharpar Greater Faridabad", rera: "HRERA-FBD", agentId: 3, baseRate: 4600 },
+
+  // Assam
+  { city: "Guwahati", state: "Assam", locality: "GS Road Sixmile Commercial Hub", rera: "ARERA/GUW", agentId: 2, baseRate: 4200 },
+  { city: "Guwahati", state: "Assam", locality: "Kamakhya Hills Brahmaputra View", rera: "ARERA/GUW", agentId: 2, baseRate: 5200 },
+  { city: "Dibrugarh", state: "Assam", locality: "Tea Estate Heritage Bungalow Road", rera: "ARERA/DIB", agentId: 2, baseRate: 3200 },
+  { city: "Silchar", state: "Assam", locality: "Barak Valley Riverside", rera: "ARERA/SIL", agentId: 2, baseRate: 2800 },
+
+  // Arunachal Pradesh
+  { city: "Itanagar", state: "Arunachal Pradesh", locality: "Ganga Lake Valley View", rera: "APRERA/ITN", agentId: 2, baseRate: 3200 },
+  { city: "Naharlagun", state: "Arunachal Pradesh", locality: "Capital Complex Administrative Corridor", rera: "APRERA/NHR", agentId: 2, baseRate: 2800 },
+  { city: "Pasighat", state: "Arunachal Pradesh", locality: "Siang Riverfront Eco Township", rera: "APRERA/PSG", agentId: 2, baseRate: 2400 },
+
+  // Manipur
+  { city: "Imphal", state: "Manipur", locality: "MG Avenue City Center", rera: "MNRERA/IMP", agentId: 2, baseRate: 3400 },
+  { city: "Imphal", state: "Manipur", locality: "Loktak Lake View Bishnupur Road", rera: "MNRERA/IMP", agentId: 2, baseRate: 3800 },
+  { city: "Churachandpur", state: "Manipur", locality: "Lamka Hill Station Retreat", rera: "MNRERA/CHP", agentId: 2, baseRate: 2200 },
+
+  // Meghalaya
+  { city: "Shillong", state: "Meghalaya", locality: "Laitumkhrah Police Bazar Heights", rera: "MGRERA/SHG", agentId: 2, baseRate: 4200 },
+  { city: "Shillong", state: "Meghalaya", locality: "Ward Lake Pine Forest Cottages", rera: "MGRERA/SHG", agentId: 2, baseRate: 4800 },
+  { city: "Tura", state: "Meghalaya", locality: "Garo Hills Valley View", rera: "MGRERA/TUR", agentId: 2, baseRate: 2800 },
+
+  // Mizoram
+  { city: "Aizawl", state: "Mizoram", locality: "Zarkawt Hilltop Panorama", rera: "MZRERA/AZL", agentId: 2, baseRate: 3200 },
+  { city: "Aizawl", state: "Mizoram", locality: "Dawrpui Treasury Square", rera: "MZRERA/AZL", agentId: 2, baseRate: 2800 },
+  { city: "Lunglei", state: "Mizoram", locality: "Blue Mountain South View", rera: "MZRERA/LNG", agentId: 2, baseRate: 2200 },
+
+  // Nagaland
+  { city: "Dimapur", state: "Nagaland", locality: "Chumukedima Smart City Zone", rera: "NLRERA/DIM", agentId: 2, baseRate: 3200 },
+  { city: "Kohima", state: "Nagaland", locality: "Japfü Peak Heritage Valley", rera: "NLRERA/KOH", agentId: 2, baseRate: 3600 },
+  { city: "Mokokchung", state: "Nagaland", locality: "Ao Heritage Cultural Avenue", rera: "NLRERA/MOK", agentId: 2, baseRate: 2400 },
+
+  // Sikkim
+  { city: "Gangtok", state: "Sikkim", locality: "MG Marg Central Heritage Walk", rera: "SKRERA/GTK", agentId: 2, baseRate: 5200 },
+  { city: "Gangtok", state: "Sikkim", locality: "Kanchenjunga View Point Estates", rera: "SKRERA/GTK", agentId: 2, baseRate: 5800 },
+  { city: "Namchi", state: "Sikkim", locality: "Samdruptse Buddha Hill Retreat", rera: "SKRERA/NMC", agentId: 2, baseRate: 3800 },
+
+  // Tripura
+  { city: "Agartala", state: "Tripura", locality: "Ujjayanta Palace Royal Corridor", rera: "TPRERA/AGT", agentId: 2, baseRate: 3200 },
+  { city: "Agartala", state: "Tripura", locality: "Smart City Hapania Tech Zone", rera: "TPRERA/AGT", agentId: 2, baseRate: 3600 },
+  { city: "Dharmanagar", state: "Tripura", locality: "North Tripura Green Valley", rera: "TPRERA/DHR", agentId: 2, baseRate: 2200 },
+
+  // Chhattisgarh
+  { city: "Raipur", state: "Chhattisgarh", locality: "VIP Road Capital Complex", rera: "CGRERA/RPR", agentId: 2, baseRate: 3800 },
+  { city: "Naya Raipur", state: "Chhattisgarh", locality: "Smart City Atal Nagar Sector 29", rera: "CGRERA/NRP", agentId: 2, baseRate: 4200 },
+  { city: "Bhilai", state: "Chhattisgarh", locality: "Steel Plant Township Civic Center", rera: "CGRERA/BHL", agentId: 2, baseRate: 3200 },
+  { city: "Bilaspur", state: "Chhattisgarh", locality: "High Court Junction Zone", rera: "CGRERA/BLS", agentId: 2, baseRate: 2800 },
+
+  // Himachal Pradesh
+  { city: "Shimla", state: "Himachal Pradesh", locality: "Mall Road Heritage Ridge Walk", rera: "HPRERA/SML", agentId: 3, baseRate: 6800 },
+  { city: "Kasauli", state: "Himachal Pradesh", locality: "Alpine Chalet Pine Forest Estates", rera: "HPRERA/KSL", agentId: 3, baseRate: 7200 },
+  { city: "Dharamshala", state: "Himachal Pradesh", locality: "McLeodganj Dalai Lama Temple Road", rera: "HPRERA/DMS", agentId: 3, baseRate: 5400 },
+  { city: "Manali", state: "Himachal Pradesh", locality: "Old Manali Beas River Cottages", rera: "HPRERA/MNL", agentId: 3, baseRate: 6200 },
+  { city: "Solan", state: "Himachal Pradesh", locality: "Barog Tunnel Heritage Lane", rera: "HPRERA/SLN", agentId: 3, baseRate: 4800 },
+
+  // Tamil Nadu (adding cities)
+  { city: "Chennai", state: "Tamil Nadu", locality: "ECR Beach Road OMR Corridor", rera: "TN/29/PR", agentId: 2, baseRate: 6800 },
+  { city: "Chennai", state: "Tamil Nadu", locality: "Boat Club Road Anna Nagar", rera: "TN/29/PR", agentId: 2, baseRate: 8200 },
+  { city: "Coimbatore", state: "Tamil Nadu", locality: "Avinashi Road IT Corridor", rera: "TN/29/PR", agentId: 2, baseRate: 4400 },
+  { city: "Ooty", state: "Tamil Nadu", locality: "Nilgiri Hills Tea Garden Estates", rera: "TN/29/PR", agentId: 2, baseRate: 7200 },
+
+  // ===== UNION TERRITORIES =====
+
+  // Jammu & Kashmir
+  { city: "Srinagar", state: "Jammu & Kashmir", locality: "Dal Gate Boulevard Lake View", rera: "JKRERA/SRN", agentId: 3, baseRate: 6800 },
+  { city: "Srinagar", state: "Jammu & Kashmir", locality: "Nishat Bagh Mughal Garden Estates", rera: "JKRERA/SRN", agentId: 3, baseRate: 7500 },
+  { city: "Jammu", state: "Jammu & Kashmir", locality: "Gandhi Nagar Tawi Riverside", rera: "JKRERA/JMU", agentId: 3, baseRate: 4800 },
+  { city: "Gulmarg", state: "Jammu & Kashmir", locality: "Gondola Station Snow View Resort", rera: "JKRERA/GLM", agentId: 3, baseRate: 8500 },
+
+  // Ladakh
+  { city: "Leh", state: "Ladakh", locality: "Stok Palace Royal Heritage Road", rera: "LDRERA/LEH", agentId: 3, baseRate: 6200 },
+  { city: "Leh", state: "Ladakh", locality: "Shanti Stupa Panoramic View", rera: "LDRERA/LEH", agentId: 3, baseRate: 7200 },
+  { city: "Kargil", state: "Ladakh", locality: "Suru Valley Green Corridor", rera: "LDRERA/KRG", agentId: 3, baseRate: 3800 },
+
+  // Puducherry
+  { city: "Pondicherry", state: "Puducherry", locality: "White Town French Quarter Heritage", rera: "PYRERA/PDY", agentId: 2, baseRate: 6200 },
+  { city: "Pondicherry", state: "Puducherry", locality: "Promenade Beach Boulevard", rera: "PYRERA/PDY", agentId: 2, baseRate: 7200 },
+  { city: "Auroville", state: "Puducherry", locality: "Matrimandir Eco Township", rera: "PYRERA/AUR", agentId: 2, baseRate: 5400 },
+
+  // Andaman & Nicobar Islands
+  { city: "Port Blair", state: "Andaman & Nicobar Islands", locality: "Cellular Jail Heritage Marine Walk", rera: "ANRERA/PBR", agentId: 2, baseRate: 5200 },
+  { city: "Port Blair", state: "Andaman & Nicobar Islands", locality: "Corbyn's Cove Beach Villas", rera: "ANRERA/PBR", agentId: 2, baseRate: 6200 },
+  { city: "Havelock Island", state: "Andaman & Nicobar Islands", locality: "Radhanagar Beach Eco Resort", rera: "ANRERA/HVL", agentId: 2, baseRate: 7800 },
+
+  // Lakshadweep
+  { city: "Kavaratti", state: "Lakshadweep", locality: "Lagoon View Coral Garden", rera: "LKRERA/KVR", agentId: 2, baseRate: 6800 },
+  { city: "Agatti", state: "Lakshadweep", locality: "Atoll Beach Luxury Eco-Resort", rera: "LKRERA/AGT", agentId: 2, baseRate: 8200 },
+  { city: "Bangaram", state: "Lakshadweep", locality: "Private Island Paradise Villa", rera: "LKRERA/BNG", agentId: 2, baseRate: 9800 },
+
+  // Dadra & Nagar Haveli and Daman & Diu
+  { city: "Silvassa", state: "Dadra & Nagar Haveli and Daman & Diu", locality: "Kilvani Lake Garden Township", rera: "DDRERA/SLV", agentId: 2, baseRate: 3200 },
+  { city: "Daman", state: "Dadra & Nagar Haveli and Daman & Diu", locality: "Fort Moti Daman Beach Road", rera: "DDRERA/DMN", agentId: 2, baseRate: 3800 },
+  { city: "Diu", state: "Dadra & Nagar Haveli and Daman & Diu", locality: "Nagoa Beach Portuguese Heritage", rera: "DDRERA/DIU", agentId: 2, baseRate: 4200 }
 ];
 
 const titlePrefixes = [

@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import propertiesData from "../data/properties";
 import agentsData from "../data/agents";
+import { translations } from "../data/translations";
+import apiService from "../services/api";
 
 const PropertyContext = createContext();
 
@@ -11,15 +13,81 @@ export const PropertyProvider = ({ children }) => {
       const customProps = localStorage.getItem("estatehub_custom_properties");
       if (customProps) {
         const parsed = JSON.parse(customProps);
-        return [...parsed, ...propertiesData];
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          // Validate that parsed entries have required fields
+          const validCustom = parsed.filter(p => p && p.id && p.title);
+          if (validCustom.length > 0) {
+            return [...validCustom, ...propertiesData];
+          }
+        }
       }
       return propertiesData;
     } catch (e) {
+      console.warn("EstateHub: Clearing corrupted custom properties from localStorage");
+      try { localStorage.removeItem("estatehub_custom_properties"); } catch (_) {}
       return propertiesData;
     }
   });
 
   const [agents] = useState(agentsData);
+
+  // MERN Backend Status state
+  const [backendStatus, setBackendStatus] = useState({
+    status: "checking",
+    mode: "Connecting to MERN...",
+    connected: false
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    apiService.getHealth().then((res) => {
+      if (!isMounted) return;
+      if (res && res.status === "online") {
+        setBackendStatus({
+          status: "online",
+          mode: res.database?.mode || "Node.js + MongoDB API",
+          connected: res.database?.connected || false,
+        });
+      } else {
+        setBackendStatus({
+          status: "offline",
+          mode: "Client Local Fallback",
+          connected: false,
+        });
+      }
+    });
+    return () => { isMounted = false; };
+  }, []);
+
+  // Language: 'en' | 'hi' (persisted in localStorage)
+  const [language, setLanguage] = useState(() => {
+    try {
+      return localStorage.getItem("estatehub_lang") || "en";
+    } catch (e) {
+      return "en";
+    }
+  });
+
+  const toggleLanguage = () => {
+    setLanguage((prev) => {
+      const next = prev === "en" ? "hi" : "en";
+      try {
+        localStorage.setItem("estatehub_lang", next);
+      } catch (_) {}
+      return next;
+    });
+  };
+
+  // Translation helper
+  const t = (key) => {
+    if (translations[language] && translations[language][key]) {
+      return translations[language][key];
+    }
+    if (translations.en && translations.en[key]) {
+      return translations.en[key];
+    }
+    return key;
+  };
 
   // Favorites (persisted in localStorage)
   const [favorites, setFavorites] = useState(() => {
@@ -52,6 +120,69 @@ export const PropertyProvider = ({ children }) => {
     }
   });
 
+  // Scheduled Site Visits (persisted in localStorage)
+  const [scheduledVisits, setScheduledVisits] = useState(() => {
+    try {
+      const saved = localStorage.getItem("estatehub_scheduled_visits");
+      if (saved) return JSON.parse(saved);
+      return [
+        {
+          id: "sv-1",
+          propertyId: 1,
+          propertyTitle: "Imperial Skyline Penthouse",
+          location: "Worli Sea Face, Mumbai",
+          date: "2026-09-12",
+          time: "11:30 AM",
+          agentName: "Vikramaditya Oberoi",
+          agentPhone: "+91 98200 11223",
+          status: "Confirmed",
+          type: "VIP Private Inspection",
+          createdDate: "2026-09-06"
+        },
+        {
+          id: "sv-2",
+          propertyId: 2,
+          propertyTitle: "Raj Darbhanga Royal Heritage Kothi",
+          location: "Kameshwari Complex, Darbhanga",
+          date: "2026-09-15",
+          time: "03:00 PM",
+          agentName: "Sanjay Kumar (Founder Desk)",
+          agentPhone: "+91 99312 87654",
+          status: "Confirmed",
+          type: "Architectural Heritage Walk",
+          createdDate: "2026-09-07"
+        }
+      ];
+    } catch (e) {
+      return [];
+    }
+  });
+
+  // Active Deals & Offers (persisted in localStorage)
+  const [offers, setOffers] = useState(() => {
+    try {
+      const saved = localStorage.getItem("estatehub_active_offers");
+      if (saved) return JSON.parse(saved);
+      return [
+        {
+          id: "off-8910",
+          propertyId: 1,
+          propertyTitle: "Imperial Skyline Penthouse, Worli",
+          askingPrice: 185000000,
+          offerPrice: 177500000,
+          deposit: 15000000,
+          timeline: "30 Days",
+          status: "Under Review",
+          probability: "84%",
+          date: "2026-09-06",
+          loiCode: "LOI-ESTATE-MUM-2026-8910"
+        }
+      ];
+    } catch (e) {
+      return [];
+    }
+  });
+
   // Global search filters passed from Hero search to /properties
   const [heroSearchFilters, setHeroSearchFilters] = useState({
     location: "",
@@ -81,6 +212,24 @@ export const PropertyProvider = ({ children }) => {
   const removeToast = (id) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
+
+  // Sync scheduled visits
+  useEffect(() => {
+    try {
+      localStorage.setItem("estatehub_scheduled_visits", JSON.stringify(scheduledVisits));
+    } catch (e) {
+      console.error("Could not save scheduled visits", e);
+    }
+  }, [scheduledVisits]);
+
+  // Sync active offers
+  useEffect(() => {
+    try {
+      localStorage.setItem("estatehub_active_offers", JSON.stringify(offers));
+    } catch (e) {
+      console.error("Could not save offers", e);
+    }
+  }, [offers]);
 
   // Sync favorites to localStorage
   useEffect(() => {
@@ -161,6 +310,51 @@ export const PropertyProvider = ({ children }) => {
     setCompareList([]);
   };
 
+  // Schedule visit action
+  const scheduleVisit = (visitData) => {
+    const newVisit = {
+      id: "sv-" + Date.now(),
+      createdDate: new Date().toISOString().split("T")[0],
+      status: "Confirmed",
+      ...visitData
+    };
+    setScheduledVisits((prev) => [newVisit, ...prev]);
+    // Asynchronously sync with MERN backend
+    apiService.createVisit(newVisit).catch(err => console.warn("API Visit sync:", err));
+    addToast(`Site inspection confirmed for ${newVisit.date} at ${newVisit.time}!`, "success");
+    return newVisit;
+  };
+
+  const cancelVisit = (visitId) => {
+    setScheduledVisits((prev) => prev.filter((v) => v.id !== visitId));
+    apiService.cancelVisit(visitId).catch(err => console.warn("API Cancel sync:", err));
+    addToast("Inspection visit cancelled", "info");
+  };
+
+  // Deal Desk Offer submit
+  const submitOffer = (offerData) => {
+    const newOffer = {
+      id: "off-" + Math.floor(1000 + Math.random() * 9000),
+      date: new Date().toISOString().split("T")[0],
+      status: "Under Review",
+      loiCode: `LOI-ESTATE-${Date.now().toString().slice(-6)}`,
+      ...offerData
+    };
+    setOffers((prev) => [newOffer, ...prev]);
+    // Asynchronously sync with MERN backend
+    apiService.createDeal(newOffer).catch(err => console.warn("API Deal sync:", err));
+    addToast(`Offer submitted! LOI Term Sheet generated: ${newOffer.loiCode}`, "success");
+    return newOffer;
+  };
+
+  const updateOfferStatus = (offerId, newStatus) => {
+    setOffers((prev) =>
+      prev.map((off) => (off.id === offerId ? { ...off, status: newStatus } : off))
+    );
+    apiService.updateDealStatus(offerId, newStatus).catch(err => console.warn("API Deal update:", err));
+    addToast(`Offer status updated to ${newStatus}`, "info");
+  };
+
   // Format Price based on real-time currency
   const formatPrice = (amount) => {
     if (!amount) return "Price on Request";
@@ -208,6 +402,9 @@ export const PropertyProvider = ({ children }) => {
       return updated;
     });
 
+    // Asynchronously save to MERN MongoDB
+    apiService.createProperty(formattedNewProp).catch(err => console.warn("API Property sync:", err));
+
     addToast(`"${formattedNewProp.title}" published live successfully! 🎉`, "success");
     return formattedNewProp.id;
   };
@@ -254,7 +451,18 @@ export const PropertyProvider = ({ children }) => {
         setHeroSearchFilters,
         toasts,
         addToast,
-        removeToast
+        removeToast,
+        language,
+        setLanguage,
+        toggleLanguage,
+        t,
+        scheduledVisits,
+        scheduleVisit,
+        cancelVisit,
+        offers,
+        submitOffer,
+        updateOfferStatus,
+        backendStatus
       }}
     >
       {children}
