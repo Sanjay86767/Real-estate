@@ -21,6 +21,8 @@ import LegalVaultModal from "../components/LegalVaultModal";
 import MortgageStudioModal from "../components/MortgageStudioModal";
 import EscrowModal from "../components/EscrowModal";
 import Interactive3DPhotoRotator from "../components/Interactive3DPhotoRotator";
+import RoyalHeritageKothiShowcase from "../components/RoyalHeritageKothiShowcase";
+import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 import {
   MapPin,
   Bed,
@@ -45,7 +47,8 @@ import {
   Printer,
   FileText,
   Lock,
-  Sparkles
+  Sparkles,
+  Crown
 } from "lucide-react";
 
 export const PropertyDetails = () => {
@@ -110,8 +113,27 @@ export const PropertyDetails = () => {
     );
   }
 
-  // Assigned Agent
-  const agent = agents.find((a) => a.id === property.agentId) || agents[0];
+  // Check if this property is Royal Heritage Kothi
+  const isRoyalHeritageKothi =
+    property.id === 19 ||
+    (property.title && property.title.toLowerCase().includes("royal heritage")) ||
+    (property.title && property.title.toLowerCase().includes("kothi"));
+
+  // Assigned Agent (Founder Sanjay Kumar for Royal Heritage Kothi)
+  const agent = isRoyalHeritageKothi
+    ? {
+        id: 99,
+        name: "Sanjay Kumar",
+        title: "Founder & Principal Heritage Consultant",
+        phone: "+91 8809604880",
+        email: "sanjay@estatehub.com",
+        experience: "15+ Years",
+        rating: 5.0,
+        image: sanjayPhoto,
+        verified: true,
+        specialization: "Mithila Royal Estates & High-Value Portfolios"
+      }
+    : agents.find((a) => a.id === property.agentId) || agents[0];
 
   // Similar Properties (same type or same city, excluding current)
   const similarProperties = properties
@@ -236,6 +258,26 @@ export const PropertyDetails = () => {
           }}
         >
           <div>
+            {isRoyalHeritageKothi && (
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "7px",
+                  padding: "5px 14px",
+                  borderRadius: "var(--radius-full)",
+                  background: "linear-gradient(135deg, rgba(212, 175, 55, 0.35), rgba(245, 158, 11, 0.2))",
+                  border: "1px solid #fbbf24",
+                  marginBottom: "8px",
+                  boxShadow: "0 0 15px rgba(251, 191, 36, 0.25)"
+                }}
+              >
+                <Crown size={15} color="#fbbf24" />
+                <span style={{ fontSize: "0.76rem", fontWeight: 900, color: "#fbbf24", letterSpacing: "1px", textTransform: "uppercase" }}>
+                  👑 Sovereign Mithila Heritage Residence • Darbhanga Royal Enclave
+                </span>
+              </div>
+            )}
             <div style={{ display: "flex", gap: "8px", marginBottom: "8px", flexWrap: "wrap" }}>
               {property.featured && <span className="badge badge-featured">Featured</span>}
               <span className="badge badge-type">{property.type}</span>
@@ -536,6 +578,15 @@ export const PropertyDetails = () => {
         {/* 360 Virtual Tour Modal */}
         {showVirtualTour && (
           <VirtualTourModal property={property} onClose={() => setShowVirtualTour(false)} />
+        )}
+
+        {/* Pro-Level Royal Heritage Kothi Master Showcase */}
+        {isRoyalHeritageKothi && (
+          <RoyalHeritageKothiShowcase
+            property={property}
+            onOpenBrochures={() => setShowBrochureModal(true)}
+            onBookVisit={() => setShowSiteVisitModal(true)}
+          />
         )}
 
         {/* Main Content Layout: Details + Sidebar Inquiry */}

@@ -52,7 +52,7 @@ export const PropertiesSidebarContent = ({ onOpenBrochures, layout = "grid" }) =
       image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=400&q=80"
     },
     {
-      id: 16,
+      id: 19,
       title: "Raj Darbhanga Royal Kothi",
       location: "Darbhanga, Bihar",
       price: "₹1.65 Cr",

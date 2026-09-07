@@ -18,7 +18,7 @@ const LUXURY_SPOTLIGHTS = [
     rating: "4.99 ★"
   },
   {
-    id: 16,
+    id: 19,
     title: "Raj Darbhanga Royal Heritage Kothi",
     city: "Darbhanga",
     state: "Bihar (Founder Sanjay Kumar Desk)",
