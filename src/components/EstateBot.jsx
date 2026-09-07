@@ -296,7 +296,7 @@ export const EstateBot = () => {
                       {m.properties.map((p) => (
                         <Link
                           key={p.id}
-                          to={`/properties/${p.id}`}
+                          to={`/property/${p.id}`}
                           onClick={() => setIsOpen(false)}
                           style={{
                             display: "flex",

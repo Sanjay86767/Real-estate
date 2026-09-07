@@ -65,21 +65,27 @@ export function App() {
               <Route path="/" element={<Home />} />
               <Route path="/properties" element={<Properties />} />
               <Route path="/property/:id" element={<PropertyDetails />} />
+              <Route path="/properties/:id" element={<PropertyDetails />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/deal-desk" element={<DealDesk />} />
               <Route path="/admin" element={<AdminPortal />} />
               <Route path="/agents" element={<Agents />} />
+              <Route path="/agent/:id" element={<AgentDetails />} />
+              <Route path="/agents/:id" element={<AgentDetails />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Login />} />
+              <Route path="/account" element={<Login />} />
+              <Route path="/signin" element={<Login />} />
+              <Route path="/signup" element={<Login />} />
               <Route path="/list-property" element={<ListProperty />} />
               <Route path="/valuation" element={<Valuation />} />
               <Route path="/matchmaker" element={<Matchmaker />} />
               <Route path="/affordability" element={<AffordabilityPage />} />
               <Route path="/interior-studio" element={<InteriorStudio />} />
               <Route path="/market-insights" element={<MarketInsights />} />
-              <Route path="/agent/:id" element={<AgentDetails />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
