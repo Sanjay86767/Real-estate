@@ -10,7 +10,8 @@ import AiChatbot from "./components/AiChatbot";
 import MarketTicker from "./components/MarketTicker";
 import VoiceCommander from "./components/VoiceCommander";
 import VipConciergeBar from "./components/VipConciergeBar";
-import MobileQuickBar from "./components/MobileQuickBar";
+import MobileAppDock from "./components/MobileAppDock";
+import RealtimeLiveEngine from "./components/RealtimeLiveEngine";
 
 // Pages
 import Home from "./pages/Home";
@@ -83,8 +84,9 @@ export function App() {
             </Routes>
           </main>
           <EstateBot />
+          <RealtimeLiveEngine />
           <Footer />
-          <MobileQuickBar />
+          <MobileAppDock />
         </div>
       </BrowserRouter>
     </PropertyProvider>
