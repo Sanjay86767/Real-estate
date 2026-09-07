@@ -1,10 +1,32 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { usePropertyContext } from "../context/PropertyContext";
 import PropertyCard from "../components/PropertyCard";
 import Filter from "../components/Filter";
 import InteractiveMap from "../components/InteractiveMap";
-import { LayoutGrid, List, Map as MapIcon, SlidersHorizontal, X, RefreshCw, Home } from "lucide-react";
+import BrochureHubModal from "../components/BrochureHubModal";
+import sanjayPhoto from "../assets/sanjay-kumar.jpg";
+import {
+  LayoutGrid,
+  List,
+  Map as MapIcon,
+  SlidersHorizontal,
+  X,
+  RefreshCw,
+  Home,
+  Phone,
+  MessageSquare,
+  ShieldCheck,
+  Sparkles,
+  FileText,
+  CheckCircle2,
+  Crown,
+  Compass,
+  Building,
+  ArrowRight,
+  Calculator,
+  ExternalLink
+} from "lucide-react";
 
 export const Properties = () => {
   const { properties, heroSearchFilters } = usePropertyContext();
@@ -30,6 +52,7 @@ export const Properties = () => {
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(24);
+  const [showBrochureHub, setShowBrochureHub] = useState(false);
 
   // Sync state if URL searchParams change
   useEffect(() => {
@@ -301,6 +324,218 @@ export const Properties = () => {
               onResetFilters={handleResetFilters}
               totalResults={filteredProperties.length}
             />
+
+            {/* Sidebar Module 1: Founder Sanjay Kumar VIP Advisory Desk */}
+            <div
+              style={{
+                marginTop: "20px",
+                padding: "20px 18px",
+                background: "linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.95))",
+                border: "1px solid rgba(217, 119, 6, 0.4)",
+                borderRadius: "var(--radius-lg)",
+                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.4)",
+                color: "#ffffff"
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
+                <div style={{ position: "relative" }}>
+                  <img
+                    src={sanjayPhoto}
+                    alt="Sanjay Kumar - Founder"
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      border: "2px solid #d97706",
+                      boxShadow: "0 0 12px rgba(217, 119, 6, 0.5)"
+                    }}
+                  />
+                  <span
+                    style={{
+                      position: "absolute",
+                      bottom: "0",
+                      right: "0",
+                      width: "12px",
+                      height: "12px",
+                      borderRadius: "50%",
+                      background: "#10b981",
+                      border: "2px solid #0f172a"
+                    }}
+                  />
+                </div>
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <strong style={{ fontSize: "0.98rem", color: "#ffffff" }}>Sanjay Kumar</strong>
+                    <ShieldCheck size={15} color="#10b981" />
+                  </div>
+                  <span style={{ fontSize: "0.72rem", color: "#fbbf24", fontWeight: 700, display: "block" }}>
+                    Founder Desk • Darbhanga, Bihar
+                  </span>
+                </div>
+              </div>
+
+              <p style={{ fontSize: "0.78rem", color: "#cbd5e1", lineHeight: 1.45, margin: "0 0 14px" }}>
+                Need a private off-market estate or institutional NRI advisory in Bihar or Mumbai?
+              </p>
+
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+                <a
+                  href="tel:+918809604880"
+                  style={{
+                    padding: "8px",
+                    borderRadius: "var(--radius-sm)",
+                    background: "linear-gradient(135deg, #d97706, #b45309)",
+                    color: "#ffffff",
+                    fontSize: "0.76rem",
+                    fontWeight: 800,
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "5px",
+                    boxShadow: "0 3px 10px rgba(217, 119, 6, 0.3)"
+                  }}
+                >
+                  <Phone size={13} />
+                  <span>Call Desk</span>
+                </a>
+
+                <a
+                  href="https://wa.me/918809604880?text=Hi%20Sanjay,%20I%20am%20exploring%20properties%20on%20EstateHub%20and%20need%20expert%20advisory."
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    padding: "8px",
+                    borderRadius: "var(--radius-sm)",
+                    background: "#25D366",
+                    color: "#ffffff",
+                    fontSize: "0.76rem",
+                    fontWeight: 800,
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "5px"
+                  }}
+                >
+                  <MessageSquare size={13} />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Sidebar Module 2: Instant Official Brochure Center (10,000+ PDFs) */}
+            <div
+              style={{
+                marginTop: "16px",
+                padding: "18px 16px",
+                background: "var(--bg-card)",
+                border: "1px solid var(--border-light)",
+                borderRadius: "var(--radius-lg)",
+                boxShadow: "var(--shadow-sm)"
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                <FileText size={18} color="#d4af37" />
+                <h4 style={{ margin: 0, fontSize: "0.92rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                  Digital Brochure Center
+                </h4>
+              </div>
+
+              <p style={{ fontSize: "0.76rem", color: "var(--text-secondary)", lineHeight: 1.4, margin: "0 0 12px" }}>
+                Download official RERA investment dossiers, architectural CAD floor plans & Vastu analysis sheets.
+              </p>
+
+              <button
+                type="button"
+                onClick={() => setShowBrochureHub(true)}
+                className="btn btn-gold btn-sm"
+                style={{ width: "100%", justifyContent: "center", gap: "6px", fontSize: "0.78rem" }}
+              >
+                <Sparkles size={14} />
+                <span>Open 10,000+ PDF Hub</span>
+              </button>
+            </div>
+
+            {/* Sidebar Module 3: Home Loan Desk & Pre-Approval */}
+            <div
+              style={{
+                marginTop: "16px",
+                padding: "18px 16px",
+                background: "var(--bg-card)",
+                border: "1px solid var(--border-light)",
+                borderRadius: "var(--radius-lg)",
+                boxShadow: "var(--shadow-sm)"
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                <Building size={18} color="#3b82f6" />
+                <h4 style={{ margin: 0, fontSize: "0.92rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                  Mortgage & Bank Desk
+                </h4>
+              </div>
+
+              <div
+                style={{
+                  background: "rgba(59, 130, 246, 0.08)",
+                  border: "1px solid rgba(59, 130, 246, 0.25)",
+                  padding: "8px 12px",
+                  borderRadius: "var(--radius-sm)",
+                  marginBottom: "10px",
+                  fontSize: "0.75rem",
+                  color: "#3b82f6",
+                  fontWeight: 700
+                }}
+              >
+                🏷️ SBI & HDFC Special Rate: 8.40% p.a.
+              </div>
+
+              <p style={{ fontSize: "0.76rem", color: "var(--text-secondary)", lineHeight: 1.4, margin: "0 0 12px" }}>
+                Check your personalized loan eligibility and monthly EMI calculation instantly.
+              </p>
+
+              <Link
+                to="/affordability"
+                className="btn btn-outline btn-sm"
+                style={{
+                  width: "100%",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "6px",
+                  fontSize: "0.78rem",
+                  textDecoration: "none"
+                }}
+              >
+                <Calculator size={14} />
+                <span>Calculate My EMI</span>
+              </Link>
+            </div>
+
+            {/* Sidebar Module 4: 100% Freehold & Legal Trust Badge */}
+            <div
+              style={{
+                marginTop: "16px",
+                padding: "16px",
+                background: "linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.02))",
+                border: "1px solid rgba(16, 185, 129, 0.3)",
+                borderRadius: "var(--radius-lg)",
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "10px"
+              }}
+            >
+              <ShieldCheck size={22} color="#10b981" style={{ flexShrink: 0, marginTop: "2px" }} />
+              <div>
+                <strong style={{ fontSize: "0.84rem", color: "#10b981", display: "block", marginBottom: "3px" }}>
+                  100% RERA & Freehold Title
+                </strong>
+                <span style={{ fontSize: "0.73rem", color: "var(--text-secondary)", lineHeight: 1.35, display: "block" }}>
+                  Every listed asset undergoes 30-year Non-Encumbrance Certificate (NEC) & municipal sanction audit.
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* Main Listings Column */}
@@ -690,14 +925,33 @@ export const Properties = () => {
         </div>
       )}
 
-      {/* CSS tweak for responsive layout */}
+      {/* Official PDF Brochure Hub Modal */}
+      {showBrochureHub && (
+        <BrochureHubModal
+          isOpen={showBrochureHub}
+          onClose={() => setShowBrochureHub(false)}
+        />
+      )}
+
+      {/* CSS tweak for responsive layout and sticky sidebar */}
       <style>{`
+        @media (min-width: 901px) {
+          .desktop-filter-column {
+            position: sticky;
+            top: 85px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            padding-right: 4px;
+          }
+        }
         @media (max-width: 900px) {
           .properties-layout-grid {
             grid-template-columns: 1fr !important;
+            gap: 20px !important;
           }
           .desktop-filter-column {
-            display: none;
+            display: none !important;
           }
           .mobile-filter-trigger {
             display: inline-flex !important;
