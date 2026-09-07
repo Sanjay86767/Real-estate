@@ -63,13 +63,15 @@ export const PropertyBrochureModal = ({ property, agent, onClose }) => {
       <div
         className="modal-container brochure-modal-container"
         style={{
-          maxWidth: "840px",
+          width: "min(96vw, 860px)",
+          maxWidth: "860px",
           maxHeight: "92vh",
           overflowY: "auto",
           padding: 0,
           borderRadius: "var(--radius-xl)",
           background: "#ffffff",
-          color: "#0f172a"
+          color: "#0f172a",
+          margin: "auto"
         }}
         onClick={(e) => e.stopPropagation()}
       >

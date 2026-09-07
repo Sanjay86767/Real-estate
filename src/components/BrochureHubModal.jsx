@@ -12,7 +12,9 @@ import {
   ArrowRight,
   ChevronRight,
   Phone,
-  MessageSquare
+  MessageSquare,
+  Maximize2,
+  Minimize2
 } from "lucide-react";
 import { usePropertyContext } from "../context/PropertyContext";
 import PropertyBrochureModal from "./PropertyBrochureModal";
@@ -24,6 +26,7 @@ export const BrochureHubModal = ({ onClose }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [bhkFilter, setBhkFilter] = useState("all");
   const [selectedProperty, setSelectedProperty] = useState(null);
+  const [isFullScreen, setIsFullScreen] = useState(window.innerWidth <= 768);
 
   // Filter properties matching search and BHK
   const filteredBrochures = useMemo(() => {
@@ -53,113 +56,144 @@ export const BrochureHubModal = ({ onClose }) => {
     return list.slice(0, 36); // Return top 36 for lightning-fast rendering
   }, [properties, searchTerm, bhkFilter]);
 
-  // Signature Spotlight Residences for Quick Preview
-  const spotlightDossiers = useMemo(() => {
-    return properties.filter((p) => p.id === 1 || p.id === 2 || p.id === 3 || p.id === 4 || p.id === 58);
-  }, [properties]);
-
   return (
     <>
-      <div className="modal-backdrop" onClick={onClose} style={{ zIndex: 1100 }}>
+      <div className="modal-backdrop" onClick={onClose} style={{ zIndex: 1100, padding: isFullScreen ? 0 : "12px" }}>
         <div
           className="modal-container"
           style={{
-            maxWidth: "920px",
-            maxHeight: "92vh",
+            width: isFullScreen ? "100vw" : "min(96vw, 1180px)",
+            height: isFullScreen ? "100vh" : "92vh",
+            maxWidth: isFullScreen ? "100vw" : "1180px",
+            maxHeight: isFullScreen ? "100vh" : "92vh",
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
             padding: 0,
-            borderRadius: "var(--radius-xl)",
+            borderRadius: isFullScreen ? "0px" : "20px",
             background: "var(--bg-surface)",
-            border: "1.5px solid var(--accent-gold)"
+            border: isFullScreen ? "none" : "1.5px solid var(--accent-gold)",
+            boxShadow: "0 25px 70px rgba(0, 0, 0, 0.6)",
+            margin: "auto",
+            transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)"
           }}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header Banner */}
           <div
             style={{
-              padding: "20px 24px",
+              padding: "16px 20px",
               background: "linear-gradient(135deg, #0b1120 0%, #1e293b 100%)",
               color: "#ffffff",
               borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "center"
+              alignItems: "center",
+              gap: "12px"
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: 0, flex: 1 }}>
               <div
                 style={{
-                  width: "44px",
-                  height: "44px",
+                  width: "40px",
+                  height: "40px",
                   borderRadius: "10px",
                   background: "linear-gradient(135deg, #d97706, #fbbf24)",
                   color: "#0f172a",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  boxShadow: "0 0 15px rgba(251, 191, 36, 0.4)"
+                  boxShadow: "0 0 15px rgba(251, 191, 36, 0.4)",
+                  flexShrink: 0
                 }}
               >
-                <FileText size={24} />
+                <FileText size={22} />
               </div>
-              <div>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <h2 style={{ fontSize: "1.35rem", margin: 0, fontWeight: 800, color: "#ffffff" }}>
+              <div style={{ minWidth: 0 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                  <h2 style={{ fontSize: "clamp(1.05rem, 3.5vw, 1.35rem)", margin: 0, fontWeight: 800, color: "#ffffff", whiteSpace: "nowrap" }}>
                     Digital Property Brochure Center
                   </h2>
                   <span
                     style={{
                       background: "rgba(16, 185, 129, 0.2)",
                       color: "#34d399",
-                      fontSize: "0.72rem",
+                      fontSize: "0.68rem",
                       fontWeight: 800,
-                      padding: "2px 8px",
+                      padding: "2px 7px",
                       borderRadius: "12px",
-                      border: "1px solid rgba(16, 185, 129, 0.4)"
+                      border: "1px solid rgba(16, 185, 129, 0.4)",
+                      whiteSpace: "nowrap"
                     }}
                   >
                     10,000+ OFFICIAL PDFs
                   </span>
                 </div>
-                <p style={{ margin: "2px 0 0", fontSize: "0.82rem", color: "#94a3b8" }}>
-                  Download, preview, and print official RERA investment prospectuses, CAD floor plans & Vastu compliance sheets.
+                <p style={{ margin: "2px 0 0", fontSize: "0.78rem", color: "#94a3b8", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                  Download, preview, and print official RERA investment prospectuses, CAD floor plans & Vastu sheets.
                 </p>
               </div>
             </div>
 
-            <button
-              onClick={onClose}
-              className="btn-icon"
-              style={{ color: "#ffffff", background: "rgba(255,255,255,0.12)", width: "36px", height: "36px" }}
-              title="Close Brochure Center"
-            >
-              <X size={18} />
-            </button>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+              {/* Fullscreen Toggle Button */}
+              <button
+                type="button"
+                onClick={() => setIsFullScreen(!isFullScreen)}
+                className="btn-icon"
+                style={{
+                  color: "#ffffff",
+                  background: "rgba(255,255,255,0.1)",
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(255,255,255,0.15)"
+                }}
+                title={isFullScreen ? "Exit Fullscreen" : "Maximize to Fullscreen"}
+              >
+                {isFullScreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+              </button>
+
+              {/* Close Button */}
+              <button
+                onClick={onClose}
+                className="btn-icon"
+                style={{
+                  color: "#ffffff",
+                  background: "rgba(239, 68, 68, 0.2)",
+                  border: "1px solid rgba(239, 68, 68, 0.4)",
+                  width: "36px",
+                  height: "36px",
+                  borderRadius: "8px"
+                }}
+                title="Close Brochure Center"
+              >
+                <X size={18} />
+              </button>
+            </div>
           </div>
 
           {/* Search & Configuration Filter Bar */}
-          <div style={{ padding: "16px 24px", background: "var(--bg-secondary)", borderBottom: "1px solid var(--border-light)" }}>
-            <div style={{ display: "flex", gap: "12px", marginBottom: "12px" }}>
+          <div style={{ padding: "12px 18px", background: "var(--bg-secondary)", borderBottom: "1px solid var(--border-light)" }}>
+            <div style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
               <div style={{ position: "relative", flex: 1 }}>
                 <Search
-                  size={17}
+                  size={16}
                   style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }}
                 />
                 <input
                   type="text"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search 10,000 properties by name, city (Patna, Darbhanga, Mumbai, Bangalore...), or RERA..."
+                  placeholder="Search by name, city (Patna, Darbhanga, Mumbai, Bangalore...), or RERA..."
                   style={{
                     width: "100%",
-                    padding: "10px 14px 10px 42px",
+                    padding: "9px 14px 9px 40px",
                     borderRadius: "var(--radius-md)",
                     border: "1px solid var(--border-light)",
                     background: "var(--bg-surface)",
                     color: "var(--text-primary)",
-                    fontSize: "0.9rem",
+                    fontSize: "0.86rem",
                     outline: "none"
                   }}
                 />
@@ -168,7 +202,7 @@ export const BrochureHubModal = ({ onClose }) => {
                     onClick={() => setSearchTerm("")}
                     style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}
                   >
-                    <X size={15} />
+                    <X size={14} />
                   </button>
                 )}
               </div>
@@ -195,8 +229,8 @@ export const BrochureHubModal = ({ onClose }) => {
                   }}
                   className={`chip-btn ${bhkFilter === chip.key ? "active" : ""}`}
                   style={{
-                    fontSize: "0.75rem",
-                    padding: "5px 12px",
+                    fontSize: "0.72rem",
+                    padding: "4px 10px",
                     borderRadius: "var(--radius-full)",
                     whiteSpace: "nowrap"
                   }}
@@ -208,18 +242,18 @@ export const BrochureHubModal = ({ onClose }) => {
           </div>
 
           {/* Modal Scrollable Body */}
-          <div style={{ flex: 1, overflowY: "auto", padding: "20px 24px" }}>
+          <div style={{ flex: 1, overflowY: "auto", padding: "16px 20px" }}>
             {/* Founder Advisory Callout */}
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                padding: "12px 18px",
+                padding: "10px 14px",
                 background: "rgba(217, 119, 6, 0.08)",
                 border: "1px solid rgba(217, 119, 6, 0.3)",
                 borderRadius: "var(--radius-md)",
-                marginBottom: "20px",
+                marginBottom: "16px",
                 flexWrap: "wrap",
                 gap: "10px"
               }}
@@ -228,13 +262,13 @@ export const BrochureHubModal = ({ onClose }) => {
                 <img
                   src={sanjayPhoto}
                   alt="Sanjay Kumar"
-                  style={{ width: "38px", height: "38px", borderRadius: "50%", objectFit: "cover", border: "1.5px solid #d97706" }}
+                  style={{ width: "36px", height: "36px", borderRadius: "50%", objectFit: "cover", border: "1.5px solid #d97706", flexShrink: 0 }}
                 />
                 <div>
-                  <strong style={{ fontSize: "0.85rem", color: "var(--text-primary)" }}>
+                  <strong style={{ fontSize: "0.82rem", color: "var(--text-primary)" }}>
                     Founder Advisory Desk: Sanjay Kumar (Darbhanga, Bihar)
                   </strong>
-                  <span style={{ fontSize: "0.75rem", color: "var(--text-secondary)", display: "block" }}>
+                  <span style={{ fontSize: "0.72rem", color: "var(--text-secondary)", display: "block" }}>
                     Need a custom multi-property investment dossier or institutional NRI report?
                   </span>
                 </div>
@@ -248,26 +282,29 @@ export const BrochureHubModal = ({ onClose }) => {
                   background: "#16a34a",
                   color: "#ffffff",
                   gap: "6px",
-                  fontSize: "0.78rem",
-                  padding: "6px 14px"
+                  fontSize: "0.76rem",
+                  padding: "5px 12px",
+                  borderRadius: "var(--radius-full)",
+                  textDecoration: "none"
                 }}
               >
-                <MessageSquare size={14} />
+                <MessageSquare size={13} />
                 <span>WhatsApp Request</span>
               </a>
             </div>
 
-            {/* Brochures Grid */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
-              <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+            {/* Brochures Grid Header */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "6px" }}>
+              <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-secondary)" }}>
                 Showing <strong>{filteredBrochures.length}</strong> available PDF brochures
               </span>
-              <span style={{ fontSize: "0.76rem", color: "var(--accent-gold)", fontWeight: 700 }}>
+              <span style={{ fontSize: "0.74rem", color: "var(--accent-gold)", fontWeight: 700 }}>
                 ✔ 100% RERA Verified Dossiers
               </span>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "16px" }}>
+            {/* Fluid Grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(clamp(160px, 24vw, 260px), 1fr))", gap: "14px" }}>
               {filteredBrochures.map((prop) => (
                 <div
                   key={prop.id}
@@ -287,7 +324,7 @@ export const BrochureHubModal = ({ onClose }) => {
                     setSelectedProperty(prop);
                   }}
                 >
-                  <div style={{ height: "130px", position: "relative", overflow: "hidden" }}>
+                  <div style={{ height: "120px", position: "relative", overflow: "hidden" }}>
                     <img
                       src={(prop.images && prop.images[0]) || "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80"}
                       alt={prop.title}
@@ -296,11 +333,11 @@ export const BrochureHubModal = ({ onClose }) => {
                     <span
                       style={{
                         position: "absolute",
-                        top: "8px",
-                        left: "8px",
+                        top: "6px",
+                        left: "6px",
                         background: "rgba(15, 23, 42, 0.85)",
                         color: "#38bdf8",
-                        fontSize: "0.7rem",
+                        fontSize: "0.68rem",
                         fontWeight: 800,
                         padding: "2px 6px",
                         borderRadius: "4px"
@@ -311,13 +348,13 @@ export const BrochureHubModal = ({ onClose }) => {
                     <span
                       style={{
                         position: "absolute",
-                        bottom: "8px",
-                        right: "8px",
+                        bottom: "6px",
+                        right: "6px",
                         background: "rgba(15, 23, 42, 0.85)",
                         color: "#fbbf24",
-                        fontSize: "0.75rem",
+                        fontSize: "0.72rem",
                         fontWeight: 800,
-                        padding: "2px 8px",
+                        padding: "2px 6px",
                         borderRadius: "4px"
                       }}
                     >
@@ -325,18 +362,18 @@ export const BrochureHubModal = ({ onClose }) => {
                     </span>
                   </div>
 
-                  <div style={{ padding: "12px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                  <div style={{ padding: "10px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                     <div>
-                      <h4 style={{ fontSize: "0.88rem", fontWeight: 700, margin: "0 0 4px", color: "var(--text-primary)", lineHeight: "1.3" }}>
+                      <h4 style={{ fontSize: "0.84rem", fontWeight: 700, margin: "0 0 3px", color: "var(--text-primary)", lineHeight: "1.3" }}>
                         {prop.title}
                       </h4>
-                      <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "0.75rem", color: "var(--text-secondary)", marginBottom: "8px" }}>
-                        <MapPin size={12} color="var(--accent-primary)" />
+                      <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "0.72rem", color: "var(--text-secondary)", marginBottom: "6px" }}>
+                        <MapPin size={11} color="var(--accent-primary)" />
                         <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                           {prop.city}, {prop.state}
                         </span>
                       </div>
-                      <div style={{ fontSize: "0.7rem", color: "var(--accent-emerald)", fontWeight: 700, marginBottom: "10px" }}>
+                      <div style={{ fontSize: "0.68rem", color: "var(--accent-emerald)", fontWeight: 700, marginBottom: "8px" }}>
                         RERA: {prop.reraId}
                       </div>
                     </div>
@@ -344,14 +381,14 @@ export const BrochureHubModal = ({ onClose }) => {
                     <button
                       type="button"
                       className="btn btn-primary btn-sm"
-                      style={{ width: "100%", gap: "6px", fontSize: "0.78rem", padding: "6px" }}
+                      style={{ width: "100%", gap: "5px", fontSize: "0.76rem", padding: "6px" }}
                       onClick={(e) => {
                         e.stopPropagation();
                         playClickSound();
                         setSelectedProperty(prop);
                       }}
                     >
-                      <FileText size={13} />
+                      <FileText size={12} />
                       <span>View & Print PDF</span>
                     </button>
                   </div>
