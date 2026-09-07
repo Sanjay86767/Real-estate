@@ -5,6 +5,7 @@ import SearchBar from "../components/SearchBar";
 import PropertyCard from "../components/PropertyCard";
 import AgentCard from "../components/AgentCard";
 import PropertyStoriesBar from "../components/PropertyStoriesBar";
+import Luxury3DCarousel from "../components/Luxury3DCarousel";
 import LiveMarketBarometer from "../components/LiveMarketBarometer";
 import {
   ShieldCheck,
@@ -311,6 +312,9 @@ export const Home = () => {
 
       {/* VIP LUXURY REELS & STORIES BAR */}
       <PropertyStoriesBar />
+
+      {/* 3D LUXURY ROTATING ROTOR SHOWCASE */}
+      <Luxury3DCarousel />
 
       {/* 2. STATS BAR */}
       <section className="stats-bar">
