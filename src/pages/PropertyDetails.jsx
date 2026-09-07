@@ -385,8 +385,8 @@ export const PropertyDetails = ({ defaultId }) => {
                 RERA Verified Title
               </span>
             </div>
-            <h1 style={{ fontSize: "2.4rem", marginBottom: "6px" }}>{property.title}</h1>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--text-secondary)", fontSize: "1rem" }}>
+            <h1 style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.5rem)", marginBottom: "6px", lineHeight: 1.2 }}>{property.title}</h1>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--text-secondary)", fontSize: "clamp(0.85rem, 1.5vw, 1rem)" }}>
               <MapPin size={18} color="var(--accent-primary)" />
               <span>{property.address}</span>
             </div>
@@ -394,13 +394,13 @@ export const PropertyDetails = ({ defaultId }) => {
 
           {/* Price Box */}
           <div style={{ textAlign: "right" }}>
-            <span style={{ fontSize: "0.85rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
+            <span style={{ fontSize: "0.82rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
               Offering Price
             </span>
-            <div style={{ fontSize: "2.5rem", fontWeight: 800, color: "var(--accent-primary)", lineHeight: 1.1 }}>
+            <div style={{ fontSize: "clamp(1.7rem, 3.8vw, 2.6rem)", fontWeight: 900, color: "var(--accent-primary)", lineHeight: 1.1 }}>
               {formatPrice(property.price)}
             </div>
-            <span style={{ fontSize: "0.9rem", color: "var(--text-secondary)", fontWeight: 600 }}>
+            <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)", fontWeight: 600 }}>
               ≈ {currency === "USD" ? `$${Math.round(property.price / 83.5 / (property.area || 1))} / sq.ft` : `₹${pricePerSqFt.toLocaleString("en-IN")} / sq.ft`}
             </span>
           </div>

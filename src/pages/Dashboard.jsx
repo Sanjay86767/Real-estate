@@ -20,7 +20,8 @@ import {
   Plus,
   Share2,
   UserCheck,
-  Download
+  Download,
+  Search
 } from "lucide-react";
 import DealDeskModal from "../components/DealDeskModal";
 
@@ -47,6 +48,7 @@ export const Dashboard = ({ defaultTab }) => {
   const [activeTab, setActiveTab] = useState(
     queryTab || defaultTab || "visits"
   );
+  const [dashboardSearch, setDashboardSearch] = useState("");
 
   useEffect(() => {
     if (queryTab) {
@@ -57,6 +59,31 @@ export const Dashboard = ({ defaultTab }) => {
   }, [queryTab, defaultTab]);
 
   const [selectedPropertyForOffer, setSelectedPropertyForOffer] = useState(null);
+
+  // Filtered visits based on live dashboardSearch
+  const filteredVisits = scheduledVisits.filter((v) => {
+    if (!dashboardSearch.trim()) return true;
+    const q = dashboardSearch.toLowerCase().trim();
+    return (
+      (v.propertyTitle && v.propertyTitle.toLowerCase().includes(q)) ||
+      (v.location && v.location.toLowerCase().includes(q)) ||
+      (v.agentName && v.agentName.toLowerCase().includes(q)) ||
+      (v.date && v.date.includes(q)) ||
+      (v.type && v.type.toLowerCase().includes(q))
+    );
+  });
+
+  // Filtered my listed properties based on live dashboardSearch
+  const filteredMyListings = myListedProperties.filter((p) => {
+    if (!dashboardSearch.trim()) return true;
+    const q = dashboardSearch.toLowerCase().trim();
+    return (
+      (p.title && p.title.toLowerCase().includes(q)) ||
+      (p.location && p.location.toLowerCase().includes(q)) ||
+      (p.city && p.city.toLowerCase().includes(q)) ||
+      (p.type && p.type.toLowerCase().includes(q))
+    );
+  });
 
   // Calculate tracked portfolio value from favorites
   const favoriteProps = properties.filter((p) => favorites.includes(p.id));
@@ -333,14 +360,36 @@ export const Dashboard = ({ defaultTab }) => {
                       Properties you have published are live on EstateHub, pinned to the top of the All Residences catalog.
                     </p>
                   </div>
-                  <Link to="/list-property" className="btn btn-gold btn-sm" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                    <Plus size={14} />
-                    <span>+ Add Another Property</span>
-                  </Link>
+
+                  <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+                    <div style={{ position: "relative", minWidth: "220px" }}>
+                      <Search size={15} color="var(--text-muted)" style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)" }} />
+                      <input
+                        type="text"
+                        placeholder="Search your listings..."
+                        value={dashboardSearch}
+                        onChange={(e) => setDashboardSearch(e.target.value)}
+                        style={{
+                          padding: "8px 12px 8px 36px",
+                          borderRadius: "var(--radius-full)",
+                          border: "1px solid var(--border-light)",
+                          background: "var(--bg-surface)",
+                          color: "var(--text-primary)",
+                          fontSize: "0.85rem",
+                          width: "100%",
+                          outline: "none"
+                        }}
+                      />
+                    </div>
+                    <Link to="/list-property" className="btn btn-gold btn-sm" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                      <Plus size={14} />
+                      <span>+ Add Another Property</span>
+                    </Link>
+                  </div>
                 </div>
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "22px" }}>
-                  {myListedProperties.map((prop) => {
+                  {filteredMyListings.map((prop) => {
                     const propImage = (prop.images && prop.images[0]) || prop.image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80";
                     return (
                       <div
@@ -352,7 +401,16 @@ export const Dashboard = ({ defaultTab }) => {
                           overflow: "hidden",
                           boxShadow: "0 10px 25px rgba(0,0,0,0.12)",
                           display: "flex",
-                          flexDirection: "column"
+                          flexDirection: "column",
+                          transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = "translateY(-6px) scale(1.01)";
+                          e.currentTarget.style.boxShadow = "0 22px 45px rgba(245, 158, 11, 0.25)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "translateY(0) scale(1)";
+                          e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.12)";
                         }}
                       >
                         <div style={{ position: "relative", height: "200px" }}>
@@ -512,28 +570,76 @@ export const Dashboard = ({ defaultTab }) => {
                 </Link>
               </div>
             ) : (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "24px" }}>
-                {scheduledVisits.map((visit) => {
-                  const matchedProp = properties.find((p) => p.id === Number(visit.propertyId));
-                  const visitImage = matchedProp
-                    ? (matchedProp.images && matchedProp.images[0]) || matchedProp.image
-                    : "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80";
-                  const propPrice = matchedProp ? formatPrice(matchedProp.price) : null;
+              <div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "12px" }}>
+                  <div>
+                    <h3 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800 }}>
+                      Scheduled Site Inspections ({scheduledVisits.length})
+                    </h3>
+                    <p style={{ margin: "4px 0 0", color: "var(--text-secondary)", fontSize: "0.85rem" }}>
+                      Verified VIP property tours accompanied by certified architects and keyholders.
+                    </p>
+                  </div>
 
-                  return (
-                    <div
-                      key={visit.id}
-                      style={{
-                        background: "var(--bg-surface)",
-                        border: "1.5px solid rgba(59, 130, 246, 0.4)",
-                        borderRadius: "var(--radius-xl)",
-                        overflow: "hidden",
-                        boxShadow: "0 10px 28px rgba(0,0,0,0.14)",
-                        display: "flex",
-                        flexDirection: "column",
-                        transition: "all 0.3s ease"
-                      }}
-                    >
+                  <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+                    <div style={{ position: "relative", minWidth: "240px" }}>
+                      <Search size={15} color="var(--text-muted)" style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)" }} />
+                      <input
+                        type="text"
+                        placeholder="Search visits, dates, agents..."
+                        value={dashboardSearch}
+                        onChange={(e) => setDashboardSearch(e.target.value)}
+                        style={{
+                          padding: "8px 12px 8px 36px",
+                          borderRadius: "var(--radius-full)",
+                          border: "1px solid var(--border-light)",
+                          background: "var(--bg-surface)",
+                          color: "var(--text-primary)",
+                          fontSize: "0.85rem",
+                          width: "100%",
+                          outline: "none"
+                        }}
+                      />
+                    </div>
+                    <Link to="/properties" className="btn btn-primary btn-sm" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                      <Plus size={14} />
+                      <span>+ Book Another Visit</span>
+                    </Link>
+                  </div>
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "24px" }}>
+                  {filteredVisits.map((visit) => {
+                    const matchedProp = properties.find((p) => p.id === Number(visit.propertyId));
+                    const visitImage = matchedProp
+                      ? (matchedProp.images && matchedProp.images[0]) || matchedProp.image
+                      : "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80";
+                    const propPrice = matchedProp ? formatPrice(matchedProp.price) : null;
+
+                    return (
+                      <div
+                        key={visit.id}
+                        style={{
+                          background: "var(--bg-surface)",
+                          border: "1.5px solid rgba(59, 130, 246, 0.4)",
+                          borderRadius: "var(--radius-xl)",
+                          overflow: "hidden",
+                          boxShadow: "0 10px 28px rgba(0,0,0,0.14)",
+                          display: "flex",
+                          flexDirection: "column",
+                          transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = "translateY(-6px) scale(1.01)";
+                          e.currentTarget.style.boxShadow = "0 22px 48px rgba(59, 130, 246, 0.25)";
+                          e.currentTarget.style.borderColor = "rgba(59, 130, 246, 0.75)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "translateY(0) scale(1)";
+                          e.currentTarget.style.boxShadow = "0 10px 28px rgba(0,0,0,0.14)";
+                          e.currentTarget.style.borderColor = "rgba(59, 130, 246, 0.4)";
+                        }}
+                      >
                       {/* Property Image Banner with Visit Badges */}
                       <div style={{ position: "relative", height: "180px" }}>
                         <img
@@ -677,6 +783,7 @@ export const Dashboard = ({ defaultTab }) => {
                     </div>
                   );
                 })}
+                </div>
               </div>
             )}
           </div>
