@@ -127,7 +127,7 @@ export const AdminPortal = () => {
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
               <span style={{ background: "rgba(99, 102, 241, 0.15)", color: "#6366f1", padding: "4px 12px", borderRadius: "20px", fontSize: "0.78rem", fontWeight: 800 }}>
-                ● ENTERPRISE MERN CONTROL DESK
+                ● ENTERPRISE CLOUD CONTROL DESK
               </span>
               <span
                 style={{

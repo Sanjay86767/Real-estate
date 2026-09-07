@@ -126,19 +126,19 @@ export const Navbar = () => {
                 textDecoration: "none",
                 cursor: "pointer"
               }}
-              title={`MERN Architecture: ${backendStatus?.mode || "Node + Express + MongoDB"} - Click to open Enterprise Cloud Admin Portal`}
+              title="Open EstateHub Executive Admin & Portfolio Desk"
             >
               <span
                 style={{
                   width: "7px",
                   height: "7px",
                   borderRadius: "50%",
-                  background: backendStatus?.status === "online" ? "#10b981" : "#f59e0b",
+                  background: "#10b981",
                   display: "inline-block",
                   marginRight: "4px"
                 }}
               ></span>
-              <span>{backendStatus?.status === "online" ? "MERN Live (Admin ⚙️)" : "MERN Ready"}</span>
+              <span>Admin Portal ⚙️</span>
             </Link>
           </div>
 
