@@ -82,7 +82,7 @@ export const MobileAppDock = () => {
             title={user ? `VIP Member: ${user.name}` : "Sign In / Register"}
           >
             <User size={19} />
-            <span>{user ? "Profile" : "Sign In"}</span>
+            <span>{user ? "Profile" : "Login"}</span>
           </Link>
         </div>
       </div>

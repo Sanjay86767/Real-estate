@@ -29,7 +29,9 @@ import {
   Brain,
   Wand2,
   Zap,
-  FileText
+  FileText,
+  LogIn,
+  Lock
 } from "lucide-react";
 import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 import BrochureHubModal from "./BrochureHubModal";
@@ -140,6 +142,25 @@ export const Navbar = () => {
                 }}
               ></span>
               <span>Admin Portal ⚙️</span>
+            </Link>
+            <Link
+              to="/login"
+              className="navbar-top-pill"
+              style={{
+                background: "rgba(217, 119, 6, 0.18)",
+                border: "1px solid rgba(245, 158, 11, 0.45)",
+                color: "#fbbf24",
+                fontWeight: 800,
+                fontSize: "0.74rem",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "4px"
+              }}
+              title="EstateHub VIP Login & Member Console"
+            >
+              <LogIn size={12} color="#fbbf24" />
+              <span>{user ? `Account (${user.name.split(" ")[0]})` : "Login / Register"}</span>
             </Link>
           </div>
 
@@ -532,6 +553,14 @@ export const Navbar = () => {
               </span>
             </span>
           </NavLink>
+
+          {/* Direct Login / Account Link */}
+          <NavLink to="/login" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              <LogIn size={15} color="var(--accent-gold)" />
+              <span>{user ? "My Account" : "Login"}</span>
+            </span>
+          </NavLink>
         </nav>
 
         {/* Right Actions Hub */}
@@ -628,10 +657,24 @@ export const Navbar = () => {
             <Link
               to="/login"
               className="navbar-vip-signin-btn"
-              title="Sign In or Register for EstateHub VIP Member Access"
+              title="Login or Register for EstateHub Account"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "7px",
+                padding: "8px 18px",
+                background: "linear-gradient(135deg, #d97706, #b45309)",
+                border: "1px solid #fbbf24",
+                borderRadius: "var(--radius-full)",
+                color: "#ffffff",
+                fontSize: "0.85rem",
+                fontWeight: 900,
+                textDecoration: "none",
+                boxShadow: "0 4px 16px rgba(217, 119, 6, 0.45)"
+              }}
             >
-              <Sparkles size={14} color="#fbbf24" />
-              <span>VIP Sign In</span>
+              <LogIn size={15} color="#ffffff" />
+              <span>Login / Register</span>
             </Link>
           )}
 
@@ -708,8 +751,8 @@ export const Navbar = () => {
                 boxShadow: "0 4px 16px rgba(217, 119, 6, 0.4)"
               }}
             >
-              <Sparkles size={16} />
-              <span>Sign In / Register VIP Account</span>
+              <LogIn size={17} />
+              <span>🔐 Login / Register (VIP Account)</span>
             </Link>
           )}
         </div>
