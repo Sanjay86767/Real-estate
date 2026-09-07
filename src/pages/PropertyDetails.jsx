@@ -20,6 +20,7 @@ import VastuRadar from "../components/VastuRadar";
 import LegalVaultModal from "../components/LegalVaultModal";
 import MortgageStudioModal from "../components/MortgageStudioModal";
 import EscrowModal from "../components/EscrowModal";
+import Interactive3DPhotoRotator from "../components/Interactive3DPhotoRotator";
 import {
   MapPin,
   Bed,
@@ -76,6 +77,7 @@ export const PropertyDetails = () => {
   const [showLegalVault, setShowLegalVault] = useState(false);
   const [showMortgageStudio, setShowMortgageStudio] = useState(false);
   const [showEscrowModal, setShowEscrowModal] = useState(false);
+  const [galleryMode, setGalleryMode] = useState("3d"); // "3d" or "classic"
 
   // Inquiry Form State
   const [inquiryName, setInquiryName] = useState("");
@@ -378,117 +380,157 @@ export const PropertyDetails = () => {
           </button>
         </div>
 
-        {/* Photo Gallery: Main View + Thumbnails */}
+        {/* VIP Photo Experience: 3D Orbital Rotator & Classic Views */}
         <div style={{ marginBottom: "40px" }}>
+          {/* Mode Switcher Bar */}
           <div
             style={{
-              position: "relative",
-              height: "520px",
-              borderRadius: "var(--radius-xl)",
-              overflow: "hidden",
-              marginBottom: "16px",
-              boxShadow: "var(--shadow-md)"
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "14px",
+              flexWrap: "wrap",
+              gap: "10px"
             }}
           >
-            <img
-              src={property.images[activeImageIndex] || property.images[0]}
-              alt={`${property.title} - View ${activeImageIndex + 1}`}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-
-            {/* 3D Spatial Studio Button */}
-            <button
-              onClick={() => setShowSpatialStudio(true)}
-              style={{
-                position: "absolute",
-                top: "16px",
-                left: "16px",
-                background: "linear-gradient(135deg, #d97706, #fbbf24)",
-                color: "#0f172a",
-                padding: "8px 16px",
-                borderRadius: "var(--radius-full)",
-                fontSize: "0.85rem",
-                fontWeight: 800,
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                border: "1px solid rgba(255,255,255,0.4)",
-                boxShadow: "0 4px 14px rgba(245, 158, 11, 0.4)",
-                cursor: "pointer",
-                zIndex: 10
-              }}
-            >
-              <Sparkles size={16} color="#0f172a" />
-              <span>3D Spatial Studio & Skyline</span>
-            </button>
-
-            {/* 360 Tour Launcher Badge */}
-            <button
-              onClick={() => setShowVirtualTour(true)}
-              style={{
-                position: "absolute",
-                top: "16px",
-                right: "16px",
-                background: "rgba(15, 23, 42, 0.85)",
-                backdropFilter: "blur(8px)",
-                color: "#ffffff",
-                padding: "8px 16px",
-                borderRadius: "var(--radius-full)",
-                fontSize: "0.85rem",
-                fontWeight: 700,
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                border: "1px solid rgba(255,255,255,0.3)",
-                boxShadow: "0 4px 14px rgba(0,0,0,0.3)",
-                cursor: "pointer",
-                zIndex: 10
-              }}
-            >
-              <Compass size={16} color="#60a5fa" />
-              <span>360° Virtual Walkthrough</span>
-            </button>
-
             <div
               style={{
-                position: "absolute",
-                bottom: "16px",
-                right: "16px",
-                background: "rgba(0,0,0,0.7)",
-                backdropFilter: "blur(6px)",
-                color: "#ffffff",
-                padding: "6px 14px",
+                display: "flex",
+                gap: "6px",
+                background: "var(--bg-surface)",
+                padding: "4px",
                 borderRadius: "var(--radius-full)",
-                fontSize: "0.85rem",
-                fontWeight: 600
+                border: "1px solid var(--border-light)"
               }}
             >
-              Photo {activeImageIndex + 1} of {property.images.length}
+              <button
+                type="button"
+                onClick={() => setGalleryMode("3d")}
+                style={{
+                  padding: "7px 16px",
+                  borderRadius: "var(--radius-full)",
+                  border: "none",
+                  background: galleryMode === "3d" ? "linear-gradient(135deg, #d4af37, #f59e0b)" : "transparent",
+                  color: galleryMode === "3d" ? "#0f172a" : "var(--text-secondary)",
+                  fontWeight: 800,
+                  fontSize: "0.82rem",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  cursor: "pointer",
+                  boxShadow: galleryMode === "3d" ? "0 2px 10px rgba(212, 175, 55, 0.4)" : "none"
+                }}
+              >
+                <Sparkles size={14} />
+                <span>🔄 3D Detail Orbit Rotate & Zoom (Pro Mode)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setGalleryMode("classic")}
+                style={{
+                  padding: "7px 16px",
+                  borderRadius: "var(--radius-full)",
+                  border: "none",
+                  background: galleryMode === "classic" ? "var(--accent-primary)" : "transparent",
+                  color: galleryMode === "classic" ? "#ffffff" : "var(--text-secondary)",
+                  fontWeight: 700,
+                  fontSize: "0.82rem",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  cursor: "pointer"
+                }}
+              >
+                <Eye size={14} />
+                <span>📷 Classic Photo View</span>
+              </button>
+            </div>
+
+            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <button
+                onClick={() => setShowSpatialStudio(true)}
+                className="btn btn-secondary btn-sm"
+                style={{ gap: "6px", color: "var(--accent-gold)", fontWeight: 700 }}
+              >
+                <Sparkles size={14} color="#d4af37" />
+                <span>3D Spatial Skyline</span>
+              </button>
+
+              <button
+                onClick={() => setShowVirtualTour(true)}
+                className="btn btn-secondary btn-sm"
+                style={{ gap: "6px", color: "#38bdf8", fontWeight: 700 }}
+              >
+                <Compass size={14} color="#38bdf8" />
+                <span>360° Walkthrough</span>
+              </button>
             </div>
           </div>
 
-          {/* Thumbnail Strip */}
-          <div style={{ display: "flex", gap: "12px", overflowX: "auto", paddingBottom: "6px" }}>
-            {property.images.map((imgUrl, idx) => (
+          {/* Interactive 3D Rotator OR Classic Gallery */}
+          {galleryMode === "3d" ? (
+            <Interactive3DPhotoRotator property={property} initialImageIndex={activeImageIndex} />
+          ) : (
+            <div>
               <div
-                key={idx}
-                onClick={() => setActiveImageIndex(idx)}
                 style={{
-                  width: "110px",
-                  height: "75px",
-                  borderRadius: "var(--radius-md)",
+                  position: "relative",
+                  height: "520px",
+                  borderRadius: "var(--radius-xl)",
                   overflow: "hidden",
-                  cursor: "pointer",
-                  border: activeImageIndex === idx ? "3px solid var(--accent-primary)" : "2px solid transparent",
-                  opacity: activeImageIndex === idx ? 1 : 0.7,
-                  transition: "var(--transition)",
-                  flexShrink: 0
+                  marginBottom: "16px",
+                  boxShadow: "var(--shadow-md)"
                 }}
               >
-                <img src={imgUrl} alt={`Thumbnail ${idx + 1}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <img
+                  src={property.images[activeImageIndex] || property.images[0]}
+                  alt={`${property.title} - View ${activeImageIndex + 1}`}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "16px",
+                    right: "16px",
+                    background: "rgba(0,0,0,0.7)",
+                    backdropFilter: "blur(6px)",
+                    color: "#ffffff",
+                    padding: "6px 14px",
+                    borderRadius: "var(--radius-full)",
+                    fontSize: "0.85rem",
+                    fontWeight: 600
+                  }}
+                >
+                  Photo {activeImageIndex + 1} of {property.images.length}
+                </div>
               </div>
-            ))}
-          </div>
+
+              {/* Thumbnail Strip */}
+              <div style={{ display: "flex", gap: "12px", overflowX: "auto", paddingBottom: "6px" }}>
+                {property.images.map((imgUrl, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => setActiveImageIndex(idx)}
+                    style={{
+                      width: "110px",
+                      height: "75px",
+                      borderRadius: "var(--radius-md)",
+                      overflow: "hidden",
+                      cursor: "pointer",
+                      border: activeImageIndex === idx ? "3px solid var(--accent-primary)" : "2px solid transparent",
+                      opacity: activeImageIndex === idx ? 1 : 0.7,
+                      transition: "var(--transition)",
+                      flexShrink: 0
+                    }}
+                  >
+                    <img src={imgUrl} alt={`Thumbnail ${idx + 1}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* 360 Virtual Tour Modal */}
