@@ -138,13 +138,17 @@ export const Dashboard = ({ defaultTab }) => {
         >
           {/* Card 1: Tracked Portfolio Valuation */}
           <div
+            onClick={() => setActiveTab("portfolio")}
             style={{
               background: "var(--bg-surface)",
-              border: "1px solid var(--border-light)",
+              border: activeTab === "portfolio" ? "1.5px solid var(--accent-gold)" : "1px solid var(--border-light)",
               borderRadius: "var(--radius-lg)",
               padding: "20px",
-              boxShadow: "var(--shadow-sm)"
+              boxShadow: "var(--shadow-sm)",
+              cursor: "pointer",
+              transition: "all 0.2s ease"
             }}
+            title="Click to view Saved Watchlist"
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
               <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
@@ -156,43 +160,51 @@ export const Dashboard = ({ defaultTab }) => {
               {formatPrice(totalPortfolioValue || 45000000)}
             </div>
             <span style={{ fontSize: "0.75rem", color: "#10b981", fontWeight: 700, marginTop: "4px", display: "block" }}>
-              Across {favoriteProps.length || 2} Monitored Properties
+              Across {favoriteProps.length || 2} Monitored Properties →
             </span>
           </div>
 
-          {/* Card 2: Projected Annual Appreciation */}
+          {/* Card 2: My Listed Properties */}
           <div
+            onClick={() => setActiveTab("my-properties")}
             style={{
               background: "var(--bg-surface)",
-              border: "1px solid var(--border-light)",
+              border: activeTab === "my-properties" ? "1.5px solid #f59e0b" : "1px solid var(--border-light)",
               borderRadius: "var(--radius-lg)",
               padding: "20px",
-              boxShadow: "var(--shadow-sm)"
+              boxShadow: "var(--shadow-sm)",
+              cursor: "pointer",
+              transition: "all 0.2s ease"
             }}
+            title="Click to view My Listed Properties"
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
               <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
-                {t("capitalAppreciation")}
+                My Added Listings
               </span>
-              <TrendingUp size={20} color="#10b981" />
+              <Sparkles size={20} color="#f59e0b" />
             </div>
-            <div style={{ fontSize: "1.6rem", fontWeight: 900, color: "#10b981" }}>
-              +14.8% YoY
+            <div style={{ fontSize: "1.6rem", fontWeight: 900, color: "#f59e0b" }}>
+              {myListedProperties.length} Properties
             </div>
             <span style={{ fontSize: "0.75rem", color: "var(--text-secondary)", marginTop: "4px", display: "block" }}>
-              Tier-1 & NCR High-Growth Index
+              Published Live Nationwide →
             </span>
           </div>
 
           {/* Card 3: Active Deals */}
           <div
+            onClick={() => setActiveTab("deals")}
             style={{
               background: "var(--bg-surface)",
-              border: "1px solid var(--border-light)",
+              border: activeTab === "deals" ? "1.5px solid #d97706" : "1px solid var(--border-light)",
               borderRadius: "var(--radius-lg)",
               padding: "20px",
-              boxShadow: "var(--shadow-sm)"
+              boxShadow: "var(--shadow-sm)",
+              cursor: "pointer",
+              transition: "all 0.2s ease"
             }}
+            title="Click to view Active Offers"
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
               <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
@@ -204,19 +216,23 @@ export const Dashboard = ({ defaultTab }) => {
               {offers.length} Term Sheets
             </div>
             <span style={{ fontSize: "0.75rem", color: "var(--text-secondary)", marginTop: "4px", display: "block" }}>
-              AI Acceptance Average: 84%
+              AI Acceptance Average: 84% →
             </span>
           </div>
 
           {/* Card 4: Scheduled Inspections */}
           <div
+            onClick={() => setActiveTab("visits")}
             style={{
               background: "var(--bg-surface)",
-              border: "1px solid var(--border-light)",
+              border: activeTab === "visits" ? "1.5px solid #3b82f6" : "1px solid var(--border-light)",
               borderRadius: "var(--radius-lg)",
               padding: "20px",
-              boxShadow: "var(--shadow-sm)"
+              boxShadow: "var(--shadow-sm)",
+              cursor: "pointer",
+              transition: "all 0.2s ease"
             }}
+            title="Click to view Site Visit List"
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
               <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
@@ -228,7 +244,7 @@ export const Dashboard = ({ defaultTab }) => {
               {scheduledVisits.length} Confirmed
             </div>
             <span style={{ fontSize: "0.75rem", color: "var(--text-secondary)", marginTop: "4px", display: "block" }}>
-              Founder & Senior Advisors En Route
+              Click to Open Visit List →
             </span>
           </div>
         </div>
