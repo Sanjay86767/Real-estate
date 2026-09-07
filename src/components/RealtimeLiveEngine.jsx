@@ -198,6 +198,45 @@ export const RealtimeLiveEngine = () => {
           </div>
         </div>
       )}
+
+      {/* Real-time Persistent Global Pulse Badge */}
+      <div
+        className="realtime-persistent-badge"
+        style={{
+          position: "fixed",
+          bottom: screenWidth <= 768 ? "68px" : "18px",
+          right: screenWidth <= 768 ? "12px" : "18px",
+          zIndex: 880,
+          background: "rgba(15, 23, 42, 0.92)",
+          backdropFilter: "blur(14px)",
+          WebkitBackdropFilter: "blur(14px)",
+          border: "1px solid rgba(16, 185, 129, 0.4)",
+          borderRadius: "20px",
+          padding: "5px 12px",
+          display: "flex",
+          alignItems: "center",
+          gap: "7px",
+          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.4), 0 0 12px rgba(16, 185, 129, 0.2)",
+          fontSize: "0.72rem",
+          fontWeight: 800,
+          color: "#ffffff",
+          pointerEvents: "none"
+        }}
+      >
+        <span
+          style={{
+            width: "7px",
+            height: "7px",
+            borderRadius: "50%",
+            background: "#10b981",
+            boxShadow: "0 0 8px #10b981",
+            animation: "pulse-dot 1.5s infinite"
+          }}
+        ></span>
+        <span style={{ color: "#38bdf8" }}>{onlineCount} Buyers Live</span>
+        <span style={{ color: "rgba(255,255,255,0.4)" }}>•</span>
+        <span style={{ color: "#10b981" }}>Real-Time Pulse</span>
+      </div>
     </>
   );
 };
