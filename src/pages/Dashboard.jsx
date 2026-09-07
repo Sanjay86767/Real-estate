@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { usePropertyContext } from "../context/PropertyContext";
 import {
   Building2,
@@ -24,7 +24,10 @@ import {
 } from "lucide-react";
 import DealDeskModal from "../components/DealDeskModal";
 
-export const Dashboard = () => {
+export const Dashboard = ({ defaultTab }) => {
+  const [searchParams] = useSearchParams();
+  const queryTab = searchParams.get("tab");
+
   const {
     properties,
     favorites,
@@ -41,7 +44,18 @@ export const Dashboard = () => {
   } = usePropertyContext();
 
   const myListedProperties = properties.filter((p) => p.isCustom);
-  const [activeTab, setActiveTab] = useState(myListedProperties.length > 0 ? "my-properties" : "visits");
+  const [activeTab, setActiveTab] = useState(
+    queryTab || defaultTab || (myListedProperties.length > 0 ? "my-properties" : "visits")
+  );
+
+  useEffect(() => {
+    if (queryTab) {
+      setActiveTab(queryTab);
+    } else if (defaultTab) {
+      setActiveTab(defaultTab);
+    }
+  }, [queryTab, defaultTab]);
+
   const [selectedPropertyForOffer, setSelectedPropertyForOffer] = useState(null);
 
   // Calculate tracked portfolio value from favorites

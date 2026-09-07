@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { X, Calendar, Clock, Video, Home, Car, CheckCircle2, QrCode, Download } from "lucide-react";
+import { Link } from "react-router-dom";
+import { X, Calendar, Clock, Video, Home, Car, CheckCircle2, QrCode, Download, ArrowRight } from "lucide-react";
 import { usePropertyContext } from "../context/PropertyContext";
 
 export const SiteVisitModal = ({ property, agent, onClose }) => {
-  const { addToast } = usePropertyContext();
+  const { addToast, scheduleVisit } = usePropertyContext();
 
   const [tourType, setTourType] = useState("in_person"); // 'in_person' | 'video'
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
@@ -29,20 +30,31 @@ export const SiteVisitModal = ({ property, agent, onClose }) => {
       return;
     }
 
+    const hostAgent = agent || { name: "Sanjay Kumar (Founder Advisor)", phone: "+91 8809604880" };
+
     const pass = {
+      id: `sv-${Date.now()}`,
       passId: `EH-${Math.floor(100000 + Math.random() * 900000)}`,
+      propertyId: property.id,
       propertyTitle: property.title,
+      location: property.location || property.city || "Prime Location",
+      type: tourType === "in_person" ? "Physical Site Inspection" : "Live Video Walkthrough",
       tourType: tourType === "in_person" ? "Physical Site Inspection" : "Live Video Walkthrough",
       date,
       time: selectedSlot,
       visitorName,
-      agentName: agent.name,
-      agentPhone: agent.phone,
-      needCab
+      visitorPhone,
+      agentName: hostAgent.name,
+      agentPhone: hostAgent.phone,
+      needCab,
+      status: "Confirmed"
     };
 
+    if (scheduleVisit) {
+      scheduleVisit(pass);
+    }
     setBookedPass(pass);
-    addToast(`Site visit pass generated! ID: ${pass.passId}`, "success");
+    addToast(`Site inspection confirmed! Added to your Visit List 🎉`, "success");
   };
 
   return (
@@ -143,9 +155,36 @@ export const SiteVisitModal = ({ property, agent, onClose }) => {
               </div>
             </div>
 
-            <button onClick={onClose} className="btn btn-primary" style={{ width: "100%" }}>
-              Done & Return
-            </button>
+            <div style={{ display: "flex", gap: "10px", marginTop: "20px", flexWrap: "wrap" }}>
+              <Link
+                to="/dashboard?tab=visits"
+                onClick={onClose}
+                className="btn btn-gold"
+                style={{
+                  flex: 1.2,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  padding: "13px 18px",
+                  textDecoration: "none",
+                  fontWeight: 800,
+                  fontSize: "0.92rem",
+                  boxShadow: "0 4px 15px rgba(245, 158, 11, 0.35)"
+                }}
+              >
+                <Calendar size={18} />
+                <span>🗓️ Check in Visit List</span>
+                <ArrowRight size={15} />
+              </Link>
+              <button
+                onClick={onClose}
+                className="btn btn-outline"
+                style={{ flex: 0.8, padding: "13px" }}
+              >
+                Done & Return
+              </button>
+            </div>
           </div>
         ) : (
           /* Booking Form */

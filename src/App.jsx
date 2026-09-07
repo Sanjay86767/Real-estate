@@ -71,6 +71,9 @@ export function App() {
               <Route path="/kothi" element={<PropertyDetails defaultId={19} />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/visits" element={<Dashboard defaultTab="visits" />} />
+              <Route path="/visit-list" element={<Dashboard defaultTab="visits" />} />
+              <Route path="/site-visits" element={<Dashboard defaultTab="visits" />} />
               <Route path="/deal-desk" element={<DealDesk />} />
               <Route path="/admin" element={<AdminPortal />} />
               <Route path="/agents" element={<Agents />} />

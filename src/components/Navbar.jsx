@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { usePropertyContext } from "../context/PropertyContext";
 import {
   Building2,
+  Calendar,
   Heart,
   Sun,
   Moon,
@@ -39,6 +40,7 @@ import BrochureHubModal from "./BrochureHubModal";
 export const Navbar = () => {
   const {
     favorites,
+    scheduledVisits = [],
     darkMode,
     toggleTheme,
     user,
@@ -616,6 +618,22 @@ export const Navbar = () => {
             <Heart size={19} color={favorites.length > 0 ? "var(--accent-rose)" : "currentColor"} />
             {favorites.length > 0 && (
               <span className="fav-count-pill">{favorites.length}</span>
+            )}
+          </Link>
+
+          {/* Site Visit List Link with Animated Badge */}
+          <Link
+            to="/dashboard?tab=visits"
+            className="btn-icon fav-badge-btn"
+            title="View Scheduled Site Visit Inspections & Passes"
+            aria-label="Visit List"
+            style={{ position: "relative" }}
+          >
+            <Calendar size={18} color={scheduledVisits.length > 0 ? "#3b82f6" : "currentColor"} />
+            {scheduledVisits.length > 0 && (
+              <span className="fav-count-pill" style={{ background: "#3b82f6", color: "#ffffff" }}>
+                {scheduledVisits.length}
+              </span>
             )}
           </Link>
 

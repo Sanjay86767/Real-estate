@@ -1,15 +1,20 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Bed, Bath, Maximize2, MapPin, Heart, ArrowRight, Scale, ShieldCheck, Sparkles, ChevronLeft, ChevronRight, Eye, FileText } from "lucide-react";
+import { Bed, Bath, Maximize2, MapPin, Heart, ArrowRight, Scale, ShieldCheck, Sparkles, ChevronLeft, ChevronRight, Eye, FileText, Calendar } from "lucide-react";
 import { usePropertyContext } from "../context/PropertyContext";
 import { playClickSound } from "../utils/effects";
 import PropertyBrochureModal from "./PropertyBrochureModal";
+import SiteVisitModal from "./SiteVisitModal";
 
 export const PropertyCard = ({ property }) => {
-  const { isFavorite, toggleFavorite, compareList, toggleCompare, formatPrice, formatArea } = usePropertyContext();
+  const { isFavorite, toggleFavorite, compareList, toggleCompare, formatPrice, formatArea, scheduledVisits = [] } = usePropertyContext();
   const favoriteActive = isFavorite(property.id);
   const isCompared = compareList.includes(property.id);
+  const isVisitBooked = scheduledVisits.some(
+    (v) => v.propertyId === property.id || v.propertyTitle === property.title
+  );
   const [showBrochureModal, setShowBrochureModal] = useState(false);
+  const [showSiteVisitModal, setShowSiteVisitModal] = useState(false);
 
   // Multi-image preview index
   const [activeImgIndex, setActiveImgIndex] = useState(0);
@@ -134,6 +139,28 @@ export const PropertyCard = ({ property }) => {
               <span>Added By You</span>
             </span>
           )}
+          {isVisitBooked && (
+            <Link
+              to="/dashboard?tab=visits"
+              onClick={(e) => e.stopPropagation()}
+              className="badge"
+              style={{
+                background: "linear-gradient(135deg, #2563eb, #1d4ed8)",
+                color: "#ffffff",
+                fontWeight: 900,
+                border: "1px solid #60a5fa",
+                boxShadow: "0 0 12px rgba(37, 99, 235, 0.6)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "4px",
+                textDecoration: "none"
+              }}
+              title="Inspection scheduled! Click to view in your Visit List"
+            >
+              <Calendar size={11} color="#ffffff" />
+              <span>Visit Booked ✓</span>
+            </Link>
+          )}
           <span className="badge badge-bhk" style={{ background: "rgba(15, 23, 42, 0.9)", color: "#38bdf8", fontWeight: 800, border: "1px solid rgba(56, 189, 248, 0.4)" }}>
             {property.bhk || (property.bedrooms > 0 ? `${property.bedrooms} BHK` : "Plot Land")}
           </span>
@@ -143,8 +170,27 @@ export const PropertyCard = ({ property }) => {
           <span className="badge badge-type">{property.type}</span>
         </div>
 
-        {/* Action Buttons: Compare & Favorite */}
+        {/* Action Buttons: Visit, Compare & Favorite */}
         <div style={{ position: "absolute", top: "14px", right: "14px", zIndex: 3, display: "flex", gap: "8px" }}>
+          <button
+            className={`btn-favorite ${isVisitBooked ? "active" : ""}`}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              playClickSound();
+              setShowSiteVisitModal(true);
+            }}
+            title={isVisitBooked ? "Site inspection booked! Click to view details or reschedule" : "Book Site Inspection / Add to Visit List"}
+            aria-label="Book Site Visit"
+            style={{
+              color: isVisitBooked ? "#3b82f6" : "inherit",
+              background: isVisitBooked ? "rgba(59, 130, 246, 0.25)" : undefined,
+              borderColor: isVisitBooked ? "rgba(59, 130, 246, 0.6)" : undefined
+            }}
+          >
+            <Calendar size={16} />
+          </button>
+
           <button
             className={`btn-favorite ${isCompared ? "active" : ""}`}
             onClick={handleCompareClick}
@@ -323,6 +369,14 @@ export const PropertyCard = ({ property }) => {
         <PropertyBrochureModal
           property={property}
           onClose={() => setShowBrochureModal(false)}
+        />
+      )}
+
+      {showSiteVisitModal && (
+        <SiteVisitModal
+          property={property}
+          agent={{ name: "Sanjay Kumar (Founder Desk)", phone: "+91 8809604880" }}
+          onClose={() => setShowSiteVisitModal(false)}
         />
       )}
     </div>
