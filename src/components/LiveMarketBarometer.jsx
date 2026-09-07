@@ -55,6 +55,42 @@ export const LiveMarketBarometer = () => {
       inquiriesToday: 290,
       hotcorridor: "Whitefield & Outer Ring Road",
       advisoryNote: "Suburban Rail Phase 2 expansion boosting villa community valuations."
+    },
+    Mumbai: {
+      tag: "Financial Capital of India",
+      sentiment: "Ultra-High Net Worth Dominance",
+      sentimentScore: 99,
+      rate: 64500,
+      yoy: "+18.8%",
+      temp: "31°C Coastal Breeze",
+      aqi: "62 (Moderate)",
+      inquiriesToday: 412,
+      hotcorridor: "Worli Sea Face, Bandra & BKC",
+      advisoryNote: "Coastal Road & Trans-Harbour Link driving generational sea-facing wealth creation."
+    },
+    Darbhanga: {
+      tag: "Mithila Economic & Airport Hub",
+      sentiment: "Highest Growth Corridor (+28.5%)",
+      sentimentScore: 97,
+      rate: 3400,
+      yoy: "+28.5%",
+      temp: "28°C Pleasant",
+      aqi: "42 (Clean)",
+      inquiriesToday: 184,
+      hotcorridor: "NH-27 Airport Highway, Kameshwari & Benta Chowk",
+      advisoryNote: "AIIMS Darbhanga construction and International Airport expansion creating massive land value surge."
+    },
+    Goa: {
+      tag: "Coastal Luxury & Holiday Haven",
+      sentiment: "7.2% Net Rental Yield",
+      sentimentScore: 95,
+      rate: 18200,
+      yoy: "+21.4%",
+      temp: "29°C Tropical",
+      aqi: "28 (Pure)",
+      inquiriesToday: 265,
+      hotcorridor: "Candolim, Siolim & Assagao",
+      advisoryNote: "MOPA International Airport and luxury boutique villas delivering top national rental yields."
     }
   };
 
