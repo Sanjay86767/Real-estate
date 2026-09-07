@@ -3,6 +3,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import { usePropertyContext } from "../context/PropertyContext";
 import PropertyCard from "../components/PropertyCard";
 import Filter from "../components/Filter";
+import HorizontalFilterBar from "../components/HorizontalFilterBar";
 import InteractiveMap from "../components/InteractiveMap";
 import BrochureHubModal from "../components/BrochureHubModal";
 import PropertiesSidebarContent from "../components/PropertiesSidebarContent";
@@ -161,10 +162,13 @@ export const Properties = () => {
 
         // Price Range Filter
         if (priceRange) {
-          if (priceRange === "under-50l" && item.price >= 5000000) return false;
-          if (priceRange === "50l-1cr" && (item.price < 5000000 || item.price > 10000000)) return false;
-          if (priceRange === "1cr-2cr" && (item.price < 10000000 || item.price > 20000000)) return false;
+          if ((priceRange === "under-50l" || priceRange === "0-5000000") && item.price >= 5000000) return false;
+          if ((priceRange === "50l-1cr" || priceRange === "5000000-10000000") && (item.price < 5000000 || item.price > 10000000)) return false;
+          if ((priceRange === "1cr-2cr" || priceRange === "10000000-20000000") && (item.price < 10000000 || item.price > 20000000)) return false;
+          if (priceRange === "10000000-30000000" && (item.price < 10000000 || item.price > 30000000)) return false;
+          if (priceRange === "30000000-50000000" && (item.price < 30000000 || item.price > 50000000)) return false;
           if (priceRange === "above-2cr" && item.price <= 20000000) return false;
+          if (priceRange === "50000000+" && item.price <= 50000000) return false;
         }
 
         // Amenities Filter (every checked amenity must be present)
@@ -220,7 +224,7 @@ export const Properties = () => {
 
   return (
     <div className="properties-page" style={{ padding: "40px 0 80px", minHeight: "85vh" }}>
-      <div className="container">
+      <div className="container" style={{ maxWidth: "1600px" }}>
         {/* Elite Page Header & Unique Real Estate Portfolio Showcase */}
         <div
           style={{
@@ -335,106 +339,33 @@ export const Properties = () => {
           </div>
         </div>
 
-        {/* Quick BHK Navigation Bar with Live Counts */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            marginBottom: "28px",
-            overflowX: "auto",
-            paddingBottom: "8px",
-            scrollbarWidth: "none"
+        {/* Full-Width Executive Horizontal Filter Bar */}
+        <HorizontalFilterBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          selectedCity={selectedCity}
+          setSelectedCity={setSelectedCity}
+          selectedType={selectedType}
+          setSelectedType={setSelectedType}
+          priceRange={priceRange}
+          setPriceRange={setPriceRange}
+          bedrooms={bedrooms}
+          setBedrooms={(beds) => {
+            setBedrooms(beds);
+            const p = new URLSearchParams(searchParams);
+            if (beds) p.set("beds", beds);
+            else p.delete("beds");
+            setSearchParams(p);
           }}
-          className="bhk-quick-bar"
-        >
-          <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
-            BHK Selection:
-          </span>
-          {[
-            { label: "All Residences", val: "", count: bhkCounts.all },
-            { label: "1 BHK", val: "1", count: bhkCounts.bhk1 },
-            { label: "2 BHK", val: "2", count: bhkCounts.bhk2 },
-            { label: "3 BHK", val: "3", count: bhkCounts.bhk3 },
-            { label: "4 BHK", val: "4", count: bhkCounts.bhk4 },
-            { label: "5+ BHK Sky Villas", val: "5", count: bhkCounts.bhk5 },
-            { label: "Plots & Lands", val: "plot", count: bhkCounts.plots }
-          ].map((item) => {
-            const isActive = bedrooms === item.val || (item.val === "" && !bedrooms);
-            return (
-              <button
-                key={item.label}
-                type="button"
-                onClick={() => {
-                  setBedrooms(item.val);
-                  const p = new URLSearchParams(searchParams);
-                  if (item.val) p.set("beds", item.val);
-                  else p.delete("beds");
-                  setSearchParams(p);
-                }}
-                className={`chip-btn ${isActive ? "active" : ""}`}
-                style={{
-                  padding: "8px 16px",
-                  fontSize: "0.85rem",
-                  fontWeight: 700,
-                  whiteSpace: "nowrap",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px"
-                }}
-              >
-                <span>{item.label}</span>
-                <span
-                  style={{
-                    background: isActive ? "rgba(255,255,255,0.25)" : "var(--bg-secondary)",
-                    padding: "2px 7px",
-                    borderRadius: "12px",
-                    fontSize: "0.74rem",
-                    fontWeight: 800
-                  }}
-                >
-                  {item.count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+          selectedAmenities={selectedAmenities}
+          setSelectedAmenities={setSelectedAmenities}
+          onResetFilters={handleResetFilters}
+          totalResults={filteredProperties.length}
+          bhkCounts={bhkCounts}
+        />
 
-        {/* Catalog Layout: Sidebar + Listings */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "300px 1fr",
-            gap: "32px",
-            alignItems: "start"
-          }}
-          className="properties-layout-grid"
-        >
-          {/* Desktop Filter Column */}
-          <div className="desktop-filter-column">
-            <Filter
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              selectedCity={selectedCity}
-              setSelectedCity={setSelectedCity}
-              selectedType={selectedType}
-              setSelectedType={setSelectedType}
-              priceRange={priceRange}
-              setPriceRange={setPriceRange}
-              bedrooms={bedrooms}
-              setBedrooms={setBedrooms}
-              selectedAmenities={selectedAmenities}
-              setSelectedAmenities={setSelectedAmenities}
-              onResetFilters={handleResetFilters}
-              totalResults={filteredProperties.length}
-            />
-
-            {/* Rich Interactive Sidebar Suite */}
-            <PropertiesSidebarContent onOpenBrochures={() => setShowBrochureHub(true)} />
-          </div>
-
-          {/* Main Listings Column */}
-          <div>
+        {/* Full-Width Main Listings Section */}
+        <div style={{ width: "100%" }}>
             {/* Control Bar: Active filters, Sorting, View Toggle, Mobile Filter Button */}
             <div
               style={{
@@ -756,17 +687,32 @@ export const Properties = () => {
                 </button>
               </div>
             )}
-          </div>
         </div>
       </div>
 
-      {/* 2. Pan-India 36 States & UTs Explorer Section */}
-      <div style={{ marginTop: "40px" }}>
+      {/* 2. Executive Real Estate Intelligence & Valuation Suite */}
+      <div className="container" style={{ maxWidth: "1600px", marginTop: "48px" }}>
+        <div style={{ marginBottom: "18px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <Sparkles size={22} color="#d4af37" />
+            <h3 style={{ margin: 0, fontSize: "1.45rem", fontWeight: 800, color: "var(--text-primary)" }}>
+              VIP Investor Intelligence & Valuation Suite
+            </h3>
+          </div>
+          <span style={{ fontSize: "0.82rem", color: "#d4af37", fontWeight: 700 }}>
+            Live Pan-India Feeds • EMI Desk • Off-Market Trophy Picks
+          </span>
+        </div>
+        <PropertiesSidebarContent layout="grid" onOpenBrochures={() => setShowBrochureHub(true)} />
+      </div>
+
+      {/* 3. Pan-India 36 States & UTs Explorer Section */}
+      <div style={{ marginTop: "48px" }}>
         <IndiaStateExplorer />
       </div>
 
-      {/* 3. Founder Sanjay Kumar Institutional Advisory & VIP NRI Desk Banner */}
-      <div className="container" style={{ marginTop: "40px" }}>
+      {/* 4. Founder Sanjay Kumar Institutional Advisory & VIP NRI Desk Banner */}
+      <div className="container" style={{ maxWidth: "1600px", marginTop: "48px" }}>
         <div
           style={{
             padding: "36px 32px",
@@ -930,27 +876,9 @@ export const Properties = () => {
         />
       )}
 
-      {/* CSS tweak for responsive layout and sticky sidebar */}
+      {/* Responsive adjustments */}
       <style>{`
-        @media (min-width: 901px) {
-          .desktop-filter-column {
-            position: sticky;
-            top: 85px;
-            align-self: start;
-            max-height: calc(100vh - 100px);
-            overflow-y: auto;
-            scrollbar-width: thin;
-            padding-right: 6px;
-          }
-        }
         @media (max-width: 900px) {
-          .properties-layout-grid {
-            grid-template-columns: 1fr !important;
-            gap: 20px !important;
-          }
-          .desktop-filter-column {
-            display: none !important;
-          }
           .mobile-filter-trigger {
             display: inline-flex !important;
           }

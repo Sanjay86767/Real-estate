@@ -21,7 +21,7 @@ import {
 import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 import { playClickSound } from "../utils/effects";
 
-export const PropertiesSidebarContent = ({ onOpenBrochures }) => {
+export const PropertiesSidebarContent = ({ onOpenBrochures, layout = "grid" }) => {
   // Quick EMI slider state
   const [loanAmountLakhs, setLoanAmountLakhs] = useState(50); // ₹50 Lakhs
   const interestRate = 8.4; // 8.40% p.a.
@@ -75,7 +75,24 @@ export const PropertiesSidebarContent = ({ onOpenBrochures }) => {
   ];
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "18px", marginTop: "18px" }}>
+    <div
+      style={
+        layout === "grid"
+          ? {
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "20px",
+              width: "100%",
+              marginTop: "24px"
+            }
+          : {
+              display: "flex",
+              flexDirection: "column",
+              gap: "18px",
+              marginTop: "18px"
+            }
+      }
+    >
       {/* 1. Founder Sanjay Kumar VIP Advisory Desk */}
       <div
         style={{
