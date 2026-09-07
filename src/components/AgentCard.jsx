@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Star, Phone, Mail, Award, CheckCircle } from "lucide-react";
+import { Star, Phone, Mail, Award, CheckCircle, Crown, MessageSquare, ExternalLink } from "lucide-react";
 import { usePropertyContext } from "../context/PropertyContext";
 
 export const AgentCard = ({ agent, onContactClick }) => {
@@ -14,8 +14,39 @@ export const AgentCard = ({ agent, onContactClick }) => {
     addToast(`Opening mail composer for ${agent.email}`, "info");
   };
 
+  const isFounder = agent.id === 1;
+
   return (
-    <div className="agent-card">
+    <div
+      className="agent-card"
+      style={{
+        border: isFounder ? "1.5px solid rgba(245, 158, 11, 0.6)" : undefined,
+        boxShadow: isFounder ? "0 10px 30px rgba(245, 158, 11, 0.15)" : undefined,
+        transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
+      }}
+    >
+      {isFounder && (
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "5px",
+            background: "linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(15, 23, 42, 0.9))",
+            border: "1px solid #fbbf24",
+            padding: "4px 12px",
+            borderRadius: "20px",
+            marginBottom: "12px",
+            color: "#fbbf24",
+            fontSize: "0.74rem",
+            fontWeight: 900,
+            letterSpacing: "0.4px"
+          }}
+        >
+          <Crown size={13} color="#fbbf24" />
+          <span>FOUNDER & CHIEF STRATEGIST</span>
+        </div>
+      )}
+
       <div className="agent-avatar-box">
         <Link to={`/agent/${agent.id}`}>
           <img src={agent.image} alt={agent.name} loading="lazy" />
@@ -89,30 +120,55 @@ export const AgentCard = ({ agent, onContactClick }) => {
         {agent.bio}
       </p>
 
-      {/* Direct Phone Number Pill */}
-      <a
-        href={`tel:${agent.phone}`}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "8px",
-          padding: "8px 14px",
-          background: "rgba(37, 99, 235, 0.08)",
-          border: "1px solid rgba(37, 99, 235, 0.25)",
-          borderRadius: "var(--radius-full)",
-          color: "var(--accent-primary)",
-          fontWeight: 700,
-          fontSize: "0.86rem",
-          textDecoration: "none",
-          marginBottom: "14px",
-          transition: "var(--transition)"
-        }}
-        title={`Call ${agent.name} directly`}
-      >
-        <Phone size={14} />
-        <span>{agent.phone}</span>
-      </a>
+      {/* Direct Phone Number & WhatsApp Pills */}
+      <div style={{ display: "flex", gap: "8px", marginBottom: "14px" }}>
+        <a
+          href={`tel:${agent.phone}`}
+          style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "6px",
+            padding: "8px 12px",
+            background: "rgba(37, 99, 235, 0.08)",
+            border: "1px solid rgba(37, 99, 235, 0.25)",
+            borderRadius: "var(--radius-full)",
+            color: "var(--accent-primary)",
+            fontWeight: 700,
+            fontSize: "0.82rem",
+            textDecoration: "none"
+          }}
+          title={`Call ${agent.name} directly`}
+        >
+          <Phone size={13} />
+          <span>{agent.phone}</span>
+        </a>
+
+        <a
+          href={`https://wa.me/918809604880?text=Hello%20${encodeURIComponent(agent.name)},%20I%20am%20interested%20in%20consulting%20with%20EstateHub%20regarding%20luxury%20properties.`}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "4px",
+            padding: "8px 12px",
+            background: "rgba(16, 185, 129, 0.12)",
+            border: "1px solid rgba(16, 185, 129, 0.35)",
+            borderRadius: "var(--radius-full)",
+            color: "#10b981",
+            fontWeight: 700,
+            fontSize: "0.82rem",
+            textDecoration: "none"
+          }}
+          title="Direct WhatsApp Chat"
+        >
+          <MessageSquare size={13} />
+          <span>WhatsApp</span>
+        </a>
+      </div>
 
       {/* Action Buttons */}
       <div className="agent-contact-actions">

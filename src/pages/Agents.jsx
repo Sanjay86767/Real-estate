@@ -23,7 +23,10 @@ export const Agents = () => {
         agent.role.toLowerCase().includes(agentSearch.toLowerCase()) ||
         agent.specialties.some((s) => s.toLowerCase().includes(agentSearch.toLowerCase()));
 
-      const matchCity = selectedCity === "" || agent.city.toLowerCase() === selectedCity.toLowerCase();
+      const matchCity =
+        selectedCity === "" ||
+        agent.city.toLowerCase().includes(selectedCity.toLowerCase()) ||
+        (agent.origin && agent.origin.toLowerCase().includes(selectedCity.toLowerCase()));
 
       return matchSearch && matchCity;
     });
@@ -96,8 +99,8 @@ export const Agents = () => {
 
           {/* City Filter Buttons */}
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-            {["All", "Chandigarh", "Mohali", "Delhi NCR", "Amritsar", "Bangalore"].map((city) => {
-              const cityKey = city === "All" ? "" : city === "Delhi NCR" ? "Delhi" : city;
+            {["All", "Darbhanga / Bihar", "Delhi NCR", "Chandigarh", "Mohali", "Bangalore", "Amritsar"].map((city) => {
+              const cityKey = city === "All" ? "" : city.includes("Darbhanga") ? "Darbhanga" : city === "Delhi NCR" ? "Delhi" : city;
               const isActive = selectedCity === cityKey;
               return (
                 <button
