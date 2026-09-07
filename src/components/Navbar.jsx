@@ -408,31 +408,6 @@ export const Navbar = () => {
             </div>
           </div>
 
-          {/* Highlighted Digital Brochure Hub Button */}
-          <button
-            type="button"
-            onClick={() => setShowBrochureHub(true)}
-            className="nav-link pro-brochure-nav-pill"
-            title="Open Digital Brochure Center (10,000+ Verified PDFs)"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
-              background: "rgba(245, 158, 11, 0.08)",
-              border: "1px solid rgba(245, 158, 11, 0.4)",
-              borderRadius: "var(--radius-full)",
-              padding: "6px 12px",
-              cursor: "pointer",
-              fontWeight: 700
-            }}
-          >
-            <FileText size={14} color="#fbbf24" />
-            <span>Brochure Hub</span>
-            <span className="pro-pdf-chip" style={{ background: "linear-gradient(135deg, #d97706, #fbbf24)", color: "#0f172a", fontSize: "0.62rem", padding: "1px 6px", borderRadius: "8px", fontWeight: 800 }}>
-              PDF PRO
-            </span>
-          </button>
-
           {/* Dropdown: AI Real Estate Suite */}
           <div
             className={`nav-dropdown-wrapper ${activeDropdown === "ai" ? "open" : ""}`}
@@ -504,18 +479,18 @@ export const Navbar = () => {
             </div>
           </div>
 
-          {/* Dropdown: Financial Calculators */}
+          {/* Dropdown: Tools & Advisory Desk */}
           <div
-            className={`nav-dropdown-wrapper ${activeDropdown === "finance" ? "open" : ""}`}
-            onMouseEnter={() => handleMouseEnter("finance")}
+            className={`nav-dropdown-wrapper ${activeDropdown === "tools" ? "open" : ""}`}
+            onMouseEnter={() => handleMouseEnter("tools")}
             onMouseLeave={handleMouseLeave}
           >
             <button
               type="button"
               className="nav-link dropdown-toggle-btn"
-              onClick={() => toggleDropdown("finance")}
+              onClick={() => toggleDropdown("tools")}
             >
-              <span>{t("calculators")}</span>
+              <span>Tools & Advisory</span>
               <ChevronDown size={14} className="dropdown-arrow" />
             </button>
 
@@ -525,22 +500,45 @@ export const Navbar = () => {
                   <Calculator size={17} />
                 </div>
                 <div>
-                  <strong>Loan Affordability & Stamp Duty</strong>
-                  <span>State-wise Registration Taxes & EMI</span>
+                  <strong>Loan EMI & Stamp Duty</strong>
+                  <span>State Registration Taxes, EMI & Eligibility</span>
                 </div>
               </Link>
+
+              <Link to="/agents" className="dropdown-item-row" onClick={handleNavClick}>
+                <div className="dropdown-item-icon" style={{ color: "#d97706", background: "rgba(217, 119, 6, 0.12)" }}>
+                  <Crown size={17} />
+                </div>
+                <div>
+                  <strong>Founder Sanjay Kumar Desk</strong>
+                  <span>Verified Keyholders & Senior Architecture Advisors</span>
+                </div>
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => {
+                  handleNavClick();
+                  setShowBrochureHub(true);
+                }}
+                className="dropdown-item-row"
+                style={{ width: "100%", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
+              >
+                <div className="dropdown-item-icon" style={{ color: "#fbbf24", background: "rgba(245, 158, 11, 0.12)" }}>
+                  <FileText size={17} />
+                </div>
+                <div>
+                  <strong>Digital Brochure Hub (PDFs)</strong>
+                  <span>Instant RERA Prospectus & Floorplans</span>
+                </div>
+              </button>
             </div>
           </div>
 
-          {/* Advisory & Agents */}
-          <NavLink to="/agents" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
-            {t("advisoryDesk")}
-          </NavLink>
-
-          {/* Command Center (Dashboard) */}
+          {/* Command Center (Investor Dashboard) */}
           <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-              <span>{t("dashboard")}</span>
+              <span>Command Center</span>
               <span
                 style={{
                   background: "linear-gradient(135deg, #10b981, #059669)",
@@ -553,14 +551,6 @@ export const Navbar = () => {
               >
                 PRO
               </span>
-            </span>
-          </NavLink>
-
-          {/* Direct Login / Account Link */}
-          <NavLink to="/login" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-              <LogIn size={15} color="var(--accent-gold)" />
-              <span>{user ? "My Account" : "Login"}</span>
             </span>
           </NavLink>
         </nav>
@@ -679,20 +669,21 @@ export const Navbar = () => {
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "7px",
-                padding: "8px 18px",
+                gap: "6px",
+                padding: "7px 14px",
                 background: "linear-gradient(135deg, #d97706, #b45309)",
                 border: "1px solid #fbbf24",
                 borderRadius: "var(--radius-full)",
                 color: "#ffffff",
-                fontSize: "0.85rem",
+                fontSize: "0.82rem",
                 fontWeight: 900,
                 textDecoration: "none",
-                boxShadow: "0 4px 16px rgba(217, 119, 6, 0.45)"
+                boxShadow: "0 0 14px rgba(245, 158, 11, 0.35)",
+                whiteSpace: "nowrap"
               }}
             >
-              <LogIn size={15} color="#ffffff" />
-              <span>Login / Register</span>
+              <LogIn size={14} />
+              <span>Login</span>
             </Link>
           )}
 
