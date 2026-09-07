@@ -66,6 +66,9 @@ export function App() {
               <Route path="/properties" element={<Properties />} />
               <Route path="/property/:id" element={<PropertyDetails />} />
               <Route path="/properties/:id" element={<PropertyDetails />} />
+              <Route path="/royal-heritage-kothi" element={<PropertyDetails defaultId={19} />} />
+              <Route path="/heritage-kothi" element={<PropertyDetails defaultId={19} />} />
+              <Route path="/kothi" element={<PropertyDetails defaultId={19} />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/deal-desk" element={<DealDesk />} />
