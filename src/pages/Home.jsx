@@ -19,7 +19,9 @@ import {
   Star,
   Brain,
   Zap,
-  Wand2
+  Wand2,
+  Crown,
+  MapPin
 } from "lucide-react";
 import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 import IndiaStateExplorer from "../components/IndiaStateExplorer";
@@ -138,6 +140,145 @@ export const Home = () => {
             {/* Quick Search Component */}
             <SearchBar />
 
+            {/* Interactive Luxury Hotspot Quick Filters */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                flexWrap: "wrap",
+                marginTop: "16px"
+              }}
+            >
+              <span style={{ fontSize: "0.74rem", fontWeight: 800, color: "#cbd5e1", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                Prime Corridors:
+              </span>
+              <Link
+                to="/properties?state=Maharashtra"
+                className="hero-hotspot-chip"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  padding: "5px 12px",
+                  borderRadius: "20px",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  color: "#ffffff",
+                  fontSize: "0.78rem",
+                  fontWeight: 700,
+                  textDecoration: "none"
+                }}
+              >
+                <MapPin size={12} color="#38bdf8" />
+                <span>Mumbai Seaface (180+)</span>
+              </Link>
+              <Link
+                to="/properties?state=Karnataka"
+                className="hero-hotspot-chip"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  padding: "5px 12px",
+                  borderRadius: "20px",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  color: "#ffffff",
+                  fontSize: "0.78rem",
+                  fontWeight: 700,
+                  textDecoration: "none"
+                }}
+              >
+                <MapPin size={12} color="#10b981" />
+                <span>Bangalore Tech Hub (160+)</span>
+              </Link>
+              <Link
+                to="/properties?state=Goa"
+                className="hero-hotspot-chip"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  padding: "5px 12px",
+                  borderRadius: "20px",
+                  background: "rgba(255, 255, 255, 0.08)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  color: "#ffffff",
+                  fontSize: "0.78rem",
+                  fontWeight: 700,
+                  textDecoration: "none"
+                }}
+              >
+                <MapPin size={12} color="#fbbf24" />
+                <span>Goa Beach Villas (75+)</span>
+              </Link>
+              <Link
+                to="/properties?state=Bihar"
+                className="hero-hotspot-chip"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  padding: "5px 12px",
+                  borderRadius: "20px",
+                  background: "rgba(217, 119, 6, 0.2)",
+                  border: "1px solid rgba(245, 158, 11, 0.5)",
+                  color: "#fde68a",
+                  fontSize: "0.78rem",
+                  fontWeight: 800,
+                  textDecoration: "none"
+                }}
+              >
+                <Crown size={12} color="#fbbf24" />
+                <span>Darbhanga / Patna (85+)</span>
+              </Link>
+            </div>
+
+            {/* Glowing VIP Member Portal Callout Strip */}
+            <div
+              style={{
+                marginTop: "20px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                padding: "8px 18px",
+                background: "linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9))",
+                border: "1.5px solid rgba(245, 158, 11, 0.6)",
+                borderRadius: "30px",
+                boxShadow: "0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(245, 158, 11, 0.25)",
+                maxWidth: "92%",
+                flexWrap: "wrap",
+                justifyContent: "center"
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <Crown size={16} color="#fbbf24" />
+                <span style={{ fontSize: "0.82rem", fontWeight: 800, color: "#ffffff" }}>
+                  Unlock Private Off-Market Portfolios & RERA Escrow
+                </span>
+              </div>
+              <Link
+                to="/login"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "5px",
+                  padding: "4px 12px",
+                  background: "linear-gradient(135deg, #d97706, #b45309)",
+                  color: "#ffffff",
+                  borderRadius: "20px",
+                  fontSize: "0.78rem",
+                  fontWeight: 800,
+                  textDecoration: "none",
+                  boxShadow: "0 2px 8px rgba(217, 119, 6, 0.4)"
+                }}
+              >
+                <span>VIP Sign In ➔</span>
+              </Link>
+            </div>
+
             {/* Floating Luxury Trust Badges */}
             <div
               style={{
@@ -145,7 +286,7 @@ export const Home = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 gap: "14px",
-                marginTop: "24px",
+                marginTop: "22px",
                 flexWrap: "wrap"
               }}
             >

@@ -7,6 +7,7 @@ import {
   Sun,
   Moon,
   User,
+  Crown,
   LogOut,
   Menu,
   X,
@@ -589,26 +590,48 @@ export const Navbar = () => {
             )}
           </Link>
 
-          {/* User Auth or VIP Founder Avatar Button */}
+          {/* User Auth or VIP Member Trigger Button */}
           {user ? (
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <Link to="/dashboard" className="nav-user-chip" title="Open Investor Command Center" style={{ textDecoration: "none" }}>
-                <User size={15} color="var(--accent-primary)" />
+              <Link
+                to="/login"
+                className="nav-user-chip"
+                title={`Logged in as ${user.name} (${user.email}) - Open VIP Member Console`}
+                style={{
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  padding: "6px 12px",
+                  background: "linear-gradient(135deg, rgba(217, 119, 6, 0.22), rgba(217, 119, 6, 0.1))",
+                  border: "1.5px solid rgba(245, 158, 11, 0.6)",
+                  borderRadius: "20px",
+                  color: "#fbbf24",
+                  fontWeight: 800,
+                  fontSize: "0.82rem",
+                  boxShadow: "0 0 12px rgba(245, 158, 11, 0.3)"
+                }}
+              >
+                <Crown size={15} color="#fbbf24" />
                 <span>{user.name.split(" ")[0]}</span>
               </Link>
               <button
                 onClick={logoutUser}
                 className="btn-icon"
-                title="Logout"
+                title="Sign Out"
                 style={{ width: "34px", height: "34px" }}
               >
                 <LogOut size={15} />
               </button>
             </div>
           ) : (
-            <Link to="/login" className="btn btn-secondary btn-sm pro-login-btn">
-              <User size={15} />
-              <span>Login</span>
+            <Link
+              to="/login"
+              className="navbar-vip-signin-btn"
+              title="Sign In or Register for EstateHub VIP Member Access"
+            >
+              <Sparkles size={14} color="#fbbf24" />
+              <span>VIP Sign In</span>
             </Link>
           )}
 
@@ -625,6 +648,72 @@ export const Navbar = () => {
 
       {/* 3. PRO-LEVEL ORGANIZED MOBILE DRAWER */}
       <div className={`mobile-nav-drawer ${mobileOpen ? "open" : ""}`}>
+        {/* Mobile VIP Auth Access Bar */}
+        <div style={{ padding: "4px 0 10px" }}>
+          {user ? (
+            <div
+              style={{
+                background: "linear-gradient(135deg, rgba(217, 119, 6, 0.2), rgba(15, 23, 42, 0.95))",
+                border: "1px solid rgba(245, 158, 11, 0.5)",
+                borderRadius: "14px",
+                padding: "12px 14px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between"
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "#d97706", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Crown size={20} color="#ffffff" />
+                </div>
+                <div>
+                  <div style={{ fontSize: "0.92rem", fontWeight: 800, color: "#ffffff" }}>{user.name}</div>
+                  <span style={{ fontSize: "0.72rem", color: "#fbbf24", fontWeight: 700 }}>● VIP Member Authenticated</span>
+                </div>
+              </div>
+              <div style={{ display: "flex", gap: "6px" }}>
+                <Link
+                  to="/login"
+                  onClick={handleNavClick}
+                  className="btn btn-gold btn-sm"
+                  style={{ padding: "5px 10px", fontSize: "0.75rem", textDecoration: "none" }}
+                >
+                  Portal
+                </Link>
+                <button
+                  onClick={() => { logoutUser(); handleNavClick(); }}
+                  className="btn btn-outline btn-sm"
+                  style={{ padding: "5px 8px", fontSize: "0.75rem", borderColor: "rgba(255,255,255,0.2)" }}
+                >
+                  <LogOut size={13} />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              onClick={handleNavClick}
+              className="btn btn-gold"
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                padding: "12px 16px",
+                fontSize: "0.92rem",
+                fontWeight: 800,
+                textDecoration: "none",
+                borderRadius: "14px",
+                boxShadow: "0 4px 16px rgba(217, 119, 6, 0.4)"
+              }}
+            >
+              <Sparkles size={16} />
+              <span>Sign In / Register VIP Account</span>
+            </Link>
+          )}
+        </div>
+
         {/* Founder VIP Mobile Banner */}
         <div className="mobile-founder-banner">
           <img

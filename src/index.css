@@ -3007,5 +3007,49 @@ html, body {
     opacity: 1;
   }
 }
+/* ==========================================================================
+   Luxury VIP Member & Hero Aesthetic Styling
+   ========================================================================== */
+.navbar-vip-signin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.18), rgba(217, 119, 6, 0.32));
+  border: 1px solid rgba(245, 158, 11, 0.6);
+  border-radius: var(--radius-full);
+  color: #fbbf24;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.25);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
+.navbar-vip-signin-btn:hover {
+  background: linear-gradient(135deg, #d97706, #b45309);
+  color: #ffffff;
+  border-color: #fbbf24;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(217, 119, 6, 0.5);
+}
 
+.hero-hotspot-chip {
+  transition: all 0.2s ease;
+}
+
+.hero-hotspot-chip:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: #fbbf24 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+}
+
+/* Shimmering Gold Typography for Hero */
+.hero-title span {
+  background: linear-gradient(135deg, #ffffff 0%, #fde047 35%, #f59e0b 70%, #ffffff 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline-block;
+  filter: drop-shadow(0 2px 14px rgba(245, 158, 11, 0.35));
+}

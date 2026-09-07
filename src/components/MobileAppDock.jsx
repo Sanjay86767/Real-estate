@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Search, Heart, Calculator, Settings, Phone, MessageSquare, Mail, X, ShieldCheck, Sparkles } from "lucide-react";
+import { Home, Search, Heart, Calculator, User, Settings, Phone, MessageSquare, Mail, X, ShieldCheck, Sparkles } from "lucide-react";
 import { usePropertyContext } from "../context/PropertyContext";
 import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 
 export const MobileAppDock = () => {
   const location = useLocation();
-  const { favorites } = usePropertyContext();
+  const { favorites, user } = usePropertyContext();
   const [showVipSheet, setShowVipSheet] = useState(false);
 
   const isActive = (path) => location.pathname === path;
@@ -75,14 +75,14 @@ export const MobileAppDock = () => {
             <span>Saved</span>
           </Link>
 
-          {/* 6. Cloud Admin Portal */}
+          {/* 6. VIP Account / Sign In */}
           <Link
-            to="/admin"
-            className={`dock-item ${isActive("/admin") ? "active" : ""}`}
-            title="Enterprise Cloud Admin Desk"
+            to="/login"
+            className={`dock-item ${isActive("/login") ? "active" : ""}`}
+            title={user ? `VIP Member: ${user.name}` : "Sign In / Register"}
           >
-            <Settings size={19} />
-            <span>Admin</span>
+            <User size={19} />
+            <span>{user ? "Profile" : "Sign In"}</span>
           </Link>
         </div>
       </div>
