@@ -28,12 +28,14 @@ const BANK_RATES = [
 
 // State-wise Stamp Duty & Registration Rates
 const STATE_STAMP_DUTIES = [
-  { state: "Chandigarh (UT)", male: "8.0%", female: "6.0%", joint: "7.0%", regFee: "₹15,000 Flat" },
-  { state: "Punjab (Mohali / Amritsar)", male: "7.0%", female: "6.0%", joint: "6.5%", regFee: "1.0%" },
-  { state: "Haryana (Gurugram / Panchkula)", male: "7.0%", female: "5.0%", joint: "6.0%", regFee: "₹50,000 Flat" },
+  { state: "Bihar (Patna / Darbhanga)", male: "6.0%", female: "5.7%", joint: "5.8%", regFee: "2.0% Flat" },
+  { state: "Maharashtra (Mumbai / Pune)", male: "6.0%", female: "5.0%", joint: "5.5%", regFee: "₹30,000 Flat" },
   { state: "Delhi NCR", male: "6.0%", female: "4.0%", joint: "5.0%", regFee: "1.0% + ₹100" },
   { state: "Karnataka (Bangalore)", male: "5.0%", female: "5.0%", joint: "5.0%", regFee: "1.0%" },
-  { state: "Maharashtra (Mumbai / Pune)", male: "6.0%", female: "5.0%", joint: "5.5%", regFee: "₹30,000 Flat" }
+  { state: "Goa (Beach Villas)", male: "4.0%", female: "3.5%", joint: "3.8%", regFee: "₹25,000 Flat" },
+  { state: "Chandigarh (UT)", male: "8.0%", female: "6.0%", joint: "7.0%", regFee: "₹15,000 Flat" },
+  { state: "Punjab (Mohali / Amritsar)", male: "7.0%", female: "6.0%", joint: "6.5%", regFee: "1.0%" },
+  { state: "Haryana (Gurugram / Panchkula)", male: "7.0%", female: "5.0%", joint: "6.0%", regFee: "₹50,000 Flat" }
 ];
 
 export const AffordabilityPage = () => {
