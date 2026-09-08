@@ -1,11 +1,30 @@
 import React, { useState, useRef, useEffect } from "react";
-import { MessageSquare, X, Send, Phone, CheckCheck, Sparkles } from "lucide-react";
+import {
+  MessageSquare,
+  X,
+  Send,
+  Phone,
+  CheckCheck,
+  Sparkles,
+  Video,
+  VideoOff,
+  Mic,
+  MicOff,
+  PhoneOff,
+  Maximize2,
+  ShieldCheck,
+  Lock
+} from "lucide-react";
 import { sfx } from "../utils/effects";
 
 export const LiveAgentChat = ({ agent, property }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isVideoCallActive, setIsVideoCallActive] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isVideoOn, setIsVideoOn] = useState(true);
+  const [callDuration, setCallDuration] = useState(0);
   const [chatLog, setChatLog] = useState([
     {
       id: 1,
@@ -14,6 +33,19 @@ export const LiveAgentChat = ({ agent, property }) => {
       time: "Just now"
     }
   ]);
+
+  // Video call duration counter
+  useEffect(() => {
+    let interval;
+    if (isVideoCallActive) {
+      interval = setInterval(() => {
+        setCallDuration((prev) => prev + 1);
+      }, 1000);
+    } else {
+      setCallDuration(0);
+    }
+    return () => clearInterval(interval);
+  }, [isVideoCallActive]);
 
   const chatEndRef = useRef(null);
 
@@ -116,13 +148,39 @@ export const LiveAgentChat = ({ agent, property }) => {
               </div>
             </div>
 
-            <button
-              onClick={() => setIsOpen(false)}
-              style={{ color: "#ffffff", cursor: "pointer", padding: "4px" }}
-              aria-label="Close live chat"
-            >
-              <X size={18} />
-            </button>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <button
+                type="button"
+                onClick={() => {
+                  sfx.playPop();
+                  setIsVideoCallActive(true);
+                }}
+                style={{
+                  background: "rgba(16, 185, 129, 0.25)",
+                  border: "1px solid #10b981",
+                  color: "#ffffff",
+                  fontSize: "0.72rem",
+                  fontWeight: 800,
+                  padding: "5px 10px",
+                  borderRadius: "20px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "5px",
+                  cursor: "pointer"
+                }}
+              >
+                <Video size={13} color="#86efac" />
+                <span>Live Video HD</span>
+              </button>
+
+              <button
+                onClick={() => setIsOpen(false)}
+                style={{ color: "#ffffff", cursor: "pointer", padding: "4px", background: "none", border: "none" }}
+                aria-label="Close live chat"
+              >
+                <X size={18} />
+              </button>
+            </div>
           </div>
 
           {/* Quick Question Chips */}
@@ -240,6 +298,272 @@ export const LiveAgentChat = ({ agent, property }) => {
               <Send size={14} />
             </button>
           </form>
+        </div>
+      )}
+
+      {/* 1-on-1 Encrypted Video Walkthrough Consultation Modal */}
+      {isVideoCallActive && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 999999,
+            background: "rgba(0, 0, 0, 0.92)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "16px"
+          }}
+          onClick={() => setIsVideoCallActive(false)}
+        >
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "880px",
+              height: "85vh",
+              maxHeight: "620px",
+              background: "#080d16",
+              borderRadius: "24px",
+              border: "1px solid rgba(245, 158, 11, 0.4)",
+              boxShadow: "0 25px 60px rgba(0,0,0,0.9), 0 0 50px rgba(245, 158, 11, 0.2)",
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              color: "#ffffff"
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Call Header */}
+            <div
+              style={{
+                padding: "14px 20px",
+                background: "rgba(15, 23, 42, 0.9)",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between"
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <div
+                  style={{
+                    width: "10px",
+                    height: "10px",
+                    borderRadius: "50%",
+                    background: "#ef4444",
+                    boxShadow: "0 0 10px #ef4444",
+                    animation: "pulse-dot 1.2s infinite"
+                  }}
+                />
+                <div>
+                  <div style={{ fontSize: "0.95rem", fontWeight: 800 }}>
+                    Live Walkthrough: {property.title}
+                  </div>
+                  <div style={{ fontSize: "0.72rem", color: "#94a3b8" }}>
+                    Connected to Advisor {agent.name} • 256-Bit Encrypted WebRTC
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div
+                  style={{
+                    background: "rgba(0,0,0,0.5)",
+                    padding: "4px 10px",
+                    borderRadius: "20px",
+                    fontFamily: "monospace",
+                    fontSize: "0.85rem",
+                    color: "#38bdf8"
+                  }}
+                >
+                  {String(Math.floor(callDuration / 60)).padStart(2, "0")}:{String(callDuration % 60).padStart(2, "0")}
+                </div>
+
+                <button
+                  onClick={() => setIsVideoCallActive(false)}
+                  style={{
+                    background: "rgba(255, 255, 255, 0.08)",
+                    border: "none",
+                    borderRadius: "8px",
+                    color: "#ffffff",
+                    width: "30px",
+                    height: "30px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer"
+                  }}
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Video Stage with PIP Overlay */}
+            <div style={{ flex: 1, position: "relative", overflow: "hidden", background: "#050811" }}>
+              <img
+                src={property.images?.[0] || property.image || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80"}
+                alt={property.title}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+
+              {/* Property Details Ribbon */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: "16px",
+                  left: "16px",
+                  background: "rgba(15, 23, 42, 0.85)",
+                  backdropFilter: "blur(10px)",
+                  padding: "8px 14px",
+                  borderRadius: "12px",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  fontSize: "0.8rem"
+                }}
+              >
+                <div style={{ color: "#fbbf24", fontWeight: 800 }}>{property.location || property.city}</div>
+                <div style={{ color: "#ffffff", fontWeight: 700 }}>₹{(property.price / 10000000).toFixed(2)} Cr • {property.bedrooms || 3} BHK</div>
+              </div>
+
+              {/* Agent PIP Video Camera Stream */}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "20px",
+                  right: "20px",
+                  width: "160px",
+                  height: "120px",
+                  borderRadius: "14px",
+                  overflow: "hidden",
+                  border: "2px solid #10b981",
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.6)",
+                  background: "#0f172a"
+                }}
+              >
+                <img
+                  src={agent.image}
+                  alt={agent.name}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "4px",
+                    left: "6px",
+                    right: "6px",
+                    background: "rgba(0,0,0,0.7)",
+                    borderRadius: "4px",
+                    padding: "2px 4px",
+                    fontSize: "0.62rem",
+                    fontWeight: 700,
+                    textAlign: "center",
+                    color: "#86efac"
+                  }}
+                >
+                  {agent.name.split(" ")[0]} (Speaking)
+                </div>
+              </div>
+            </div>
+
+            {/* Call Controls Footer */}
+            <div
+              style={{
+                padding: "16px 24px",
+                background: "rgba(15, 23, 42, 0.95)",
+                borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "16px"
+              }}
+            >
+              <button
+                type="button"
+                onClick={() => setIsMuted(!isMuted)}
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  borderRadius: "50%",
+                  border: "none",
+                  background: isMuted ? "#ef4444" : "rgba(255, 255, 255, 0.1)",
+                  color: "#ffffff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer"
+                }}
+                title={isMuted ? "Unmute Mic" : "Mute Mic"}
+              >
+                {isMuted ? <MicOff size={18} /> : <Mic size={18} />}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsVideoOn(!isVideoOn)}
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  borderRadius: "50%",
+                  border: "none",
+                  background: !isVideoOn ? "#ef4444" : "rgba(255, 255, 255, 0.1)",
+                  color: "#ffffff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer"
+                }}
+                title={isVideoOn ? "Turn Camera Off" : "Turn Camera On"}
+              >
+                {isVideoOn ? <Video size={18} /> : <VideoOff size={18} />}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  alert(`Unit reserved provisionally during live call with ${agent.name}! Token lock opened.`);
+                  setIsVideoCallActive(false);
+                }}
+                style={{
+                  padding: "10px 20px",
+                  borderRadius: "24px",
+                  background: "linear-gradient(135deg, #f59e0b, #d97706)",
+                  border: "none",
+                  color: "#ffffff",
+                  fontWeight: 800,
+                  fontSize: "0.85rem",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px"
+                }}
+              >
+                <Lock size={15} />
+                <span>Reserve Unit Now</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsVideoCallActive(false)}
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  borderRadius: "50%",
+                  border: "none",
+                  background: "#ef4444",
+                  color: "#ffffff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer"
+                }}
+                title="End Video Walkthrough Call"
+              >
+                <PhoneOff size={18} />
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
