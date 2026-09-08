@@ -242,7 +242,7 @@ export const Navbar = () => {
             <span className="brand-name">
               Estate<span className="brand-highlight">Hub</span>
             </span>
-            <span className="brand-sub">LUXURY REAL ESTATE & ADVISORY</span>
+            <span className="brand-sub">BY SANJAY KUMAR • LUXURY REAL ESTATE</span>
           </div>
         </Link>
 

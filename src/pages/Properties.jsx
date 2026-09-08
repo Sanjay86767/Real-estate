@@ -111,13 +111,21 @@ export const Properties = () => {
   const filteredProperties = useMemo(() => {
     return properties
       .filter((item) => {
-        // Keyword Search (handles state, city, 1 BHK - 5 BHK, Vastu, RERA)
+        // Keyword Search (handles Sanjay Kumar, state, city, 1 BHK - 5 BHK, Vastu, RERA)
         if (searchQuery.trim() !== "") {
           const q = searchQuery.toLowerCase().trim();
           const bhkMatch = q.match(/([1-5])\s*bhk/);
           if (bhkMatch) {
             const num = parseInt(bhkMatch[1]);
             if (item.bedrooms === num) return true;
+          }
+
+          // Direct match for Founder Sanjay Kumar searches
+          const isFounderQuery = q.includes("sanjay") || q.includes("kumar") || q.includes("founder");
+          if (isFounderQuery) {
+            if (item.id === 19 || item.featured || item.id === 1 || item.id === 2 || (item.city && item.city.toLowerCase().includes("darbhanga"))) {
+              return true;
+            }
           }
 
           const matchTitle = item.title.toLowerCase().includes(q);
@@ -350,6 +358,76 @@ export const Properties = () => {
 
         {/* Full-Width Main Listings Section */}
         <div style={{ width: "100%" }}>
+          {/* Founder Sanjay Kumar VIP Recognition Banner */}
+          {(searchQuery.toLowerCase().includes("sanjay") || searchQuery.toLowerCase().includes("kumar") || searchQuery.toLowerCase().includes("founder")) && (
+            <div
+              style={{
+                background: "linear-gradient(135deg, rgba(217, 119, 6, 0.25), rgba(15, 23, 42, 0.98))",
+                border: "2px solid #f59e0b",
+                borderRadius: "var(--radius-lg)",
+                padding: "20px 24px",
+                marginBottom: "24px",
+                boxShadow: "0 10px 30px rgba(245, 158, 11, 0.25)",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "18px"
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                <img
+                  src={sanjayPhoto}
+                  alt="Founder Sanjay Kumar"
+                  style={{
+                    width: "60px",
+                    height: "60px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    border: "2.5px solid #f59e0b",
+                    boxShadow: "0 0 20px rgba(245, 158, 11, 0.5)",
+                    flexShrink: 0
+                  }}
+                />
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                    <span style={{ fontWeight: 900, fontSize: "1.15rem", color: "#fbbf24" }}>
+                      👑 Founder Sanjay Kumar — Curated Flagship Portfolio
+                    </span>
+                    <span style={{ fontSize: "0.7rem", padding: "2px 8px", borderRadius: "6px", background: "#f59e0b", color: "#000", fontWeight: 800 }}>
+                      PLATFORM ARCHITECT & FOUNDER
+                    </span>
+                  </div>
+                  <div style={{ fontSize: "0.85rem", color: "#e2e8f0", marginTop: "4px" }}>
+                    Showing verified estates curated directly by Founder Sanjay Kumar (Darbhanga, Bihar) including Raj Darbhanga Royal Heritage Kothi and India's top Tier-1 luxury residences.
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                <a
+                  href="tel:+918809604880"
+                  style={{
+                    padding: "9px 18px",
+                    borderRadius: "var(--radius-full)",
+                    background: "linear-gradient(135deg, #f59e0b, #d97706)",
+                    color: "#000000",
+                    fontWeight: 800,
+                    fontSize: "0.85rem",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    boxShadow: "0 4px 12px rgba(245, 158, 11, 0.4)"
+                  }}
+                >
+                  <Phone size={15} />
+                  <span>Call Sanjay: +91 8809604880</span>
+                </a>
+              </div>
+            </div>
+          )}
+
           {/* User Added Properties Banner */}
           {myListedProperties.length > 0 && (
             <div

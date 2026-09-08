@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Search, MapPin, Home, IndianRupee, Layers, ArrowRight, Sparkles, Mic, MicOff } from "lucide-react";
 import { usePropertyContext } from "../context/PropertyContext";
 import { sfx } from "../utils/effects";
+import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 
 export const SearchBar = () => {
   const navigate = useNavigate();
@@ -71,7 +72,11 @@ export const SearchBar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Real-time matched properties for autocomplete preview (supports 1 BHK - 5 BHK, Vastu, RERA, City)
+  // Real-time matched properties for autocomplete preview (supports Sanjay Kumar, 1 BHK - 5 BHK, Vastu, RERA, City)
+  const isFounderQuery = keyword.trim().toLowerCase().includes("sanjay") || 
+                         keyword.trim().toLowerCase().includes("kumar") || 
+                         keyword.trim().toLowerCase().includes("founder");
+
   const liveMatches = properties.filter((p) => {
     if (!keyword.trim()) return false;
     const q = keyword.toLowerCase().trim();
@@ -81,6 +86,12 @@ export const SearchBar = () => {
     if (bhkMatch) {
       const num = parseInt(bhkMatch[1]);
       if (p.bedrooms === num) return true;
+    }
+
+    if (isFounderQuery) {
+      if (p.id === 19 || p.featured || (p.city && p.city.toLowerCase().includes("darbhanga")) || p.id === 1 || p.id === 2) {
+        return true;
+      }
     }
 
     return (
@@ -229,6 +240,43 @@ export const SearchBar = () => {
               <span>Real-Time Matches ({liveMatches.length})</span>
             </div>
 
+            {/* Special Founder Sanjay Kumar VIP Card */}
+            {isFounderQuery && (
+              <Link
+                to="/properties?q=sanjay"
+                onClick={() => setShowLiveDropdown(false)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "12px 14px",
+                  background: "linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(15, 23, 42, 0.95))",
+                  borderBottom: "2px solid #f59e0b",
+                  textDecoration: "none"
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <img
+                    src={sanjayPhoto}
+                    alt="Founder Sanjay Kumar"
+                    style={{ width: "42px", height: "42px", borderRadius: "50%", objectFit: "cover", border: "2px solid #f59e0b" }}
+                  />
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <strong style={{ fontSize: "0.92rem", color: "#fbbf24" }}>Founder Sanjay Kumar Portfolio</strong>
+                      <span style={{ fontSize: "0.68rem", padding: "1px 6px", borderRadius: "8px", background: "#f59e0b", color: "#000", fontWeight: 800 }}>FOUNDER</span>
+                    </div>
+                    <span style={{ fontSize: "0.76rem", color: "var(--text-secondary)" }}>
+                      📍 Darbhanga, Bihar • View Founder's Verified Curated Estates
+                    </span>
+                  </div>
+                </div>
+                <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#f59e0b", border: "1px solid #f59e0b", padding: "4px 10px", borderRadius: "6px", whiteSpace: "nowrap" }}>
+                  View Estates →
+                </span>
+              </Link>
+            )}
+
             {liveMatches.map((match) => (
               <Link
                 key={match.id}
@@ -287,6 +335,7 @@ export const SearchBar = () => {
           🔥 Quick Search:
         </span>
         {[
+          { label: "👑 Founder Sanjay Kumar", query: "Sanjay Kumar" },
           { label: "📍 Bihar (Darbhanga & Patna)", query: "Bihar" },
           { label: "📍 Mumbai & Pune", query: "Maharashtra" },
           { label: "📍 Goa Beach Villas", query: "Goa" },

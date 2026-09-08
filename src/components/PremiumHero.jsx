@@ -14,7 +14,7 @@ const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
 }));
 
 const QUICK_SEARCHES = [
-  "2BHK Mumbai", "Flats Delhi NCR", "Villa Goa", "Plot Bengaluru",
+  "👑 Founder Sanjay Kumar", "2BHK Mumbai", "Flats Delhi NCR", "Villa Goa", "Plot Bengaluru",
   "Budget Homes Pune", "Luxury Hyderabad", "Investment Bihar"
 ];
 
