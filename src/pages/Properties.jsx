@@ -240,121 +240,88 @@ export const Properties = () => {
   };
 
   return (
-    <div className="properties-page" style={{ padding: "40px 0 80px", minHeight: "85vh" }}>
-      <div className="container" style={{ maxWidth: "1600px" }}>
-        {/* Elite Page Header & Unique Real Estate Portfolio Showcase */}
-        <div
-          style={{
-            marginBottom: "28px",
-            padding: "32px 28px",
-            background: "linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%)",
-            border: "1px solid rgba(212, 175, 55, 0.4)",
-            borderRadius: "var(--radius-xl)",
-            boxShadow: "0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(212, 175, 55, 0.12)",
-            position: "relative",
-            overflow: "hidden"
-          }}
-        >
-          {/* Ambient Glow */}
-          <div
-            style={{
-              position: "absolute",
-              top: "-50px",
-              right: "-50px",
-              width: "250px",
-              height: "250px",
-              borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%)",
-              pointerEvents: "none"
-            }}
-          />
+    <div className="properties-page" style={{ paddingBottom: "80px", minHeight: "85vh" }}>
 
-          <div style={{ position: "relative", zIndex: 2 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px", flexWrap: "wrap" }}>
-              <span
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  padding: "4px 12px",
-                  borderRadius: "var(--radius-full)",
-                  background: "linear-gradient(135deg, #d4af37, #f59e0b)",
-                  color: "#0f172a",
-                  fontSize: "0.74rem",
-                  fontWeight: 900,
-                  letterSpacing: "0.5px"
+      {/* ── Ultra-Pro Hero Banner ── */}
+      <div style={{
+        background: "linear-gradient(135deg, #050d1a 0%, #0c1526 40%, #0e1a30 70%, #05100f 100%)",
+        padding: "clamp(36px,6vw,72px) 0 clamp(28px,4vw,56px)",
+        position: "relative", overflow: "hidden", marginBottom: "0"
+      }}>
+        {/* Layered ambient glows */}
+        <div style={{ position: "absolute", top: "-80px", right: "5%", width: "500px", height: "500px", background: "radial-gradient(circle, rgba(212,175,55,0.1), transparent 65%)", borderRadius: "50%", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: "-60px", left: "8%", width: "350px", height: "350px", background: "radial-gradient(circle, rgba(99,102,241,0.08), transparent 65%)", borderRadius: "50%", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: "30%", left: "50%", width: "200px", height: "200px", background: "radial-gradient(circle, rgba(16,185,129,0.05), transparent 65%)", borderRadius: "50%", pointerEvents: "none" }} />
+
+        <div className="container" style={{ maxWidth: "1600px", position: "relative" }}>
+          {/* Top eyebrow */}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px", flexWrap: "wrap" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "5px 14px", borderRadius: "999px", background: "linear-gradient(135deg, #92400e, #d97706)", color: "#fff", fontSize: "0.72rem", fontWeight: 900, letterSpacing: "0.8px", textTransform: "uppercase" }}>
+              <Crown size={12} /> All Residences & Unique Real Estate
+            </span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "5px", fontSize: "0.73rem", color: "#64748b", fontWeight: 700 }}>
+              <ShieldCheck size={12} color="#10b981" /> 100% Freehold RERA Cleared • 28 Indian States
+            </span>
+          </div>
+
+          {/* H1 */}
+          <h1 style={{ fontSize: "clamp(2rem,5vw,3.8rem)", margin: "0 0 14px", color: "#fff", fontWeight: 900, lineHeight: 1.08, letterSpacing: "-1px", maxWidth: "800px" }}>
+            India's Premier
+            <span style={{ display: "block", background: "linear-gradient(90deg, #d4af37, #fbbf24, #d4af37)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+              Real Estate Portfolio
+            </span>
+          </h1>
+          <p style={{ color: "#94a3b8", fontSize: "clamp(0.9rem,1.5vw,1.05rem)", maxWidth: "680px", margin: "0 0 24px", lineHeight: 1.65 }}>
+            From royal Mithila heritage kothis in Darbhanga to Arabian Sea mansions in Mumbai, beachfront pool villas in Goa & DLF golf suites in Gurugram.
+          </p>
+
+          {/* Stat pills */}
+          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "28px" }}>
+            {[
+              { val: `${filteredProperties.length}+`, label: "Live Listings", color: "#6366f1" },
+              { val: "28", label: "States & UTs", color: "#10b981" },
+              { val: "RERA", label: "Verified", color: "#f59e0b" },
+              { val: "100%", label: "Freehold", color: "#ec4899" },
+            ].map(s => (
+              <div key={s.label} style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "var(--radius-md)", padding: "8px 14px" }}>
+                <span style={{ fontSize: "1.1rem", fontWeight: 900, color: s.color }}>{s.val}</span>
+                <span style={{ fontSize: "0.72rem", color: "#64748b", fontWeight: 600 }}>{s.label}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Signature Theme Chips */}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+            <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#d4af37", textTransform: "uppercase", letterSpacing: "0.6px", marginRight: "4px" }}>Signature Themes:</span>
+            {[
+              { label: "🏰 Royal Heritage Kothis", query: "Kothi", state: "Bihar" },
+              { label: "🌊 Worli Coastal Mansions", query: "Mansion", city: "Mumbai" },
+              { label: "🏖️ Goa Beach Villas", query: "Villa", state: "Goa" },
+              { label: "🏌️ Golf Horizon Duplexes", query: "Penthouse", city: "Gurugram" },
+              { label: "🌿 Eco Penthouses", query: "Villa", city: "Bangalore" },
+              { label: "🛕 Temple Corridor Plots", query: "Plot", city: "Ayodhya" },
+              { label: "✈️ Airport Zone Plots", query: "Plot", city: "Darbhanga" },
+            ].map((theme, i) => (
+              <button key={i} type="button"
+                onClick={() => {
+                  const p = new URLSearchParams();
+                  if (theme.query) p.set("q", theme.query);
+                  if (theme.city) p.set("city", theme.city);
+                  if (theme.state) p.set("state", theme.state);
+                  setSearchParams(p);
                 }}
+                style={{ padding: "6px 13px", borderRadius: "999px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.14)", color: "#e2e8f0", fontSize: "0.75rem", fontWeight: 700, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "5px", transition: "all 0.2s" }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = "#d4af37"; e.currentTarget.style.background = "rgba(212,175,55,0.15)"; e.currentTarget.style.color = "#fbbf24"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.14)"; e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.color = "#e2e8f0"; }}
               >
-                <Crown size={13} />
-                <span>ALL RESIDENCES & UNIQUE REAL ESTATE</span>
-              </span>
-
-              <span style={{ fontSize: "0.76rem", color: "#94a3b8", fontWeight: 700 }}>
-                100% Freehold RERA Cleared • 28 Indian States & UTs
-              </span>
-            </div>
-
-            <h1 style={{ fontSize: "2.4rem", margin: "6px 0 10px", color: "#ffffff", fontWeight: 900 }}>
-              India's Premier Real Estate Portfolio
-            </h1>
-
-            <p style={{ color: "#cbd5e1", fontSize: "0.95rem", maxWidth: "850px", margin: "0 0 20px", lineHeight: 1.5 }}>
-              From royal Mithila heritage kothis in Darbhanga to Arabian Sea horizon mansions in Mumbai, beachfront pool villas in Goa & DLF golf suites in NCR.
-            </p>
-
-            {/* Unique Architectural Style Badges (Instant Click Filters) */}
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-              <span style={{ fontSize: "0.75rem", fontWeight: 800, color: "#d4af37", textTransform: "uppercase", letterSpacing: "0.5px", marginRight: "4px" }}>
-                Signature Themes:
-              </span>
-
-              {[
-                { label: "🏰 Royal Heritage Kothis", query: "Kothi", state: "Bihar" },
-                { label: "🌊 Worli Coastal Mansions", query: "Mansion", city: "Mumbai" },
-                { label: "🏖️ Goa Beachfront Pool Villas", query: "Villa", state: "Goa" },
-                { label: "🏌️ Golf Horizon Duplexes", query: "Penthouse", city: "Gurugram" },
-                { label: "🌿 Net-Zero Eco Penthouses", query: "Villa", city: "Bangalore" },
-                { label: "🛕 Temple Corridor Plots", query: "Plot", city: "Ayodhya" }
-              ].map((theme, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => {
-                    const p = new URLSearchParams();
-                    if (theme.query) p.set("q", theme.query);
-                    if (theme.city) p.set("city", theme.city);
-                    if (theme.state) p.set("state", theme.state);
-                    setSearchParams(p);
-                  }}
-                  style={{
-                    padding: "6px 14px",
-                    borderRadius: "var(--radius-full)",
-                    background: "rgba(255, 255, 255, 0.08)",
-                    border: "1px solid rgba(255, 255, 255, 0.18)",
-                    color: "#f8fafc",
-                    fontSize: "0.78rem",
-                    fontWeight: 700,
-                    cursor: "pointer",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    transition: "all 0.2s ease"
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "#d4af37";
-                    e.currentTarget.style.background = "rgba(212, 175, 55, 0.2)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.18)";
-                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
-                  }}
-                >
-                  <span>{theme.label}</span>
-                </button>
-              ))}
-            </div>
+                {theme.label}
+              </button>
+            ))}
           </div>
         </div>
+      </div>
+
+      <div className="container" style={{ maxWidth: "1600px", paddingTop: "28px" }}>
 
         {/* Full-Width Executive Horizontal Filter Bar */}
         <HorizontalFilterBar
@@ -467,21 +434,8 @@ export const Properties = () => {
             </div>
           )}
 
-          {/* Control Bar: Active filters, Sorting, View Toggle, Mobile Filter Button */}
-          <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "16px 20px",
-                background: "var(--bg-surface)",
-                border: "1px solid var(--border-light)",
-                borderRadius: "var(--radius-md)",
-                marginBottom: "24px",
-                flexWrap: "wrap",
-                gap: "14px"
-              }}
-            >
+          {/* Control Bar */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 20px", background: "var(--bg-surface)", border: "1px solid var(--border-light)", borderRadius: "var(--radius-lg)", marginBottom: "24px", flexWrap: "wrap", gap: "12px", boxShadow: "var(--shadow-sm)" }}>
               {/* Left: Mobile filter button & Results count */}
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <button

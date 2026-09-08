@@ -136,7 +136,8 @@ export const InvestmentCalculator = ({ propertyPrice = 7500000 }) => {
           gap: "16px",
           background: "var(--bg-secondary)",
           padding: "18px",
-          borderRadius: "var(--radius-md)"
+          borderRadius: "var(--radius-md)",
+          marginBottom: "20px"
         }}
       >
         <div>
@@ -172,6 +173,38 @@ export const InvestmentCalculator = ({ propertyPrice = 7500000 }) => {
           </span>
           <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "var(--accent-gold)" }}>
             +{roiPercent}%
+          </div>
+        </div>
+      </div>
+
+      {/* Union Budget Tax Intelligence Strip */}
+      <div
+        style={{
+          background: "rgba(15, 23, 42, 0.04)",
+          border: "1px dashed var(--border-focus)",
+          borderRadius: "12px",
+          padding: "16px 20px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "12px"
+        }}
+      >
+        <div>
+          <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "6px" }}>
+            <span>🇮🇳 Union Budget 12.5% LTCG Tax Shield</span>
+            <span style={{ fontSize: "0.68rem", background: "var(--accent-gold-light)", color: "var(--accent-gold)", padding: "2px 6px", borderRadius: "4px" }}>Sec 54 / 54EC Eligible</span>
+          </div>
+          <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", marginTop: "2px" }}>
+            Estimated Capital Gains Tax on 5-yr exit: <strong>₹{Math.round((futureVal5Yrs - propertyPrice) * 0.125).toLocaleString("en-IN")}</strong> (Can be 100% exempted under Section 54 reinvestment).
+          </div>
+        </div>
+
+        <div style={{ textAlign: "right" }}>
+          <div style={{ fontSize: "0.74rem", color: "var(--text-secondary)" }}>Sec 24(a) 30% Standard Deduction</div>
+          <div style={{ fontSize: "0.92rem", fontWeight: 800, color: "var(--accent-emerald)" }}>
+            ₹{Math.round(netAnnualIncome * 0.30).toLocaleString("en-IN")} Tax-Free Rent/Yr
           </div>
         </div>
       </div>

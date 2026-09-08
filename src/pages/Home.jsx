@@ -7,6 +7,11 @@ import AgentCard from "../components/AgentCard";
 import PropertyStoriesBar from "../components/PropertyStoriesBar";
 import Luxury3DCarousel from "../components/Luxury3DCarousel";
 import LiveMarketBarometer from "../components/LiveMarketBarometer";
+import PremiumHero from "../components/PremiumHero";
+import LiveStatsBar from "../components/LiveStatsBar";
+import TrustBadgeSection from "../components/TrustBadgeSection";
+import LiveAuctionHub from "../components/LiveAuctionHub";
+import PanIndiaLiveRadar from "../components/PanIndiaLiveRadar";
 import {
   ShieldCheck,
   Award,
@@ -22,7 +27,11 @@ import {
   Zap,
   Wand2,
   Crown,
-  MapPin
+  MapPin,
+  TrendingUp,
+  Home as HomeIcon,
+  BadgeCheck,
+  Quote
 } from "lucide-react";
 import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 import IndiaStateExplorer from "../components/IndiaStateExplorer";
@@ -108,209 +117,33 @@ export const Home = () => {
 
   return (
     <div className="home-page">
-      {/* 1. HERO SECTION */}
-      <section className="hero-section">
-        <div className="container">
-          <div className="hero-content">
-            {/* Curated by Founder Sanjay Kumar Badge */}
-            <div className="founder-hero-badge">
-              <div className="founder-hero-avatar-ring">
-                <img
-                  src={sanjayPhoto}
-                  alt="Sanjay Kumar - Founder"
-                  className="founder-hero-avatar-img"
-                />
-              </div>
-              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981", boxShadow: "0 0 8px #10b981" }}></span>
-              <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--accent-gold)", letterSpacing: "0.3px" }}>
-                Curated by Founder Sanjay Kumar (Darbhanga, Bihar) • RERA Verified Advisory
-              </span>
-            </div>
+      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          🏆 PREMIUM HERO — India's No.1 Cinematic Entrance
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      <PremiumHero />
 
-            <div className="hero-tagline-pill">
-              <Sparkles size={16} />
-              <span>India's Most Prestigious Luxury Real Estate Platform</span>
-            </div>
-            <h1 className="hero-title">
-              Find Your <span>Dream Estate</span><br />In Prime Corridors
-            </h1>
-            <p className="hero-desc">
-              Explore thousands of handpicked villas, penthouses, and prime commercial plots with 100% verified titles and private advisory led by Sanjay Kumar.
-            </p>
+      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          📊 LIVE STATS BAR — Real-time platform numbers
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      <LiveStatsBar />
 
-            {/* Quick Search Component */}
-            <SearchBar />
+      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          ⚡ LIVE AUCTION HUB — India's 1st Real-Time Digital Property Floor
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      <LiveAuctionHub />
 
-            {/* Interactive Luxury Hotspot Quick Filters */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-                flexWrap: "wrap",
-                marginTop: "16px"
-              }}
-            >
-              <span style={{ fontSize: "0.74rem", fontWeight: 800, color: "#cbd5e1", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Prime Corridors:
-              </span>
-              <Link
-                to="/properties?state=Maharashtra"
-                className="hero-hotspot-chip"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "4px",
-                  padding: "5px 12px",
-                  borderRadius: "20px",
-                  background: "rgba(255, 255, 255, 0.08)",
-                  border: "1px solid rgba(255, 255, 255, 0.2)",
-                  color: "#ffffff",
-                  fontSize: "0.78rem",
-                  fontWeight: 700,
-                  textDecoration: "none"
-                }}
-              >
-                <MapPin size={12} color="#38bdf8" />
-                <span>Mumbai Seaface (180+)</span>
-              </Link>
-              <Link
-                to="/properties?state=Karnataka"
-                className="hero-hotspot-chip"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "4px",
-                  padding: "5px 12px",
-                  borderRadius: "20px",
-                  background: "rgba(255, 255, 255, 0.08)",
-                  border: "1px solid rgba(255, 255, 255, 0.2)",
-                  color: "#ffffff",
-                  fontSize: "0.78rem",
-                  fontWeight: 700,
-                  textDecoration: "none"
-                }}
-              >
-                <MapPin size={12} color="#10b981" />
-                <span>Bangalore Tech Hub (160+)</span>
-              </Link>
-              <Link
-                to="/properties?state=Goa"
-                className="hero-hotspot-chip"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "4px",
-                  padding: "5px 12px",
-                  borderRadius: "20px",
-                  background: "rgba(255, 255, 255, 0.08)",
-                  border: "1px solid rgba(255, 255, 255, 0.2)",
-                  color: "#ffffff",
-                  fontSize: "0.78rem",
-                  fontWeight: 700,
-                  textDecoration: "none"
-                }}
-              >
-                <MapPin size={12} color="#fbbf24" />
-                <span>Goa Beach Villas (75+)</span>
-              </Link>
-              <Link
-                to="/properties?state=Bihar"
-                className="hero-hotspot-chip"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "4px",
-                  padding: "5px 12px",
-                  borderRadius: "20px",
-                  background: "rgba(217, 119, 6, 0.2)",
-                  border: "1px solid rgba(245, 158, 11, 0.5)",
-                  color: "#fde68a",
-                  fontSize: "0.78rem",
-                  fontWeight: 800,
-                  textDecoration: "none"
-                }}
-              >
-                <Crown size={12} color="#fbbf24" />
-                <span>Darbhanga / Patna (85+)</span>
-              </Link>
-            </div>
+      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          📡 PAN-INDIA REAL-TIME DEMAND RADAR & CORRIDORS
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      <PanIndiaLiveRadar />
 
-            {/* Glowing VIP Member Portal Callout Strip */}
-            <div
-              style={{
-                marginTop: "20px",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "10px",
-                padding: "8px 18px",
-                background: "linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9))",
-                border: "1.5px solid rgba(245, 158, 11, 0.6)",
-                borderRadius: "30px",
-                boxShadow: "0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(245, 158, 11, 0.25)",
-                maxWidth: "92%",
-                flexWrap: "wrap",
-                justifyContent: "center"
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <Crown size={16} color="#fbbf24" />
-                <span style={{ fontSize: "0.82rem", fontWeight: 800, color: "#ffffff" }}>
-                  Unlock Private Off-Market Portfolios & RERA Escrow
-                </span>
-              </div>
-              <Link
-                to="/login"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "5px",
-                  padding: "4px 12px",
-                  background: "linear-gradient(135deg, #d97706, #b45309)",
-                  color: "#ffffff",
-                  borderRadius: "20px",
-                  fontSize: "0.78rem",
-                  fontWeight: 800,
-                  textDecoration: "none",
-                  boxShadow: "0 2px 8px rgba(217, 119, 6, 0.4)"
-                }}
-              >
-                <span>VIP Sign In ➔</span>
-              </Link>
-            </div>
-
-            {/* Floating Luxury Trust Badges */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "14px",
-                marginTop: "22px",
-                flexWrap: "wrap"
-              }}
-            >
-              <div className="hero-trust-badge">
-                <span className="live-dot-pulse"></span>
-                <span>🔥 48 VIP Tours Scheduled Today</span>
-              </div>
-
-              <div className="hero-trust-badge">
-                <ShieldCheck size={14} color="var(--accent-emerald)" />
-                <span>100% Freehold & RERA Cleared</span>
-              </div>
-
-              <div className="hero-trust-badge">
-                <Star size={14} fill="var(--accent-gold)" color="var(--accent-gold)" />
-                <span>4.98/5 High-Net-Worth Client Rating</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          🏅 TRUST BADGE SECTION — Awards & Certifications
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      <TrustBadgeSection />
 
       {/* VIP LUXURY REELS & STORIES BAR */}
+
       <PropertyStoriesBar />
 
       {/* 3D LUXURY ROTATING ROTOR SHOWCASE */}
@@ -472,18 +305,10 @@ export const Home = () => {
             }}
           >
             <div>
-              <span
-                style={{
-                  color: "var(--accent-primary)",
-                  fontWeight: 700,
-                  fontSize: "0.9rem",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px"
-                }}
-              >
-                Curated Selection
-              </span>
-              <h2 style={{ fontSize: "2.4rem", marginTop: "4px" }}>Featured Properties</h2>
+              <div className="section-eyebrow">Curated Selection</div>
+              <h2 className="section-title-premium">
+                Featured <span className="text-gradient-gold">Properties</span>
+              </h2>
             </div>
 
             {/* Filter Tabs */}
@@ -522,19 +347,11 @@ export const Home = () => {
       <section style={{ padding: "70px 0", background: "var(--bg-surface)", borderTop: "1px solid var(--border-light)" }}>
         <div className="container">
           <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 48px" }}>
-            <span
-              style={{
-                color: "var(--accent-primary)",
-                fontWeight: 700,
-                fontSize: "0.85rem",
-                textTransform: "uppercase",
-                letterSpacing: "1px"
-              }}
-            >
-              Popular Hubs
-            </span>
-            <h2 style={{ fontSize: "2.2rem", marginTop: "4px" }}>Explore Properties By City</h2>
-            <p style={{ marginTop: "8px" }}>
+            <div className="section-eyebrow" style={{ justifyContent: "center" }}>Popular Hubs</div>
+            <h2 className="section-title-premium">
+              Explore Properties <span className="text-gradient-gold">By City</span>
+            </h2>
+            <p className="section-subtitle" style={{ margin: "10px auto 0", textAlign: "center" }}>
               Discover prime neighborhoods, residential hubs, and top-yielding real estate sectors.
             </p>
           </div>
@@ -542,63 +359,30 @@ export const Home = () => {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
               gap: "24px"
             }}
           >
-            {topCities.map((city) => (
+            {topCities.map((city, i) => (
               <div
                 key={city.name}
+                className="city-card-premium"
                 onClick={() => navigate(`/properties?city=${city.name}`)}
-                style={{
-                  position: "relative",
-                  height: "300px",
-                  borderRadius: "var(--radius-lg)",
-                  overflow: "hidden",
-                  cursor: "pointer",
-                  boxShadow: "var(--shadow-sm)",
-                  transition: "var(--transition)"
-                }}
-                className="city-explore-card"
+                style={{ animation: `fade-in-scale 0.5s ease ${i * 0.08}s both` }}
               >
-                <img
-                  src={city.image}
-                  alt={city.name}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    transition: "transform 0.5s ease"
-                  }}
-                />
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.2) 60%, transparent 100%)",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-end",
-                    padding: "24px",
-                    color: "#ffffff"
-                  }}
-                >
-                  <h3 style={{ fontSize: "1.4rem", color: "#ffffff", marginBottom: "4px" }}>{city.name}</h3>
-                  <span style={{ fontSize: "0.85rem", color: "#cbd5e1", marginBottom: "8px" }}>{city.state}</span>
-                  <span
-                    style={{
-                      display: "inline-block",
-                      padding: "4px 10px",
-                      background: "rgba(255, 255, 255, 0.2)",
-                      backdropFilter: "blur(6px)",
-                      borderRadius: "var(--radius-full)",
-                      fontSize: "0.75rem",
-                      fontWeight: 600,
-                      width: "fit-content"
-                    }}
-                  >
+                <img src={city.image} alt={city.name} loading="lazy" />
+                <div className="city-card-overlay" />
+                <div className="city-card-content">
+                  <div className="city-card-name">{city.name}</div>
+                  <div className="city-card-state">{city.state}</div>
+                  <span className="city-card-count">
+                    <MapPin size={10} />
                     {city.count}
                   </span>
+                  <div className="city-card-hover-btn">
+                    <span>Explore Properties</span>
+                    <ArrowRight size={14} />
+                  </div>
                 </div>
               </div>
             ))}
@@ -606,26 +390,20 @@ export const Home = () => {
         </div>
       </section>
 
+
       {/* 5. WHY CHOOSE ESTATEHUB */}
       <section style={{ padding: "80px 0", background: "var(--bg-primary)" }}>
         <div className="container">
           <div style={{ textAlign: "center", maxWidth: "650px", margin: "0 auto 50px" }}>
-            <span
-              style={{
-                color: "var(--accent-primary)",
-                fontWeight: 700,
-                fontSize: "0.85rem",
-                textTransform: "uppercase",
-                letterSpacing: "1px"
-              }}
-            >
-              The EstateHub Advantage
-            </span>
-            <h2 style={{ fontSize: "2.3rem", marginTop: "4px" }}>Why Buy & Invest With Us?</h2>
-            <p style={{ marginTop: "10px" }}>
+            <div className="section-eyebrow" style={{ justifyContent: "center" }}>The EstateHub Advantage</div>
+            <h2 className="section-title-premium">
+              Why Buy & Invest <span className="text-gradient-gold">With Us?</span>
+            </h2>
+            <p className="section-subtitle" style={{ margin: "10px auto 0", textAlign: "center" }}>
               We eliminate ambiguity from Indian real estate with complete regulatory compliance and transparent transactions.
             </p>
           </div>
+
 
           <div
             style={{

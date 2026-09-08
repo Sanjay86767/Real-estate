@@ -319,6 +319,57 @@ export const Footer = () => {
           </div>
         </div>
 
+        {/* INSTITUTIONAL TRUST & REGULATORY ACCREDITATIONS */}
+        <div
+          style={{
+            background: "rgba(15, 23, 42, 0.6)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            borderRadius: "16px",
+            padding: "20px 24px",
+            marginBottom: "32px",
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "16px"
+          }}
+        >
+          <div>
+            <div style={{ fontSize: "0.74rem", fontWeight: 800, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "8px" }}>
+              Pan-India RERA Accreditations & Compliance
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", fontSize: "0.75rem" }}>
+              <span style={{ background: "rgba(255, 255, 255, 0.05)", padding: "4px 10px", borderRadius: "6px", border: "1px solid rgba(255, 255, 255, 0.1)", color: "#e2e8f0" }}>
+                🏛️ MahaRERA: A51900001889
+              </span>
+              <span style={{ background: "rgba(255, 255, 255, 0.05)", padding: "4px 10px", borderRadius: "6px", border: "1px solid rgba(255, 255, 255, 0.1)", color: "#e2e8f0" }}>
+                🏛️ Karnataka RERA: PRM/KA/1251
+              </span>
+              <span style={{ background: "rgba(255, 255, 255, 0.05)", padding: "4px 10px", borderRadius: "6px", border: "1px solid rgba(255, 255, 255, 0.1)", color: "#e2e8f0" }}>
+                🏛️ Haryana HRERA: GGM-1092
+              </span>
+              <span style={{ background: "rgba(245, 158, 11, 0.12)", padding: "4px 10px", borderRadius: "6px", border: "1px solid rgba(245, 158, 11, 0.3)", color: "#fbbf24", fontWeight: 700 }}>
+                👑 Bihar RERA: BRERA-00921 (Sanjay Kumar Desk)
+              </span>
+              <span style={{ background: "rgba(255, 255, 255, 0.05)", padding: "4px 10px", borderRadius: "6px", border: "1px solid rgba(255, 255, 255, 0.1)", color: "#e2e8f0" }}>
+                🏛️ UP RERA: UPRERA-9021
+              </span>
+            </div>
+          </div>
+
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontSize: "0.74rem", fontWeight: 800, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "1px", marginBottom: "8px" }}>
+              RBI-Approved Escrow & Security
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "0.78rem", color: "#cbd5e1" }}>
+              <span style={{ color: "#38bdf8", fontWeight: 700 }}>HDFC Escrow</span> •
+              <span style={{ color: "#f59e0b", fontWeight: 700 }}>ICICI Bank</span> •
+              <span style={{ color: "#10b981", fontWeight: 700 }}>SBI Global</span> •
+              <span style={{ color: "#a78bfa", fontWeight: 700 }}>256-Bit TLS</span>
+            </div>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
         <div className="footer-bottom">
           <div>

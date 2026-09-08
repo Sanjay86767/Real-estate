@@ -64,11 +64,11 @@ export const CommandPalette = () => {
   const quickActions = [
     {
       id: "action-visits",
-      title: "View Scheduled Site Visits",
+      title: "My Visit List — Scheduled Inspections",
       category: "Navigation",
       icon: Calendar,
-      action: () => navigate("/dashboard?tab=visits"),
-      badge: "Dashboard"
+      action: () => navigate("/visit-list"),
+      badge: "Visit List"
     },
     {
       id: "action-add-prop",

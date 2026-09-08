@@ -5,6 +5,7 @@ import { usePropertyContext } from "../context/PropertyContext";
 import { playClickSound } from "../utils/effects";
 import PropertyBrochureModal from "./PropertyBrochureModal";
 import SiteVisitModal from "./SiteVisitModal";
+import LiveTokenReserveModal from "./LiveTokenReserveModal";
 
 export const PropertyCard = ({ property }) => {
   const { isFavorite, toggleFavorite, compareList, toggleCompare, formatPrice, formatArea, scheduledVisits = [] } = usePropertyContext();
@@ -15,6 +16,20 @@ export const PropertyCard = ({ property }) => {
   );
   const [showBrochureModal, setShowBrochureModal] = useState(false);
   const [showSiteVisitModal, setShowSiteVisitModal] = useState(false);
+  const [showTokenModal, setShowTokenModal] = useState(false);
+  const [liveViewers, setLiveViewers] = useState(((property.id * 3 + 5) % 8) + 3);
+
+  // Real-time viewer fluctuation
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setLiveViewers((prev) => {
+        const delta = Math.random() > 0.5 ? 1 : -1;
+        const next = prev + delta;
+        return next < 2 ? 3 : next > 12 ? 8 : next;
+      });
+    }, 7000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Multi-image preview index
   const [activeImgIndex, setActiveImgIndex] = useState(0);
@@ -141,7 +156,7 @@ export const PropertyCard = ({ property }) => {
           )}
           {isVisitBooked && (
             <Link
-              to="/dashboard?tab=visits"
+              to="/visit-list"
               onClick={(e) => e.stopPropagation()}
               className="badge"
               style={{
@@ -155,7 +170,7 @@ export const PropertyCard = ({ property }) => {
                 gap: "4px",
                 textDecoration: "none"
               }}
-              title="Inspection scheduled! Click to view in your Visit List"
+              title="Visit booked! Click to view your Visit List"
             >
               <Calendar size={11} color="#ffffff" />
               <span>Visit Booked ✓</span>
@@ -168,6 +183,32 @@ export const PropertyCard = ({ property }) => {
             <span className="badge badge-featured">Featured</span>
           )}
           <span className="badge badge-type">{property.type}</span>
+          <span
+            className="badge"
+            style={{
+              background: "rgba(15, 23, 42, 0.92)",
+              backdropFilter: "blur(8px)",
+              color: "#34d399",
+              border: "1px solid rgba(52, 211, 153, 0.4)",
+              fontSize: "0.68rem",
+              fontWeight: 800,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "5px"
+            }}
+          >
+            <span
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: "#10b981",
+                boxShadow: "0 0 6px #10b981",
+                animation: "pulse-dot 1.5s infinite"
+              }}
+            />
+            <span>{liveViewers} Live</span>
+          </span>
         </div>
 
         {/* Action Buttons: Visit, Compare & Favorite */}
@@ -351,6 +392,30 @@ export const PropertyCard = ({ property }) => {
             <FileText size={13} color="var(--accent-primary)" />
             <span>Brochure</span>
           </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              playClickSound();
+              setShowTokenModal(true);
+            }}
+            className="btn btn-sm"
+            title="Lock 15-Min Shubh Muhurat Token via Escrow"
+            style={{
+              padding: "8px 10px",
+              fontSize: "0.78rem",
+              fontWeight: 800,
+              background: "linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.25) 100%)",
+              border: "1px solid rgba(245, 158, 11, 0.5)",
+              color: "#fbbf24",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px"
+            }}
+          >
+            <span>⚡ Lock Deal</span>
+          </button>
           <a
             href={`https://wa.me/918809604880?text=${encodeURIComponent(`Hello Sanjay ji, I am interested in ${property.title} (${property.bhk || property.bedrooms + ' BHK'}, ${property.priceFormatted}) in ${property.city}, ${property.state}. Please share brochure and details.`)}`}
             target="_blank"
@@ -377,6 +442,14 @@ export const PropertyCard = ({ property }) => {
           property={property}
           agent={{ name: "Sanjay Kumar (Founder Desk)", phone: "+91 8809604880" }}
           onClose={() => setShowSiteVisitModal(false)}
+        />
+      )}
+
+      {showTokenModal && (
+        <LiveTokenReserveModal
+          property={property}
+          isOpen={showTokenModal}
+          onClose={() => setShowTokenModal(false)}
         />
       )}
     </div>

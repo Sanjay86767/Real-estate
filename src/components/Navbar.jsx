@@ -36,6 +36,7 @@ import {
 } from "lucide-react";
 import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 import BrochureHubModal from "./BrochureHubModal";
+import LiveNotificationDrawer from "./LiveNotificationDrawer";
 
 export const Navbar = () => {
   const {
@@ -58,6 +59,7 @@ export const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [showBrochureHub, setShowBrochureHub] = useState(false);
+  const [showLiveStream, setShowLiveStream] = useState(false);
   const dropdownTimeoutRef = useRef(null);
   const navRef = useRef(null);
   const navigate = useNavigate();
@@ -557,6 +559,37 @@ export const Navbar = () => {
 
         {/* Right Actions Hub */}
         <div className="nav-actions">
+          {/* Real-time Pan-India Live Stream Drawer Trigger */}
+          <button
+            type="button"
+            onClick={() => setShowLiveStream(true)}
+            className="btn btn-outline btn-sm"
+            title="Open Pan-India Real-Time Live Proptech Stream"
+            style={{
+              borderColor: "rgba(239, 68, 68, 0.45)",
+              background: "rgba(239, 68, 68, 0.12)",
+              color: "#f87171",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "6px 12px",
+              fontWeight: 800,
+              borderRadius: "20px"
+            }}
+          >
+            <span
+              style={{
+                width: "7px",
+                height: "7px",
+                borderRadius: "50%",
+                background: "#ef4444",
+                boxShadow: "0 0 8px #ef4444",
+                animation: "pulse-dot 1.2s infinite"
+              }}
+            />
+            <span>Live Stream</span>
+          </button>
+
           {/* Quick Instant Brochure Center Trigger */}
           <button
             type="button"
@@ -961,6 +994,12 @@ export const Navbar = () => {
       {showBrochureHub && (
         <BrochureHubModal onClose={() => setShowBrochureHub(false)} />
       )}
+
+      {/* 5. PAN-INDIA REAL-TIME LIVE PROPTECH STREAM DRAWER */}
+      <LiveNotificationDrawer
+        isOpen={showLiveStream}
+        onClose={() => setShowLiveStream(false)}
+      />
     </header>
   );
 };

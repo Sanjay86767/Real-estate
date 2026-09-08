@@ -54,18 +54,18 @@ export const MarketTicker = () => {
   if (!visible) return null;
 
   return (
-    <div className="market-ticker-wrapper">
-      <div className="market-ticker-bar">
-        {/* Real-Time Live Pulse Indicator Badge */}
-        <div className="market-ticker-badge" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <span className="live-dot-pulse"></span>
-          <Activity size={13} color="#10b981" />
-          <span style={{ letterSpacing: "0.5px" }}>REAL-TIME MARKET PULSE</span>
+    <div className="market-ticker-wrapper market-ticker-premium">
+      <div className="market-ticker-bar" style={{ background: "transparent", border: "none" }}>
+        {/* Premium Live Label */}
+        <div className="market-ticker-label">
+          <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#00D9A5", animation: "pulse-dot 1.5s ease-in-out infinite", display: "inline-block" }} />
+          <Activity size={12} />
+          <span>LIVE MARKET</span>
         </div>
 
         {/* Marquee Track */}
         <div className="market-marquee-container">
-          <div className="market-marquee-content">
+          <div className="market-marquee-content market-ticker-track">
             {marketData.concat(marketData).map((item, idx) => (
               <button
                 key={idx}

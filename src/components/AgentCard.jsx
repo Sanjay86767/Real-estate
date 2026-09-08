@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Star, Phone, Mail, Award, CheckCircle, Crown, MessageSquare, ExternalLink } from "lucide-react";
+import {
+  Star, Phone, Mail, Award, CheckCircle, Crown,
+  MessageSquare, MapPin, TrendingUp, Zap, ArrowRight
+} from "lucide-react";
 import { usePropertyContext } from "../context/PropertyContext";
 
 export const AgentCard = ({ agent, onContactClick }) => {
   const { addToast } = usePropertyContext();
-
-  const handleCall = () => {
-    addToast(`Dialing agent ${agent.name}: ${agent.phone}`, "info");
-  };
+  const [hovered, setHovered] = useState(false);
 
   const handleEmail = () => {
-    addToast(`Opening mail composer for ${agent.email}`, "info");
+    addToast(`Opening mail for ${agent.email}`, "info");
   };
 
   const isFounder = agent.id === 1;
@@ -19,188 +19,242 @@ export const AgentCard = ({ agent, onContactClick }) => {
   return (
     <div
       className="agent-card"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
-        border: isFounder ? "1.5px solid rgba(245, 158, 11, 0.6)" : undefined,
-        boxShadow: isFounder ? "0 10px 30px rgba(245, 158, 11, 0.15)" : undefined,
-        transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
+        position: "relative",
+        border: isFounder
+          ? "1.5px solid rgba(245,158,11,0.6)"
+          : "1px solid var(--border-light)",
+        boxShadow: hovered
+          ? isFounder
+            ? "0 20px 50px rgba(245,158,11,0.22), 0 8px 24px rgba(0,0,0,0.18)"
+            : "0 16px 44px rgba(99,102,241,0.14), 0 6px 16px rgba(0,0,0,0.12)"
+          : isFounder
+            ? "0 8px 24px rgba(245,158,11,0.12)"
+            : "var(--shadow-sm)",
+        transform: hovered ? "translateY(-6px)" : "translateY(0)",
+        transition: "all 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+        overflow: "hidden",
       }}
     >
+      {/* Shimmer sweep on hover */}
+      <div style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        background: "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%)",
+        transform: hovered ? "translateX(100%)" : "translateX(-100%)",
+        transition: "transform 0.7s ease",
+        zIndex: 1,
+      }} />
+
+      {/* Founder Banner */}
       {isFounder && (
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "5px",
-            background: "linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(15, 23, 42, 0.9))",
-            border: "1px solid #fbbf24",
-            padding: "4px 12px",
-            borderRadius: "20px",
-            marginBottom: "12px",
-            color: "#fbbf24",
-            fontSize: "0.74rem",
-            fontWeight: 900,
-            letterSpacing: "0.4px"
-          }}
-        >
-          <Crown size={13} color="#fbbf24" />
-          <span>FOUNDER & CHIEF STRATEGIST</span>
+        <div style={{
+          background: "linear-gradient(90deg, #92400e, #d97706, #b45309)",
+          padding: "6px 16px",
+          display: "flex", alignItems: "center", gap: "6px",
+          justifyContent: "center"
+        }}>
+          <Crown size={12} color="#fff" />
+          <span style={{ fontSize: "0.68rem", fontWeight: 900, color: "#fff", textTransform: "uppercase", letterSpacing: "1.2px" }}>
+            FOUNDER & CHIEF STRATEGIST
+          </span>
+          <Crown size={12} color="#fff" />
         </div>
       )}
 
-      <div className="agent-avatar-box">
-        <Link to={`/agent/${agent.id}`}>
-          <img src={agent.image} alt={agent.name} loading="lazy" />
-        </Link>
-        <div
-          style={{
-            position: "absolute",
-            bottom: "2px",
-            right: "2px",
-            background: "#ffffff",
-            borderRadius: "50%",
-            display: "flex",
-            padding: "2px"
-          }}
-          title="Verified Agent"
-        >
-          <CheckCircle size={18} color="var(--accent-primary)" fill="#ffffff" />
+      {/* Avatar */}
+      <div style={{ padding: "24px 20px 0", textAlign: "center" }}>
+        <div style={{ position: "relative", display: "inline-block" }}>
+          {/* Glow ring for founder */}
+          {isFounder && (
+            <div style={{
+              position: "absolute", inset: "-5px",
+              borderRadius: "50%",
+              background: "conic-gradient(from 0deg, #d97706, #f59e0b, #fbbf24, #d97706)",
+              animation: "spin 3s linear infinite",
+              zIndex: 0,
+            }} />
+          )}
+          <Link to={`/agent/${agent.id}`} style={{ display: "block", position: "relative", zIndex: 1 }}>
+            <div style={{
+              width: "88px", height: "88px", borderRadius: "50%",
+              border: isFounder ? "3px solid #0f172a" : "3px solid var(--bg-surface)",
+              overflow: "hidden",
+              boxShadow: isFounder ? "0 0 20px rgba(217,119,6,0.5)" : "0 4px 12px rgba(0,0,0,0.15)",
+              margin: "0 auto", position: "relative", zIndex: 1,
+            }}>
+              <img src={agent.image} alt={agent.name} loading="lazy"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            </div>
+          </Link>
+          {/* Verified badge */}
+          <div style={{
+            position: "absolute", bottom: "2px", right: "2px",
+            background: "#fff", borderRadius: "50%", padding: "2px",
+            zIndex: 2, boxShadow: "0 2px 6px rgba(0,0,0,0.15)"
+          }}>
+            <CheckCircle size={18} color="var(--accent-primary)" fill="#fff" />
+          </div>
+        </div>
+
+        {/* Name & Role */}
+        <h3 style={{ margin: "14px 0 2px", fontSize: "1.05rem", fontWeight: 800 }}>
+          <Link to={`/agent/${agent.id}`} style={{ color: "var(--text-primary)", textDecoration: "none" }}>
+            {agent.name}
+          </Link>
+        </h3>
+        <p style={{ fontSize: "0.8rem", color: isFounder ? "#f59e0b" : "var(--text-muted)", fontWeight: 600, margin: "0 0 10px" }}>
+          {agent.role}
+        </p>
+
+        {/* Stars */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "3px", marginBottom: "14px" }}>
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              size={13}
+              fill={i < Math.floor(agent.rating) ? "var(--accent-gold)" : "transparent"}
+              color="var(--accent-gold)"
+            />
+          ))}
+          <strong style={{ fontSize: "0.88rem", marginLeft: "4px" }}>{agent.rating}</strong>
+          <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>({agent.reviewsCount})</span>
         </div>
       </div>
 
-      <h3 className="agent-name">
-        <Link to={`/agent/${agent.id}`}>{agent.name}</Link>
-      </h3>
-      <p className="agent-role">{agent.role}</p>
-
-      {/* Ratings */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "4px",
-          marginBottom: "12px"
-        }}
-      >
-        <Star size={16} fill="var(--accent-gold)" color="var(--accent-gold)" />
-        <strong style={{ fontSize: "0.95rem" }}>{agent.rating}</strong>
-        <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
-          ({agent.reviewsCount} reviews)
-        </span>
+      {/* Stats bar */}
+      <div style={{
+        display: "grid", gridTemplateColumns: "1fr 1fr 1fr",
+        borderTop: "1px solid var(--border-light)", borderBottom: "1px solid var(--border-light)",
+        margin: "0 0 16px"
+      }}>
+        {[
+          { label: "Exp.", value: agent.experience },
+          { label: "Sold", value: agent.dealsClosed },
+          { label: "City", value: agent.city?.split(" ")[0] },
+        ].map((s, i) => (
+          <div key={i} style={{
+            padding: "12px 6px", textAlign: "center",
+            borderRight: i < 2 ? "1px solid var(--border-light)" : "none",
+          }}>
+            <strong style={{ display: "block", fontSize: "0.92rem", fontWeight: 800, color: "var(--text-primary)" }}>
+              {s.value}
+            </strong>
+            <span style={{ fontSize: "0.68rem", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+              {s.label}
+            </span>
+          </div>
+        ))}
       </div>
 
-      {/* Stats */}
-      <div className="agent-stats">
-        <div className="agent-stat-item">
-          <strong>{agent.experience}</strong>
-          <span>Experience</span>
-        </div>
-        <div className="agent-stat-item">
-          <strong>{agent.dealsClosed}</strong>
-          <span>Properties Sold</span>
-        </div>
-        <div className="agent-stat-item">
-          <strong>{agent.city}</strong>
-          <span>Base City</span>
-        </div>
+      {/* Bio */}
+      <div style={{ padding: "0 18px 16px" }}>
+        <p style={{
+          fontSize: "0.83rem", color: "var(--text-secondary)", lineHeight: 1.55,
+          display: "-webkit-box", WebkitLineClamp: 2,
+          WebkitBoxOrient: "vertical", overflow: "hidden", margin: 0
+        }}>
+          {agent.bio}
+        </p>
       </div>
 
-      <p
-        style={{
-          fontSize: "0.85rem",
-          color: "var(--text-secondary)",
-          marginBottom: "18px",
-          lineHeight: "1.5",
-          display: "-webkit-box",
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: "vertical",
-          overflow: "hidden"
-        }}
-      >
-        {agent.bio}
-      </p>
+      {/* City pill */}
+      {agent.city && (
+        <div style={{ padding: "0 18px 14px" }}>
+          <span style={{
+            display: "inline-flex", alignItems: "center", gap: "4px",
+            padding: "3px 10px", borderRadius: "999px", fontSize: "0.72rem",
+            background: "var(--bg-secondary)", color: "var(--text-muted)",
+            border: "1px solid var(--border-light)", fontWeight: 600
+          }}>
+            <MapPin size={10} /> {agent.city}
+          </span>
+        </div>
+      )}
 
-      {/* Direct Phone Number & WhatsApp Pills */}
-      <div style={{ display: "flex", gap: "8px", marginBottom: "14px" }}>
+      {/* Action buttons */}
+      <div style={{ padding: "0 18px 18px", display: "flex", flexDirection: "column", gap: "8px" }}>
+        {/* WhatsApp CTA */}
         <a
-          href={`tel:${agent.phone}`}
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "6px",
-            padding: "8px 12px",
-            background: "rgba(37, 99, 235, 0.08)",
-            border: "1px solid rgba(37, 99, 235, 0.25)",
-            borderRadius: "var(--radius-full)",
-            color: "var(--accent-primary)",
-            fontWeight: 700,
-            fontSize: "0.82rem",
-            textDecoration: "none"
-          }}
-          title={`Call ${agent.name} directly`}
-        >
-          <Phone size={13} />
-          <span>{agent.phone}</span>
-        </a>
-
-        <a
-          href={`https://wa.me/918809604880?text=Hello%20${encodeURIComponent(agent.name)},%20I%20am%20interested%20in%20consulting%20with%20EstateHub%20regarding%20luxury%20properties.`}
+          href={`https://wa.me/918809604880?text=Hello%20${encodeURIComponent(agent.name)},%20I%20found%20your%20profile%20on%20EstateHub.%20I%27m%20interested%20in%20property%20consultation.`}
           target="_blank"
           rel="noreferrer"
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "4px",
-            padding: "8px 12px",
-            background: "rgba(16, 185, 129, 0.12)",
-            border: "1px solid rgba(16, 185, 129, 0.35)",
-            borderRadius: "var(--radius-full)",
-            color: "#10b981",
-            fontWeight: 700,
-            fontSize: "0.82rem",
-            textDecoration: "none"
+            display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
+            padding: "10px 14px",
+            background: "linear-gradient(135deg, #16a34a, #15803d)",
+            color: "#fff", borderRadius: "var(--radius-md)",
+            fontWeight: 700, fontSize: "0.85rem", textDecoration: "none",
+            boxShadow: "0 4px 12px rgba(22,163,74,0.3)",
+            transition: "all 0.2s ease"
           }}
-          title="Direct WhatsApp Chat"
+          onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.02)"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
         >
-          <MessageSquare size={13} />
-          <span>WhatsApp</span>
-        </a>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="agent-contact-actions">
-        <a
-          href={`tel:${agent.phone}`}
-          className="btn btn-secondary btn-sm"
-          style={{ flex: 1, gap: "6px", textDecoration: "none" }}
-          title="Call agent"
-        >
-          <Phone size={14} color="var(--accent-primary)" />
-          <span>Call</span>
+          <MessageSquare size={15} />
+          WhatsApp Chat
         </a>
 
-        <button
-          onClick={handleEmail}
-          className="btn btn-secondary btn-sm"
-          style={{ flex: 1, gap: "6px" }}
-          title="Email agent"
-        >
-          <Mail size={14} color="var(--accent-primary)" />
-          <span>Email</span>
-        </button>
-
-        {onContactClick && (
-          <button
-            onClick={() => onContactClick(agent)}
-            className="btn btn-primary btn-sm"
-            style={{ flex: 1.2 }}
+        {/* Call + Email */}
+        <div style={{ display: "flex", gap: "8px" }}>
+          <a
+            href={`tel:${agent.phone}`}
+            style={{
+              flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: "5px",
+              padding: "8px", background: "rgba(37,99,235,0.08)",
+              border: "1px solid rgba(37,99,235,0.2)", borderRadius: "var(--radius-sm)",
+              color: "var(--accent-primary)", fontWeight: 700, fontSize: "0.8rem",
+              textDecoration: "none", transition: "all 0.2s"
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(37,99,235,0.14)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(37,99,235,0.08)"; }}
           >
-            Inquire
+            <Phone size={13} /> Call
+          </a>
+          <button
+            onClick={handleEmail}
+            style={{
+              flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: "5px",
+              padding: "8px", background: "var(--bg-secondary)",
+              border: "1px solid var(--border-light)", borderRadius: "var(--radius-sm)",
+              color: "var(--text-secondary)", fontWeight: 700, fontSize: "0.8rem",
+              cursor: "pointer", transition: "all 0.2s"
+            }}
+          >
+            <Mail size={13} /> Email
           </button>
-        )}
+          {onContactClick && (
+            <button
+              onClick={() => onContactClick(agent)}
+              style={{
+                flex: 1.2, display: "flex", alignItems: "center", justifyContent: "center",
+                padding: "8px", background: "var(--accent-primary)",
+                border: "none", borderRadius: "var(--radius-sm)",
+                color: "#fff", fontWeight: 700, fontSize: "0.8rem", cursor: "pointer",
+                transition: "all 0.2s"
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.85"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
+            >
+              Inquire
+            </button>
+          )}
+        </div>
+
+        {/* Profile link */}
+        <Link
+          to={`/agent/${agent.id}`}
+          style={{
+            display: "flex", alignItems: "center", justifyContent: "center", gap: "5px",
+            fontSize: "0.78rem", color: "var(--text-muted)", textDecoration: "none",
+            paddingTop: "4px", transition: "color 0.2s"
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = "var(--accent-primary)"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = "var(--text-muted)"; }}
+        >
+          View Full Profile <ArrowRight size={12} />
+        </Link>
       </div>
     </div>
   );

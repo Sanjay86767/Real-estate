@@ -6,7 +6,6 @@ import Footer from "./components/Footer";
 import Toast from "./components/Toast";
 import CompareModal from "./components/CompareModal";
 import LiveActivityTicker from "./components/LiveActivityTicker";
-import AiChatbot from "./components/AiChatbot";
 import MarketTicker from "./components/MarketTicker";
 import VoiceCommander from "./components/VoiceCommander";
 import VipConciergeBar from "./components/VipConciergeBar";
@@ -15,26 +14,27 @@ import RealtimeLiveEngine from "./components/RealtimeLiveEngine";
 import CommandPalette from "./components/CommandPalette";
 
 // Pages
-import Home from "./pages/Home";
-import Properties from "./pages/Properties";
-import PropertyDetails from "./pages/PropertyDetails";
-import Favorites from "./pages/Favorites";
-import Agents from "./pages/Agents";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Login from "./pages/Login";
-import ListProperty from "./pages/ListProperty";
-import Valuation from "./pages/Valuation";
-import Matchmaker from "./pages/Matchmaker";
-import AffordabilityPage from "./pages/AffordabilityPage";
-import InteriorStudio from "./pages/InteriorStudio";
-import MarketInsights from "./pages/MarketInsights";
-import AgentDetails from "./pages/AgentDetails";
-import Dashboard from "./pages/Dashboard";
-import DealDesk from "./pages/DealDesk";
-import AdminPortal from "./pages/AdminPortal";
-import EstateBot from "./components/EstateBot";
-import NotFound from "./pages/NotFound";
+const Home = React.lazy(() => import("./pages/Home"));
+const Properties = React.lazy(() => import("./pages/Properties"));
+const PropertyDetails = React.lazy(() => import("./pages/PropertyDetails"));
+const Favorites = React.lazy(() => import("./pages/Favorites"));
+const Agents = React.lazy(() => import("./pages/Agents"));
+const About = React.lazy(() => import("./pages/About"));
+const Contact = React.lazy(() => import("./pages/Contact"));
+const Login = React.lazy(() => import("./pages/Login"));
+const ListProperty = React.lazy(() => import("./pages/ListProperty"));
+const Valuation = React.lazy(() => import("./pages/Valuation"));
+const Matchmaker = React.lazy(() => import("./pages/Matchmaker"));
+const AffordabilityPage = React.lazy(() => import("./pages/AffordabilityPage"));
+const InteriorStudio = React.lazy(() => import("./pages/InteriorStudio"));
+const MarketInsights = React.lazy(() => import("./pages/MarketInsights"));
+const AgentDetails = React.lazy(() => import("./pages/AgentDetails"));
+const Dashboard = React.lazy(() => import("./pages/Dashboard"));
+const DealDesk = React.lazy(() => import("./pages/DealDesk"));
+const AdminPortal = React.lazy(() => import("./pages/AdminPortal"));
+const EstateBot = React.lazy(() => import("./components/EstateBot"));
+const VisitListPage = React.lazy(() => import("./pages/VisitListPage"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
 
 // Scroll to top helper on route navigation
 const ScrollToTop = () => {
@@ -60,9 +60,9 @@ export function App() {
           <LiveActivityTicker />
           <VoiceCommander />
           <CommandPalette />
-          <AiChatbot />
           <VipConciergeBar />
           <main style={{ flexGrow: 1 }}>
+    <React.Suspense fallback={<div className="loading">Loading...</div>}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/properties" element={<Properties />} />
@@ -73,9 +73,10 @@ export function App() {
               <Route path="/kothi" element={<PropertyDetails defaultId={19} />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/visits" element={<Dashboard defaultTab="visits" />} />
-              <Route path="/visit-list" element={<Dashboard defaultTab="visits" />} />
-              <Route path="/site-visits" element={<Dashboard defaultTab="visits" />} />
+              <Route path="/visit-list" element={<VisitListPage />} />
+              <Route path="/my-visits" element={<VisitListPage />} />
+              <Route path="/visits" element={<VisitListPage />} />
+              <Route path="/site-visits" element={<VisitListPage />} />
               <Route path="/deal-desk" element={<DealDesk />} />
               <Route path="/admin" element={<AdminPortal />} />
               <Route path="/agents" element={<Agents />} />
@@ -96,6 +97,7 @@ export function App() {
               <Route path="/market-insights" element={<MarketInsights />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+    </React.Suspense>
           </main>
           <EstateBot />
           <RealtimeLiveEngine />
