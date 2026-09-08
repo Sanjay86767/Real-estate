@@ -12,6 +12,8 @@ import LiveStatsBar from "../components/LiveStatsBar";
 import TrustBadgeSection from "../components/TrustBadgeSection";
 import LiveAuctionHub from "../components/LiveAuctionHub";
 import PanIndiaLiveRadar from "../components/PanIndiaLiveRadar";
+import MegaInfrastructureCorridors from "../components/MegaInfrastructureCorridors";
+import DroneAerialViewer from "../components/DroneAerialViewer";
 import {
   ShieldCheck,
   Award,
@@ -39,6 +41,7 @@ import IndiaStateExplorer from "../components/IndiaStateExplorer";
 export const Home = () => {
   const { properties, agents } = usePropertyContext();
   const [activeTab, setActiveTab] = useState("All");
+  const [showDroneViewer, setShowDroneViewer] = useState(false);
   const navigate = useNavigate();
 
   // Filter 6 featured properties based on active tab
@@ -128,6 +131,57 @@ export const Home = () => {
       <LiveStatsBar />
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          🚁 3D DRONE ELEVATION & 4K SKYLINE SIMULATOR LAUNCHER
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      <div
+        style={{
+          background: "linear-gradient(90deg, #070e1a 0%, #0f1e36 50%, #070e1a 100%)",
+          borderTop: "1px solid rgba(245, 158, 11, 0.35)",
+          borderBottom: "1px solid rgba(245, 158, 11, 0.35)",
+          padding: "20px 24px"
+        }}
+      >
+        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+            <span style={{ fontSize: "2.2rem" }}>🚁</span>
+            <div>
+              <div style={{ fontSize: "1.05rem", fontWeight: 900, color: "#ffffff", display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                <span>Interactive 3D Drone Elevation & Skyline Simulator (4K)</span>
+                <span style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)", color: "#ffffff", fontSize: "0.65rem", padding: "3px 8px", borderRadius: "12px", fontWeight: 900 }}>
+                  INDUSTRY FIRST
+                </span>
+              </div>
+              <div style={{ fontSize: "0.82rem", color: "#94a3b8", marginTop: "2px" }}>
+                Experience panoramic views from Ground Pool Level, 18th Floor, to 52nd Floor Penthouse in Day, Sunset & Cyber Night lighting.
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setShowDroneViewer(true)}
+            style={{
+              padding: "12px 24px",
+              borderRadius: "14px",
+              background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
+              border: "none",
+              color: "#ffffff",
+              fontSize: "0.9rem",
+              fontWeight: 900,
+              cursor: "pointer",
+              boxShadow: "0 4px 20px rgba(245, 158, 11, 0.4)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px"
+            }}
+          >
+            <span>Launch 3D Drone Simulator</span>
+            <Compass size={16} />
+          </button>
+        </div>
+      </div>
+
+      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
           ⚡ LIVE AUCTION HUB — India's 1st Real-Time Digital Property Floor
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <LiveAuctionHub />
@@ -136,6 +190,11 @@ export const Home = () => {
           📡 PAN-INDIA REAL-TIME DEMAND RADAR & CORRIDORS
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <PanIndiaLiveRadar />
+
+      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          🚀 INDIA 2026-2030 MEGA INFRASTRUCTURE CORRIDORS TRACKER
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      <MegaInfrastructureCorridors />
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
           🏅 TRUST BADGE SECTION — Awards & Certifications
@@ -691,6 +750,12 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* 3D DRONE ELEVATION & 4K SKYLINE SIMULATOR MODAL */}
+      <DroneAerialViewer
+        isOpen={showDroneViewer}
+        onClose={() => setShowDroneViewer(false)}
+      />
     </div>
   );
 };
