@@ -14,6 +14,7 @@ import LiveAuctionHub from "../components/LiveAuctionHub";
 import PanIndiaLiveRadar from "../components/PanIndiaLiveRadar";
 import MegaInfrastructureCorridors from "../components/MegaInfrastructureCorridors";
 import DroneAerialViewer from "../components/DroneAerialViewer";
+import VerifiedBuyerReviewsHub from "../components/VerifiedBuyerReviewsHub";
 import {
   ShieldCheck,
   Award,
@@ -638,75 +639,10 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* 7. TESTIMONIALS */}
+      {/* 7. PAN-INDIA VERIFIED BUYER & INVESTOR REVIEWS TRUST WALL */}
       <section style={{ padding: "80px 0", background: "var(--bg-primary)" }}>
         <div className="container">
-          <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 50px" }}>
-            <span
-              style={{
-                color: "var(--accent-primary)",
-                fontWeight: 700,
-                fontSize: "0.85rem",
-                textTransform: "uppercase",
-                letterSpacing: "1px"
-              }}
-            >
-              Testimonials
-            </span>
-            <h2 style={{ fontSize: "2.3rem", marginTop: "4px" }}>Loved By 10,000+ Homeowners</h2>
-            <p style={{ marginTop: "10px" }}>
-              Read authentic feedback from satisfied buyers, sellers, and property investors.
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "24px"
-            }}
-          >
-            {testimonials.map((item) => (
-              <div
-                key={item.id}
-                style={{
-                  background: "var(--bg-surface)",
-                  padding: "32px",
-                  borderRadius: "var(--radius-lg)",
-                  border: "1px solid var(--border-light)",
-                  boxShadow: "var(--shadow-sm)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between"
-                }}
-              >
-                <div style={{ display: "flex", gap: "4px", marginBottom: "16px" }}>
-                  {[...Array(item.rating)].map((_, i) => (
-                    <Star key={i} size={18} fill="var(--accent-gold)" color="var(--accent-gold)" />
-                  ))}
-                </div>
-                <p style={{ fontSize: "0.95rem", lineHeight: "1.7", fontStyle: "italic", marginBottom: "24px" }}>
-                  "{item.text}"
-                </p>
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  <img
-                    src={item.avatar}
-                    alt={item.name}
-                    style={{
-                      width: "48px",
-                      height: "48px",
-                      borderRadius: "50%",
-                      objectFit: "cover"
-                    }}
-                  />
-                  <div>
-                    <h4 style={{ fontSize: "1.05rem", margin: 0 }}>{item.name}</h4>
-                    <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>{item.role}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <VerifiedBuyerReviewsHub />
         </div>
       </section>
 

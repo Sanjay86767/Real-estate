@@ -23,6 +23,7 @@ import MortgageStudioModal from "../components/MortgageStudioModal";
 import EscrowModal from "../components/EscrowModal";
 import Interactive3DPhotoRotator from "../components/Interactive3DPhotoRotator";
 import RoyalHeritageKothiShowcase from "../components/RoyalHeritageKothiShowcase";
+import VerifiedBuyerReviewsHub from "../components/VerifiedBuyerReviewsHub";
 import sanjayPhoto from "../assets/sanjay-kumar.jpg";
 import {
   MapPin,
@@ -1003,6 +1004,11 @@ export const PropertyDetails = ({ defaultId }) => {
             {/* 10. Home Buying Affordability & Pre-Approval Analyzer */}
             <div style={{ marginBottom: "32px" }}>
               <AffordabilityCalculator />
+            </div>
+
+            {/* 11. Pan-India Verified Buyer Reviews & Trust Wall */}
+            <div style={{ marginBottom: "32px" }}>
+              <VerifiedBuyerReviewsHub propertyTitle={property.title} />
             </div>
           </div>
 
