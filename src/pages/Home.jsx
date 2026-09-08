@@ -15,6 +15,7 @@ import PanIndiaLiveRadar from "../components/PanIndiaLiveRadar";
 import MegaInfrastructureCorridors from "../components/MegaInfrastructureCorridors";
 import DroneAerialViewer from "../components/DroneAerialViewer";
 import VerifiedBuyerReviewsHub from "../components/VerifiedBuyerReviewsHub";
+import SovereignPortfolioSimulator from "../components/SovereignPortfolioSimulator";
 import {
   ShieldCheck,
   Award,
@@ -196,6 +197,15 @@ export const Home = () => {
           🚀 INDIA 2026-2030 MEGA INFRASTRUCTURE CORRIDORS TRACKER
       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <MegaInfrastructureCorridors />
+
+      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          💎 AI PAN-INDIA SOVEREIGN WEALTH & PORTFOLIO SIMULATOR
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+      <section style={{ padding: "40px 0 60px", background: "var(--bg-primary)" }}>
+        <div className="container">
+          <SovereignPortfolioSimulator />
+        </div>
+      </section>
 
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
           🏅 TRUST BADGE SECTION — Awards & Certifications

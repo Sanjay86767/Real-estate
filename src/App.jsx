@@ -34,6 +34,7 @@ const DealDesk = React.lazy(() => import("./pages/DealDesk"));
 const AdminPortal = React.lazy(() => import("./pages/AdminPortal"));
 const EstateBot = React.lazy(() => import("./components/EstateBot"));
 const VisitListPage = React.lazy(() => import("./pages/VisitListPage"));
+const PortfolioSimulatorPage = React.lazy(() => import("./pages/PortfolioSimulatorPage"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 
 // Scroll to top helper on route navigation
@@ -95,6 +96,8 @@ export function App() {
               <Route path="/affordability" element={<AffordabilityPage />} />
               <Route path="/interior-studio" element={<InteriorStudio />} />
               <Route path="/market-insights" element={<MarketInsights />} />
+              <Route path="/portfolio-simulator" element={<PortfolioSimulatorPage />} />
+              <Route path="/wealth-simulator" element={<PortfolioSimulatorPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
     </React.Suspense>
