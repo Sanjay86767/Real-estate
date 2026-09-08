@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# High priority indexing for Google, Brave Search, Bing, DuckDuckGo
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bravebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+Sitemap: https://estatehub-rust.vercel.app/sitemap.xml
