@@ -72,10 +72,16 @@ export const SearchBar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Real-time matched properties for autocomplete preview (supports Sanjay Kumar, 1 BHK - 5 BHK, Vastu, RERA, City)
-  const isFounderQuery = keyword.trim().toLowerCase().includes("sanjay") || 
-                         keyword.trim().toLowerCase().includes("kumar") || 
-                         keyword.trim().toLowerCase().includes("founder");
+  // Real-time matched properties for autocomplete preview (supports Sanjay Kumar & EstateHub brand)
+  const cleanKeyword = keyword.trim().toLowerCase();
+  const isFounderQuery = cleanKeyword.includes("sanjay") || 
+                         cleanKeyword.includes("kumar") || 
+                         cleanKeyword.includes("founder");
+  const isBrandQuery = cleanKeyword.includes("estatehub") || 
+                       cleanKeyword.includes("estate hub") || 
+                       cleanKeyword === "estate" ||
+                       cleanKeyword.includes("real estate");
+  const isBrandOrFounder = isFounderQuery || isBrandQuery;
 
   const liveMatches = properties.filter((p) => {
     if (!keyword.trim()) return false;
@@ -88,7 +94,7 @@ export const SearchBar = () => {
       if (p.bedrooms === num) return true;
     }
 
-    if (isFounderQuery) {
+    if (isBrandOrFounder) {
       if (p.id === 19 || p.featured || (p.city && p.city.toLowerCase().includes("darbhanga")) || p.id === 1 || p.id === 2) {
         return true;
       }
@@ -240,10 +246,10 @@ export const SearchBar = () => {
               <span>Real-Time Matches ({liveMatches.length})</span>
             </div>
 
-            {/* Special Founder Sanjay Kumar VIP Card */}
-            {isFounderQuery && (
+            {/* Special Founder Sanjay Kumar & EstateHub VIP Card */}
+            {isBrandOrFounder && (
               <Link
-                to="/properties?q=sanjay"
+                to={`/properties?q=${encodeURIComponent(keyword)}`}
                 onClick={() => setShowLiveDropdown(false)}
                 style={{
                   display: "flex",
@@ -263,11 +269,15 @@ export const SearchBar = () => {
                   />
                   <div>
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <strong style={{ fontSize: "0.92rem", color: "#fbbf24" }}>Founder Sanjay Kumar Portfolio</strong>
-                      <span style={{ fontSize: "0.68rem", padding: "1px 6px", borderRadius: "8px", background: "#f59e0b", color: "#000", fontWeight: 800 }}>FOUNDER</span>
+                      <strong style={{ fontSize: "0.92rem", color: "#fbbf24" }}>
+                        {isFounderQuery ? "Founder Sanjay Kumar Portfolio" : "EstateHub Official Flagship by Sanjay Kumar"}
+                      </strong>
+                      <span style={{ fontSize: "0.68rem", padding: "1px 6px", borderRadius: "8px", background: "#f59e0b", color: "#000", fontWeight: 800 }}>
+                        {isFounderQuery ? "FOUNDER" : "ESTATEHUB"}
+                      </span>
                     </div>
                     <span style={{ fontSize: "0.76rem", color: "var(--text-secondary)" }}>
-                      📍 Darbhanga, Bihar • View Founder's Verified Curated Estates
+                      📍 Darbhanga, Bihar • India's #1 Luxury Real Estate & PropTech Platform
                     </span>
                   </div>
                 </div>

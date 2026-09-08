@@ -120,9 +120,15 @@ export const Properties = () => {
             if (item.bedrooms === num) return true;
           }
 
-          // Direct match for Founder Sanjay Kumar searches
-          const isFounderQuery = q.includes("sanjay") || q.includes("kumar") || q.includes("founder");
-          if (isFounderQuery) {
+          // Direct match for Founder Sanjay Kumar or EstateHub brand searches
+          const isBrandOrFounderQuery = q.includes("sanjay") || 
+                                        q.includes("kumar") || 
+                                        q.includes("founder") ||
+                                        q.includes("estatehub") ||
+                                        q.includes("estate hub") ||
+                                        q === "estate" ||
+                                        q.includes("real estate");
+          if (isBrandOrFounderQuery) {
             if (item.id === 19 || item.featured || item.id === 1 || item.id === 2 || (item.city && item.city.toLowerCase().includes("darbhanga"))) {
               return true;
             }
@@ -358,8 +364,12 @@ export const Properties = () => {
 
         {/* Full-Width Main Listings Section */}
         <div style={{ width: "100%" }}>
-          {/* Founder Sanjay Kumar VIP Recognition Banner */}
-          {(searchQuery.toLowerCase().includes("sanjay") || searchQuery.toLowerCase().includes("kumar") || searchQuery.toLowerCase().includes("founder")) && (
+          {/* Founder Sanjay Kumar & EstateHub Brand VIP Recognition Banner */}
+          {(searchQuery.toLowerCase().includes("sanjay") || 
+            searchQuery.toLowerCase().includes("kumar") || 
+            searchQuery.toLowerCase().includes("founder") ||
+            searchQuery.toLowerCase().includes("estatehub") ||
+            searchQuery.toLowerCase().includes("estate hub")) && (
             <div
               style={{
                 background: "linear-gradient(135deg, rgba(217, 119, 6, 0.25), rgba(15, 23, 42, 0.98))",
@@ -392,7 +402,7 @@ export const Properties = () => {
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
                     <span style={{ fontWeight: 900, fontSize: "1.15rem", color: "#fbbf24" }}>
-                      👑 Founder Sanjay Kumar — Curated Flagship Portfolio
+                      👑 {searchQuery.toLowerCase().includes("sanjay") || searchQuery.toLowerCase().includes("kumar") ? "Founder Sanjay Kumar — Curated Flagship Portfolio" : "EstateHub India — Official Curated Portfolio by Sanjay Kumar"}
                     </span>
                     <span style={{ fontSize: "0.7rem", padding: "2px 8px", borderRadius: "6px", background: "#f59e0b", color: "#000", fontWeight: 800 }}>
                       PLATFORM ARCHITECT & FOUNDER

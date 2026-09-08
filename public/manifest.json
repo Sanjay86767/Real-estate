@@ -1,0 +1,25 @@
+{
+  "name": "EstateHub Sanjay Kumar — Luxury Real Estate India",
+  "short_name": "EstateHub Sanjay",
+  "description": "India's #1 Luxury Real Estate & PropTech Platform founded by Sanjay Kumar. Explore verified villas, penthouses, AI interior staging, and live auctions.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><path d='M3 9.5L12 2l9 7.5V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9.5z'/><polyline points='9 22 9 12 15 12 15 22' fill='%23ffffff'/></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><path d='M3 9.5L12 2l9 7.5V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9.5z'/><polyline points='9 22 9 12 15 12 15 22' fill='%23ffffff'/></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "real estate", "lifestyle"]
+}
