@@ -1,4 +1,4 @@
-# 🏰 EstateHub — Ultra-Luxury AI Real Estate & Property Platform
+# 🏰 EstateHub Sanjay Kumar — India's #1 Luxury Real Estate & PropTech Platform
 
 <div align="center">
 
