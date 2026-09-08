@@ -103,6 +103,40 @@ const DESIGN_STYLES = [
   }
 ];
 
+// Curated Indian Luxury Furniture & Lighting Catalog per style
+const STYLE_FURNITURE_CATALOG = {
+  minimal: [
+    { id: "m1", name: "Nordic Solid White Ash Dining Suite (6-Seater)", brand: "Urban Ladder Luxe", price: 85000, type: "Furniture" },
+    { id: "m2", name: "Dimmable 3000K Magnetic CRI95+ Track Lights", brand: "Philips Hue Pro", price: 42000, type: "Lighting" },
+    { id: "m3", name: "Organic Raw Linen Acoustic Wave Drapery", brand: "D'Decor Signature", price: 38000, type: "Textiles" },
+    { id: "m4", name: "Solid Smoked Oak Fluted Media Console", brand: "Sovereign Craft", price: 62000, type: "Joinery" }
+  ],
+  luxury: [
+    { id: "l1", name: "Imported Statuario Italian Marble Waterfall Island", brand: "Classic Marble Co.", price: 240000, type: "Stone" },
+    { id: "l2", name: "Hand-Knotted Kashmiri Mulberry Silk Rug (10x8)", brand: "Kashmir Loom Heritage", price: 120000, type: "Textiles" },
+    { id: "l3", name: "Brushed Champagne Brass Chandelier with K9 Crystal", brand: "Tisva Luxury Lighting", price: 145000, type: "Lighting" },
+    { id: "l4", name: "Custom Fluted Burma Teak Credenza with Soft-close", brand: "Founder Sanjay Teakwood Craft", price: 185000, type: "Joinery" }
+  ],
+  cyberpunk: [
+    { id: "c1", name: "Indirect RGBIC Smart Diffused Ceiling Channels", brand: "Govee Architectural", price: 65000, type: "Lighting" },
+    { id: "c2", name: "Acoustic Obsidian Slat Panels with Sound Isolation", brand: "Armstrong Pro", price: 75000, type: "Surfaces" },
+    { id: "c3", name: "Motorized Dual Blackout Smart Roller Shades", brand: "Somfy SmartHome", price: 92000, type: "Automation" },
+    { id: "c4", name: "Smoked Jet Black Glass & Carbon Fiber Coffee Table", brand: "BoConcept Neo", price: 88000, type: "Furniture" }
+  ],
+  bohemian: [
+    { id: "b1", name: "Handcrafted Jodhpur Rattan Modular 4-Seater Lounge", brand: "FabIndia Heritage", price: 78000, type: "Furniture" },
+    { id: "b2", name: "Natural Terracotta Clay Wall Mural & Planter Array", brand: "Khurja Artisans", price: 34000, type: "Art & Decor" },
+    { id: "b3", name: "Braided Pure Jute Floor Carpet with Hand Stitching", brand: "Jaipur Rugs Atelier", price: 32000, type: "Textiles" },
+    { id: "b4", name: "Warm Edison Filament Bamboo Cage Pendant Lights", brand: "The White Teak", price: 41000, type: "Lighting" }
+  ],
+  industrial: [
+    { id: "i1", name: "Reclaimed Century-Old Railway Teak Dining Table", brand: "Iron & Timber Guild", price: 95000, type: "Furniture" },
+    { id: "i2", name: "Matte Powder-Coated Flos-Style Suspended Pendants", brand: "Klove Studio", price: 58000, type: "Lighting" },
+    { id: "i3", name: "Micro-Cement Seamless Wall Coating & Hydro-Seal", brand: "Asian Paints Nilaya", price: 82000, type: "Finishes" },
+    { id: "i4", name: "Matte Black Steel Frame Glass Room Partitions", brand: "Saint-Gobain GlassPro", price: 110000, type: "Glazing" }
+  ]
+};
+
 export const AiInteriorStyler = ({ property }) => {
   const { addToast } = usePropertyContext();
   const [selectedRoom, setSelectedRoom] = useState(ROOM_PRESETS[0]);
@@ -110,6 +144,9 @@ export const AiInteriorStyler = ({ property }) => {
   const [sliderPosition, setSliderPosition] = useState(50); // 0 to 100 percentage
   const [isProcessing, setIsProcessing] = useState(false);
   const [savedDesigns, setSavedDesigns] = useState(0);
+  const [vastuOverlay, setVastuOverlay] = useState(false);
+  const [selectedFurniture, setSelectedFurniture] = useState(["m1", "m2", "m3"]);
+  const [showSpecSheet, setShowSpecSheet] = useState(false);
 
   const containerRef = useRef(null);
   const isDraggingRef = useRef(false);
@@ -233,14 +270,44 @@ export const AiInteriorStyler = ({ property }) => {
         </div>
 
         {/* Action buttons */}
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          <button
+            onClick={() => {
+              playClickSound();
+              setVastuOverlay(!vastuOverlay);
+            }}
+            className="btn btn-sm"
+            style={{
+              gap: "6px",
+              background: vastuOverlay ? "rgba(249, 115, 22, 0.2)" : "var(--bg-secondary)",
+              borderColor: vastuOverlay ? "#f97316" : "var(--border-light)",
+              color: vastuOverlay ? "#f97316" : "var(--text-primary)",
+              fontWeight: 700
+            }}
+          >
+            <Compass size={15} color={vastuOverlay ? "#f97316" : "var(--text-secondary)"} />
+            <span>Vastu Energy Grid: {vastuOverlay ? "ACTIVE" : "OFF"}</span>
+          </button>
+
+          <button
+            onClick={() => {
+              playClickSound();
+              setShowSpecSheet(true);
+            }}
+            className="btn btn-outline btn-sm"
+            style={{ gap: "6px" }}
+          >
+            <FileText size={15} />
+            <span>Architectural Spec</span>
+          </button>
+
           <button
             onClick={handleSaveDesign}
             className="btn btn-primary btn-sm"
             style={{ gap: "6px" }}
           >
-            <Sparkles size={16} />
-            <span>Save This Look {savedDesigns > 0 && `(${savedDesigns})`}</span>
+            <Sparkles size={15} />
+            <span>Save Look {savedDesigns > 0 && `(${savedDesigns})`}</span>
           </button>
         </div>
       </div>
@@ -392,6 +459,43 @@ export const AiInteriorStyler = ({ property }) => {
           </div>
         </div>
 
+        {/* Vastu Energy Compass Grid Overlay */}
+        {vastuOverlay && (
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 15,
+              pointerEvents: "none",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gridTemplateRows: "1fr 1fr",
+              border: "2px dashed rgba(249, 115, 22, 0.6)"
+            }}
+          >
+            <div style={{ borderRight: "1px dashed rgba(249, 115, 22, 0.4)", borderBottom: "1px dashed rgba(249, 115, 22, 0.4)", padding: "10px", background: "rgba(59, 130, 246, 0.08)" }}>
+              <span style={{ background: "rgba(15, 23, 42, 0.85)", color: "#60a5fa", padding: "3px 8px", borderRadius: "6px", fontSize: "0.72rem", fontWeight: 800 }}>
+                NW • Vayu (Air / Social Flow)
+              </span>
+            </div>
+            <div style={{ borderBottom: "1px dashed rgba(249, 115, 22, 0.4)", padding: "10px", textAlign: "right", background: "rgba(16, 185, 129, 0.08)" }}>
+              <span style={{ background: "rgba(15, 23, 42, 0.85)", color: "#34d399", padding: "3px 8px", borderRadius: "6px", fontSize: "0.72rem", fontWeight: 800 }}>
+                NE • Ishanya (Water / Prosperity & Light)
+              </span>
+            </div>
+            <div style={{ borderRight: "1px dashed rgba(249, 115, 22, 0.4)", padding: "10px", display: "flex", alignItems: "flex-end", background: "rgba(245, 158, 11, 0.08)" }}>
+              <span style={{ background: "rgba(15, 23, 42, 0.85)", color: "#fbbf24", padding: "3px 8px", borderRadius: "6px", fontSize: "0.72rem", fontWeight: 800 }}>
+                SW • Nairuthi (Earth / Stability & Master)
+              </span>
+            </div>
+            <div style={{ padding: "10px", display: "flex", alignItems: "flex-end", justifyContent: "flex-end", background: "rgba(239, 68, 68, 0.08)" }}>
+              <span style={{ background: "rgba(15, 23, 42, 0.85)", color: "#f87171", padding: "3px 8px", borderRadius: "6px", fontSize: "0.72rem", fontWeight: 800 }}>
+                SE • Agneya (Fire / Vital Energy & Culinary)
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* Draggable Divider Handle */}
         <div
           onMouseDown={handleMouseDown}
@@ -538,7 +642,8 @@ export const AiInteriorStyler = ({ property }) => {
           padding: "20px",
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "18px"
+          gap: "18px",
+          marginBottom: "20px"
         }}
       >
         <div>
@@ -556,28 +661,285 @@ export const AiInteriorStyler = ({ property }) => {
 
         <div>
           <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
-            Estimated Turnkey Budget
+            Estimated Turnkey Execution
           </span>
           <div style={{ marginTop: "4px", fontSize: "1.3rem", fontWeight: 800, color: "var(--accent-primary)" }}>
             {activeStyle.costEstimate}
           </div>
           <span style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>
-            Includes materials, laser cutting & turnkey execution
+            Includes civil, MEP, laser cutting & 5-year warranty
           </span>
         </div>
 
         <div>
           <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700 }}>
-            Execution Timeline
+            Handover Timeline
           </span>
           <div style={{ marginTop: "4px", fontSize: "1.3rem", fontWeight: 800, color: "var(--accent-emerald)" }}>
             {activeStyle.turnaround}
           </div>
           <span style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>
-            Guaranteed move-in handover with 5-Yr warranty
+            Guaranteed on-time move-in handover
           </span>
         </div>
       </div>
+
+      {/* Interactive Furniture & Lighting BOM (Bill of Materials) */}
+      <div
+        style={{
+          background: "rgba(99, 102, 241, 0.04)",
+          border: "1px solid rgba(99, 102, 241, 0.2)",
+          borderRadius: "var(--radius-lg)",
+          padding: "22px",
+          marginBottom: "20px"
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px", flexWrap: "wrap", gap: "10px" }}>
+          <div>
+            <h4 style={{ margin: 0, fontSize: "1.05rem", display: "flex", alignItems: "center", gap: "8px" }}>
+              <Layers size={18} color="var(--accent-primary)" />
+              <span>Designer Furniture & Lighting Package ({activeStyle.name})</span>
+            </h4>
+            <span style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>
+              Select items to include in your customized interior quotation
+            </span>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>Selected Package:</span>
+            <span style={{ fontSize: "1.1rem", fontWeight: 900, color: "var(--accent-primary)" }}>
+              ₹{((STYLE_FURNITURE_CATALOG[activeStyle.id] || [])
+                .filter(item => selectedFurniture.includes(item.id))
+                .reduce((acc, item) => acc + item.price, 0)
+              ).toLocaleString("en-IN")}
+            </span>
+          </div>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "12px" }}>
+          {(STYLE_FURNITURE_CATALOG[activeStyle.id] || []).map((item) => {
+            const isChecked = selectedFurniture.includes(item.id);
+            return (
+              <div
+                key={item.id}
+                onClick={() => {
+                  playClickSound();
+                  if (isChecked) {
+                    setSelectedFurniture(selectedFurniture.filter(id => id !== item.id));
+                  } else {
+                    setSelectedFurniture([...selectedFurniture, item.id]);
+                  }
+                }}
+                style={{
+                  background: isChecked ? "var(--bg-surface)" : "var(--bg-secondary)",
+                  border: `1.5px solid ${isChecked ? "var(--accent-primary)" : "var(--border-light)"}`,
+                  borderRadius: "var(--radius-md)",
+                  padding: "12px 14px",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "10px",
+                  transition: "all 0.2s ease"
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => {}} // handled by parent div onClick
+                  style={{ marginTop: "3px", cursor: "pointer", accentColor: "var(--accent-primary)" }}
+                />
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                    <span style={{ fontSize: "0.72rem", color: "var(--accent-primary)", fontWeight: 700, textTransform: "uppercase" }}>
+                      {item.type} • {item.brand}
+                    </span>
+                    <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                      ₹{item.price.toLocaleString("en-IN")}
+                    </span>
+                  </div>
+                  <strong style={{ fontSize: "0.86rem", display: "block", marginTop: "2px", color: "var(--text-primary)", lineHeight: 1.3 }}>
+                    {item.name}
+                  </strong>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Founder Sanjay Kumar Direct Architectural Concierge Action */}
+      <div
+        style={{
+          background: "linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 27, 75, 0.95))",
+          border: "1px solid rgba(245, 158, 11, 0.3)",
+          borderRadius: "var(--radius-lg)",
+          padding: "20px 24px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "16px"
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+          <div
+            style={{
+              width: "48px",
+              height: "48px",
+              borderRadius: "50%",
+              background: "linear-gradient(135deg, #f59e0b, #d97706)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "0 0 16px rgba(245, 158, 11, 0.4)"
+            }}
+          >
+            <Wand2 size={24} color="#ffffff" />
+          </div>
+          <div>
+            <h4 style={{ margin: 0, color: "#ffffff", fontSize: "1.05rem" }}>
+              Founder Sanjay Kumar's Turnkey Interior Concierge
+            </h4>
+            <span style={{ color: "#94a3b8", fontSize: "0.82rem" }}>
+              Direct turnkey consultation for {selectedRoom.name} in {activeStyle.name} aesthetic
+            </span>
+          </div>
+        </div>
+
+        <div style={{ display: "flex", gap: "10px" }}>
+          <button
+            onClick={() => setShowSpecSheet(true)}
+            className="btn btn-outline btn-sm"
+            style={{ color: "#ffffff", borderColor: "rgba(255, 255, 255, 0.3)" }}
+          >
+            <Eye size={15} /> View Spec Sheet
+          </button>
+          <a
+            href={`https://wa.me/918809604880?text=${encodeURIComponent(
+              `Namaste Sanjay ji! I was exploring the AI Interior Studio on EstateHub for ${selectedRoom.name} with "${activeStyle.name}" theme. Estimated turnkey budget is ${activeStyle.costEstimate}. Please connect me with your design & execution architect.`
+            )}`}
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-primary btn-sm"
+            style={{
+              background: "linear-gradient(135deg, #10b981, #059669)",
+              borderColor: "#10b981",
+              gap: "6px",
+              textDecoration: "none"
+            }}
+          >
+            <span>WhatsApp Founder Desk</span>
+            <ArrowRight size={15} />
+          </a>
+        </div>
+      </div>
+
+      {/* Architectural Spec Sheet Modal */}
+      {showSpecSheet && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0, 0, 0, 0.8)",
+            backdropFilter: "blur(6px)",
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px"
+          }}
+          onClick={() => setShowSpecSheet(false)}
+        >
+          <div
+            style={{
+              background: "var(--bg-surface)",
+              borderRadius: "var(--radius-xl)",
+              maxWidth: "650px",
+              width: "100%",
+              padding: "30px",
+              boxShadow: "0 24px 60px rgba(0,0,0,0.5)",
+              border: "1px solid var(--border-light)",
+              maxHeight: "90vh",
+              overflowY: "auto"
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", borderBottom: "1px solid var(--border-light)", paddingBottom: "14px" }}>
+              <div>
+                <span style={{ fontSize: "0.75rem", color: "var(--accent-primary)", fontWeight: 800, textTransform: "uppercase" }}>
+                  ESTATEHUB LUXURY ARCHITECTURE
+                </span>
+                <h3 style={{ margin: "2px 0 0", fontSize: "1.35rem" }}>Architectural Specification Dossier</h3>
+              </div>
+              <button
+                onClick={() => setShowSpecSheet(false)}
+                style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)", fontSize: "1.2rem", fontWeight: 700 }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px", fontSize: "0.9rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", background: "var(--bg-secondary)", padding: "14px", borderRadius: "var(--radius-md)" }}>
+                <div>
+                  <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Target Space</span>
+                  <div style={{ fontWeight: 700 }}>{selectedRoom.name}</div>
+                </div>
+                <div>
+                  <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>AI Style Theme</span>
+                  <div style={{ fontWeight: 700 }}>{activeStyle.name}</div>
+                </div>
+                <div>
+                  <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Turnkey Execution</span>
+                  <div style={{ fontWeight: 700, color: "var(--accent-primary)" }}>{activeStyle.costEstimate}</div>
+                </div>
+                <div>
+                  <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Execution Window</span>
+                  <div style={{ fontWeight: 700, color: "var(--accent-emerald)" }}>{activeStyle.turnaround}</div>
+                </div>
+              </div>
+
+              <div>
+                <strong style={{ display: "block", marginBottom: "6px" }}>Specified Materials & Finishes:</strong>
+                <ul style={{ margin: 0, paddingLeft: "20px", color: "var(--text-secondary)" }}>
+                  {activeStyle.materials.map((m, idx) => (
+                    <li key={idx}>{m}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <strong style={{ display: "block", marginBottom: "6px" }}>Selected Furniture & Smart Fixtures:</strong>
+                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                  {(STYLE_FURNITURE_CATALOG[activeStyle.id] || [])
+                    .filter(item => selectedFurniture.includes(item.id))
+                    .map((item) => (
+                      <div key={item.id} style={{ display: "flex", justifyContent: "space-between", padding: "6px 10px", background: "var(--bg-secondary)", borderRadius: "var(--radius-sm)" }}>
+                        <span>{item.name} ({item.brand})</span>
+                        <strong>₹{item.price.toLocaleString("en-IN")}</strong>
+                      </div>
+                    ))}
+                </div>
+              </div>
+
+              <div style={{ borderTop: "1px solid var(--border-light)", paddingTop: "14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                  Verified by Founder Sanjay Kumar Architecture Studio
+                </span>
+                <button
+                  onClick={() => {
+                    window.print();
+                  }}
+                  className="btn btn-primary btn-sm"
+                  style={{ gap: "6px" }}
+                >
+                  <Download size={14} /> Print / Download PDF
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

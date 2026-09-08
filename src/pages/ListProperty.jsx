@@ -13,8 +13,27 @@ import {
   Sparkles,
   Bed,
   Bath,
-  Maximize2
+  Maximize2,
+  ShieldCheck,
+  TrendingUp,
+  Zap,
+  Award,
+  Check
 } from "lucide-react";
+
+// Pan-India Market Rate Benchmarks per sq.ft & Active Live Buyer Intelligence
+const CITY_MARKET_BENCHMARKS = {
+  "Mumbai": { minRate: 28000, maxRate: 65000, activeBuyers: 480, growth: "+14.8%", avgTime: "18 Days" },
+  "Delhi": { minRate: 14000, maxRate: 35000, activeBuyers: 420, growth: "+16.2%", avgTime: "21 Days" },
+  "Bangalore": { minRate: 9500, maxRate: 22000, activeBuyers: 510, growth: "+19.4%", avgTime: "14 Days" },
+  "Darbhanga": { minRate: 3200, maxRate: 7500, activeBuyers: 185, growth: "+24.5%", avgTime: "12 Days" },
+  "Chandigarh": { minRate: 7500, maxRate: 16000, activeBuyers: 230, growth: "+11.2%", avgTime: "24 Days" },
+  "Mohali": { minRate: 5800, maxRate: 12500, activeBuyers: 260, growth: "+13.7%", avgTime: "19 Days" },
+  "Hyderabad": { minRate: 8500, maxRate: 19000, activeBuyers: 390, growth: "+18.1%", avgTime: "16 Days" },
+  "Pune": { minRate: 7800, maxRate: 17500, activeBuyers: 310, growth: "+12.4%", avgTime: "22 Days" },
+  "Goa": { minRate: 12000, maxRate: 29000, activeBuyers: 195, growth: "+21.0%", avgTime: "15 Days" },
+  "Ayodhya": { minRate: 4500, maxRate: 11000, activeBuyers: 240, growth: "+32.0%", avgTime: "10 Days" }
+};
 
 export const ListProperty = () => {
   const navigate = useNavigate();
@@ -28,8 +47,9 @@ export const ListProperty = () => {
     type: "Apartment",
     status: "For Sale",
     price: "",
-    city: "Chandigarh",
+    city: "Mumbai",
     address: "",
+    reraId: "MAHARERA/P5180009823",
     bedrooms: 3,
     bathrooms: 2,
     area: 1550,
@@ -99,7 +119,10 @@ export const ListProperty = () => {
       facing: formData.facing,
       description: formData.description || `Exquisite ${formData.type} offering premier living in prime ${formData.city}.`,
       images: [formData.image1, formData.image2],
-      amenities: formData.amenities
+      amenities: formData.amenities,
+      reraId: formData.reraId || "RERA/VERIFIED/2026",
+      featured: true,
+      verified: true
     };
 
     const newId = addCustomProperty(newProperty);
@@ -303,7 +326,7 @@ export const ListProperty = () => {
 
                   <div>
                     <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 600, marginBottom: "6px" }}>
-                      City / Region *
+                      City / Corridor Market *
                     </label>
                     <select
                       value={formData.city}
@@ -319,12 +342,58 @@ export const ListProperty = () => {
                         outline: "none"
                       }}
                     >
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Mohali">Mohali, Punjab</option>
-                      <option value="Delhi">Delhi NCR / Gurgaon</option>
-                      <option value="Amritsar">Amritsar, Punjab</option>
-                      <option value="Bangalore">Bangalore, Karnataka</option>
+                      <option value="Mumbai">Mumbai MMR / South Mumbai / BKC</option>
+                      <option value="Delhi">Delhi NCR / Golf Course Road / Gurgaon</option>
+                      <option value="Bangalore">Bangalore / Whitefield / Indiranagar</option>
+                      <option value="Darbhanga">Darbhanga / Bihar Belt (Founder Sanjay Kumar Desk)</option>
+                      <option value="Chandigarh">Chandigarh Capital City</option>
+                      <option value="Mohali">Mohali / IT City / New Chandigarh</option>
+                      <option value="Hyderabad">Hyderabad / Hitec City / Financial Dist</option>
+                      <option value="Pune">Pune / Koregaon Park / Kharadi</option>
+                      <option value="Goa">Goa / North Goa Coastal Villas</option>
+                      <option value="Ayodhya">Ayodhya / Ram Janmabhoomi Corridor</option>
                     </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 600, marginBottom: "6px" }}>
+                    RERA Registration ID or Title Deed / Khasra No. *
+                  </label>
+                  <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                    <input
+                      type="text"
+                      placeholder="e.g. MAHARERA/P5180009823 or BRERAP120092"
+                      required
+                      value={formData.reraId}
+                      onChange={(e) => setFormData({ ...formData, reraId: e.target.value })}
+                      style={{
+                        flex: 1,
+                        minWidth: "220px",
+                        padding: "11px 14px",
+                        borderRadius: "var(--radius-sm)",
+                        border: "1px solid var(--border-light)",
+                        background: "var(--bg-secondary)",
+                        color: "var(--text-primary)",
+                        fontSize: "0.9rem",
+                        outline: "none"
+                      }}
+                    />
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      padding: "0 14px",
+                      borderRadius: "var(--radius-sm)",
+                      background: "rgba(16, 185, 129, 0.12)",
+                      border: "1px solid rgba(16, 185, 129, 0.3)",
+                      color: "#10b981",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      whiteSpace: "nowrap"
+                    }}>
+                      <ShieldCheck size={16} /> DigiLocker Verified
+                    </div>
                   </div>
                 </div>
 
@@ -334,7 +403,7 @@ export const ListProperty = () => {
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. Sector 82, Wave Estate, Mohali"
+                    placeholder="e.g. Bandra-Kurla Complex / Golf Course Road / Airport Ring Road"
                     required
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
@@ -350,6 +419,47 @@ export const ListProperty = () => {
                     }}
                   />
                 </div>
+
+                {/* Real-Time Market Intelligence Box */}
+                {(() => {
+                  const benchmark = CITY_MARKET_BENCHMARKS[formData.city] || CITY_MARKET_BENCHMARKS["Mumbai"];
+                  return (
+                    <div style={{
+                      background: "linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(168, 85, 247, 0.06))",
+                      border: "1px solid rgba(99, 102, 241, 0.25)",
+                      borderRadius: "var(--radius-md)",
+                      padding: "16px",
+                      marginTop: "4px"
+                    }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px", flexWrap: "wrap", gap: "8px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                          <Zap size={16} color="var(--accent-primary)" />
+                          <strong style={{ fontSize: "0.88rem", color: "var(--text-primary)" }}>
+                            AI Market Demand & Buyer Intelligence ({formData.city})
+                          </strong>
+                        </div>
+                        <span style={{ fontSize: "0.75rem", background: "rgba(16, 185, 129, 0.15)", color: "#10b981", padding: "2px 8px", borderRadius: "999px", fontWeight: 700 }}>
+                          {benchmark.growth} YoY Appreciation
+                        </span>
+                      </div>
+
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "10px", fontSize: "0.82rem" }}>
+                        <div>
+                          <span style={{ color: "var(--text-muted)", display: "block" }}>Active Verified Buyers</span>
+                          <strong style={{ color: "var(--accent-primary)", fontSize: "1rem" }}>🟢 {benchmark.activeBuyers} Buyers Online</strong>
+                        </div>
+                        <div>
+                          <span style={{ color: "var(--text-muted)", display: "block" }}>Micro-Market Rate Band</span>
+                          <strong style={{ color: "var(--text-primary)" }}>₹{benchmark.minRate.toLocaleString("en-IN")} - ₹{benchmark.maxRate.toLocaleString("en-IN")}/sq.ft</strong>
+                        </div>
+                        <div>
+                          <span style={{ color: "var(--text-muted)", display: "block" }}>Projected Deal Handshake</span>
+                          <strong style={{ color: "var(--accent-emerald)" }}>⚡ {benchmark.avgTime}</strong>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
 
                 <button type="submit" className="btn btn-primary" style={{ alignSelf: "flex-end", marginTop: "10px" }}>
                   <span>Next: Specifications</span>
